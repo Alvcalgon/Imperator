@@ -53,6 +53,7 @@ public class UtilityService {
 			str_day = matcher.group();
 		} else {
 			str_day = "22";
+			log.info("Establecido dia por defecto");
 		}
 		
 		strDate = String.join("/", str_day, monthAsNumber, str_year);
@@ -63,6 +64,7 @@ public class UtilityService {
 			result = format.parse(strDate);
 		} catch (ParseException e) {
 			result = null;
+			log.info("Error al extraer la fecha");
 		}
 		
 		return result;
@@ -100,13 +102,12 @@ public class UtilityService {
 		try {
 			// Añadimos esos parametros en el header para evitar que nos bloqueen el acceso a la 
 			// pagina web.
-			response = Jsoup.connect("https://www.f1-fansite.com/f1-circuits/")
-					.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-					.header("Accept-Encoding", "gzip, deflate, br")
-					.header("Accept-Language", "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3")
-					.header("Dnt", "1")
-					.header("Host", "https://www.f1-fansite.com/")
-					.header("Upgrade-Insecure-Requests", "1")
+			response = Jsoup.connect(url)
+					//.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+					//.header("Accept-Encoding", "gzip, deflate, br")
+					//.header("Accept-Language", "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3")
+					//.header("Dnt", "1")
+					//.header("Upgrade-Insecure-Requests", "1")
 					.referrer("https://www.google.com/") // Sitio desde el cual se realiza la busqueda
 					.userAgent(this.getUserAgent())
 					.execute();
@@ -115,7 +116,7 @@ public class UtilityService {
 		} catch (IOException e) {
 			result = null;
 			
-			log.info("Error al recuerpar la pagina web");
+			log.info("Error al recuperar la pagina web");
 		}
 	
 		return result;

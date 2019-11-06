@@ -1,15 +1,13 @@
 package com.formulaOne.api.services;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -37,17 +35,8 @@ public class DriverService {
 		super();
 	}
 	
-	public Optional<Driver> findOptionalOne(String customerId) {
-		Optional<Driver> resultado;
-		
-		resultado = this.driverRepository.findById(customerId);
-		log.info("Objeto recuperado correctamente: " + resultado.get().getDriverId());
-		
-		return resultado;
-	}
-	
 	public Driver findOne(String driverId) {
-		return this.findOptionalOne(driverId).get();
+		return this.driverRepository.findById(driverId).get();
 	}
 	
 	public List<Driver> findAll() {
@@ -71,47 +60,57 @@ public class DriverService {
 		this.driverRepository.delete(driver);
 	}
 	
-	public void loadDriver() {
+	public void deleteAll() {
+		this.driverRepository.deleteAll();
+	}
+	
+	public void loadDrivers() {
 		log.info("--------------- Cargando datos de los pilotos en la BD ----------------");
 		this.driverRepository.deleteAll();
 		
 		Document doc, subDoc;
-		Elements tbody, ls_tr, ls_td;
-		Element a;
+		Elements ls_tr, ls_td;
+		Element a, tbody;
 		String href = "";
-		List<Driver> drivers;
+		Set<Driver> drivers;
 		Driver driver;
 		
-		drivers = new ArrayList<Driver>();
+		drivers = new HashSet<Driver>();
 		
-		try {
-			// Este documento contiene el enlace de cada piloto
-			doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-drivers/");
-			tbody = doc.select("tbody");
-			
-			ls_tr = tbody.select("tr");		
-			for (Element tr: ls_tr) {
-				ls_td = tr.select("td");
+		// Este documento contiene el enlace de cada piloto
+		doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-drivers/");
+		
+		if (doc != null) {
+			try {	
+				tbody = doc.selectFirst("tbody");
 				
-				for (Element td: ls_td) {
-					a = td.selectFirst("a");
-					href = a.attr("href").trim();
+				ls_tr = tbody.select("tr");		
+				for (Element tr: ls_tr) {
+					ls_td = tr.select("td");
 					
-					// Este documento contiene la informacion del piloto
-					subDoc = Jsoup.connect(href).get();
-					
-					driver = this.getDriver(subDoc);
-					drivers.add(driver);
-					
-					TimeUnit.SECONDS.sleep(5);
-				}	
+					for (Element td: ls_td) {
+						a = td.selectFirst("a");
+						href = a.attr("href").trim();
+						
+						// Este documento contiene la informacion del piloto
+						subDoc = this.utilityService.getDocument(href);
+						
+						driver = this.getDriver(subDoc);
+						
+						if (driver != null) {
+							drivers.add(driver);
+						}
+						
+						// Añadimos este tiempo de retraso para que el sistema web no interprete
+						// de que somos un robot
+						TimeUnit.SECONDS.sleep(5);
+					}	
+				}
+				
+				this.driverRepository.saveAll(drivers);
+			} catch (Exception e) {
+				log.info("Error: " + e.getMessage());
 			}
-			
-			this.driverRepository.saveAll(drivers);
-		} catch (IOException e) {
-			log.info("Error al acceder a la pagina web" + e.getMessage());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 		
 		System.out.println("Numero de iteraciones: " + drivers.size());
@@ -124,33 +123,37 @@ public class DriverService {
 		String fullname, country, placeOfBirth, str_birthOfDate;
 		Date birthOfDate;
 		
-		div = doc.selectFirst("div.column half");
-		tbody = div.selectFirst("tbody");
-		
-		tr = tbody.selectFirst("tr.msr_row1");
-		td = tr.child(1);
-		fullname = td.text().trim();
-		
-		tr = tbody.selectFirst("tr.msr_row2");
-		td = tr.child(1);
-		a = td.child(1);
-		country = a.text().trim();
-		
-		tr = tbody.selectFirst("tr.msr_row3");
-		td = tr.child(1);
-		placeOfBirth = td.text().trim();
-		
-		tr = tbody.selectFirst("tr.msr_row4");
-		td = tr.child(1);
-		
-		str_birthOfDate = td.text();
-		birthOfDate = this.utilityService.getDate(str_birthOfDate);
-		
-		result = (birthOfDate != null) ? new Driver(fullname, placeOfBirth, country, birthOfDate) : new Driver(fullname, placeOfBirth, country);
-		
-		result = new Driver(fullname, placeOfBirth, country, birthOfDate);
-		
-		log.info("Fullname: " + fullname + " Conuntry: " + country + " Place: " + placeOfBirth + " Date: " + birthOfDate);
+		try {
+			div = doc.selectFirst("div.column.half");
+			tbody = div.selectFirst("tbody");
+			
+			tr = tbody.selectFirst("tr.msr_row1");
+			td = tr.child(1);
+			fullname = td.text().trim();
+			
+			tr = tbody.selectFirst("tr.msr_row2");
+			td = tr.child(1);
+			a = td.child(1);
+			country = a.text().trim();
+			
+			tr = tbody.selectFirst("tr.msr_row3");
+			td = tr.child(1);
+			placeOfBirth = td.text().trim();
+			
+			tr = tbody.selectFirst("tr.msr_row4");
+			td = tr.child(1);
+			
+			str_birthOfDate = td.text();
+			birthOfDate = this.utilityService.getDate(str_birthOfDate);
+			
+			result = (birthOfDate != null) ? new Driver(fullname, placeOfBirth, country, birthOfDate) : new Driver(fullname, placeOfBirth, country);
+			
+			log.info("Full name: " + fullname + " Country: " + country);
+		} catch (Exception e) {
+			result = null;
+			
+			log.info("Error al recuperar el piloto: " + e.getMessage());
+		}
 		
 		return result;
 	}

@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "Driver")
 public class Driver {
 	
+	// Atributos --------------------------
 	@Id
 	@NotBlank
 	private String driverId;
@@ -26,8 +27,12 @@ public class Driver {
 	@Past
 	private Date dateOfBirth;	
 	
+	
+	// Constructores -------------------------
 	public Driver() {
 		super();
+		
+		this.driverId = new ObjectId().toString();
 	}
 	
 	public Driver(String fullname, String placeOfBirth, String country) {
@@ -49,6 +54,8 @@ public class Driver {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
+	
+	// Getters y setters ----------------------
 	public String getDriverId() {
 		return driverId;
 	}

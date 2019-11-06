@@ -1,18 +1,14 @@
 package com.formulaOne.api.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -34,30 +30,28 @@ public class DriverServiceTest extends AbstractTest  {
 	// Suite test -----------------------
 	
 	
-//	@Test
-//	@DisplayName("Acceder a los datos de un piloto")
-//	public void test_getDriver() {
-//		Driver driver;
-//		Document doc;
-//		
-//		doc = this.utilityService.getDocument("https://www.marca.com/"); 
-//			
-//		//driver = this.driverService.getDriver(doc);
-//			
-//		driver = new Driver();
-//			
-//		assertTrue(driver != null);		
-//	}
+	@Test
+	@DisplayName("Acceder a los datos de un piloto: Adrian Sutil")
+	public void test_getDriver() {
+		Driver driver;
+		Document doc;
+		
+		doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-drivers/adrian-sutil/"); 
+			
+		driver = this.driverService.getDriver(doc);
+				
+		assertNotNull(driver);		
+	}
 	
-//	@Test
-//	@DisplayName("Lista de conductores")
-//	public void test_list() {
-//		List<Driver> drivers;
-//		
-//		drivers = this.driverService.findAll();
-//		
-//		assertTrue(drivers.size() >= 2);
-//	}
+	@Test
+	@DisplayName("Lista de conductores")
+	public void test_list() {
+		List<Driver> drivers;
+		
+		drivers = this.driverService.findAll();
+		
+		assertTrue(drivers.size() >= 2);
+	}
 	
 	
 //	@Test
