@@ -12,5 +12,9 @@ import com.formulaOne.api.domain.Driver;
 public interface DriverRepository extends MongoRepository<Driver, String>  {
 	
 	@Query("{'fullname' : ?0 }")
-	List<Driver> findByFullname(String fullname);
+	List<Driver> findDrivers(String fullname, String country);
+	
+	@Query("")
+	List<Driver> findBySeason(String season);
+	
 }

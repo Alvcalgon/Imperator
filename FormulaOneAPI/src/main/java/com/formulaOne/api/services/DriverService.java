@@ -107,14 +107,14 @@ public class DriverService {
 					}	
 				}
 				
-				this.driverRepository.saveAll(drivers);
 			} catch (Exception e) {
-				log.info("Error: " + e.getMessage());
+				log.info("Error inesperado: " + e.getMessage());
 			}
+		
+			log.info("Numero de pilotos: " + drivers.size());
+			this.driverRepository.saveAll(drivers);
 		}
 		
-		System.out.println("Numero de iteraciones: " + drivers.size());
-		log.info("------------ Carga de datos completada --------------------");
 	}
 	
 	protected Driver getDriver(Document doc) {
@@ -148,7 +148,7 @@ public class DriverService {
 			
 			result = (birthOfDate != null) ? new Driver(fullname, placeOfBirth, country, birthOfDate) : new Driver(fullname, placeOfBirth, country);
 			
-			log.info("Full name: " + fullname + " Country: " + country);
+			log.info("Piloto: " + fullname);
 		} catch (Exception e) {
 			result = null;
 			

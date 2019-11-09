@@ -111,10 +111,12 @@ public class ConstructorService {
 					
 				}
 				
-				this.constructorRepository.saveAll(constructors);
 			} catch (Exception e) {
-				log.info("Error: " + e.getMessage());
+				log.info("Error inesperado: " + e.getMessage());
 			}
+			
+			log.info("Numero de escuderias: " + constructors.size());
+			this.constructorRepository.saveAll(constructors);
 		}
 		
 	}
@@ -152,7 +154,9 @@ public class ConstructorService {
 				}
 			}
 			
-			result = (principal == "") ? new Constructor(name, country) : new Constructor(name, country, principal);
+			result = (principal == "" || principal.isEmpty()) ? new Constructor(name, country) : new Constructor(name, country, principal);
+			
+			log.info("Nombre de la escuderia: " + name);
 		} catch (Exception e) {
 			result = null;
 			

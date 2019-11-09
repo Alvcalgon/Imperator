@@ -103,10 +103,12 @@ public class CircuitService {
 					
 				}
 				
-				this.circuitRepository.saveAll(circuits);
 			} catch (Exception e) {				
-				log.info("Error: " + e.getMessage());
+				log.info("Error inesperado: " + e.getMessage());
 			}
+			
+			log.info("Numero de circuitos: " + circuits.size());
+			this.circuitRepository.saveAll(circuits);
 		}
 		
 	}
@@ -134,11 +136,11 @@ public class CircuitService {
 			
 			result = new Circuit(name, location, type, lapDistance);
 			
-			log.info("Circuit name: " + name);
+			log.info("Nombre del circuito: " + name);
 		} catch (Exception e) {
-			result = null;
+			result = new Circuit(name);
 			
-			log.info("Error al recuperar el circuito: " + e.getMessage());
+			log.info("Error al recuperar todos los datos del circuito: " + e.getMessage());
 		}
 		
 		return result;

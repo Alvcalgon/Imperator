@@ -13,7 +13,7 @@ public class Circuit {
 	// Atributos --------------------------------
 	@Id
 	@NotBlank
-	private String ciruitId;
+	private String circuitId;
 	
 	@NotBlank
 	private String name;
@@ -29,14 +29,20 @@ public class Circuit {
 	public Circuit() {
 		super();
 		
-		this.ciruitId = new ObjectId().toString();
+		this.circuitId = new ObjectId().toString();
 	}
 
+	public Circuit(String name) {
+		super();
+		
+		this.circuitId = new ObjectId().toString();
+		this.name = name;
+	}
 
 	public Circuit(String name, String location, String type, String lapDistance) {
 		super();
 		
-		this.ciruitId = new ObjectId().toString();
+		this.circuitId = new ObjectId().toString();
 		this.name = name;
 		this.location = location;
 		this.type = type;
@@ -45,13 +51,13 @@ public class Circuit {
 
 
 	// Getters y setters ----------------------
-	public String getCiruitId() {
-		return ciruitId;
+	public String getCircuitId() {
+		return circuitId;
 	}
 
 
-	public void setCiruitId(String ciruitId) {
-		this.ciruitId = ciruitId;
+	public void setCircuitId(String ciruitId) {
+		this.circuitId = ciruitId;
 	}
 
 
@@ -97,7 +103,7 @@ public class Circuit {
 	
 	@Override
 	public String toString() {
-		return "Circuit's name: " + this.name;
+		return "Nombre del circuito: " + this.name;
 	}
 	
 }
