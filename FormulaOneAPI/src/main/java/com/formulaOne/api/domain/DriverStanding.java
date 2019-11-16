@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "DriverStanding")
@@ -22,10 +23,12 @@ public class DriverStanding {
 	
 	private String position;
 	
+	@DBRef
 	@Valid
 	@NotNull
 	private Driver driver;
 	
+	@DBRef
 	@Valid
 	@NotNull
 	private Race race;

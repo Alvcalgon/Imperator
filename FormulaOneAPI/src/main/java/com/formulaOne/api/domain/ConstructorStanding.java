@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ConstructorStanding")
@@ -20,10 +21,12 @@ public class ConstructorStanding {
 	@Min(0)
 	private int points;
 	
+	@DBRef
 	@Valid
 	@NotNull
 	private Constructor constructor;
 	
+	@DBRef
 	@Valid
 	@NotNull
 	private Race race;

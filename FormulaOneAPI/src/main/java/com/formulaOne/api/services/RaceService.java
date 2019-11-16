@@ -65,4 +65,13 @@ public class RaceService {
 		return result;
 	}
 	
+	
+	public List<Race> findByCircuit(String circuitId) {
+		List<Race> results;
+		
+		results = this.raceRepository.findByCircuit(circuitId);
+		
+		return results;
+	}
+	
 }

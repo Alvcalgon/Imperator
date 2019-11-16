@@ -45,6 +45,7 @@ public class CircuitServiceTest extends AbstractTest {
 		all = this.circuitService.findAll();
 		
 		assertNotNull(all);
+		assertTrue(all.size() > 0);
 	}
 	
 	
