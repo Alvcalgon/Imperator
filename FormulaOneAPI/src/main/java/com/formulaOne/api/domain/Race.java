@@ -32,8 +32,12 @@ public class Race {
 	private Circuit circuit;
 	
 	@DBRef
+	private FastestLap fastestLap;
+	
+	@DBRef
 	@NotNull
 	Set<Result> results;
+	
 	
 	// Constructores -----------------------
 	public Race() {
@@ -43,12 +47,15 @@ public class Race {
 		this.results = new HashSet<Result>();
 	}
 
-	public Race(String raceId, String season, Date raceDate, Set<Result> results) {
+	public Race(String raceId, String season, Date raceDate, Circuit circuit,
+			    FastestLap fastestLap, Set<Result> results) {
 		super();
 		
 		this.raceId = new ObjectId().toString();
 		this.season = season;
 		this.raceDate = raceDate;
+		this.circuit = circuit;
+		this.fastestLap = fastestLap;
 		this.results = new HashSet<Result>(results);
 	}
 
@@ -78,7 +85,31 @@ public class Race {
 		this.raceDate = raceDate;
 	}
 	
+	public Circuit getCircuit() {
+		return circuit;
+	}
 
+	public void setCircuit(Circuit circuit) {
+		this.circuit = circuit;
+	}
+
+	public FastestLap getFastestLap() {
+		return fastestLap;
+	}
+
+	public void setFastestLap(FastestLap fastestLap) {
+		this.fastestLap = fastestLap;
+	}
+
+	public Set<Result> getResults() {
+		return results;
+	}
+
+	public void setResults(Set<Result> results) {
+		this.results = results;
+	}
+
+	
 	@Override
 	public String toString() {
 		return "Race: " + this.circuit.getName() + " - " + this.season;
