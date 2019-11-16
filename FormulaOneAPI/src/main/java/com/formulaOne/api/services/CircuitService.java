@@ -80,7 +80,6 @@ public class CircuitService {
 				tbody = table.selectFirst("tbody");
 				
 				ls_tr = tbody.select("tr");
-				
 				for (Element tr: ls_tr) {
 					ls_td = tr.select("td");
 					
@@ -144,6 +143,22 @@ public class CircuitService {
 		}
 		
 		return result;
+	}
+	
+	public Circuit findByName(String name) {
+		Circuit result;
+		
+		result = this.circuitRepository.findByName(name);
+		
+		return result;
+	}
+	
+	public List<Circuit> findByType(String type) {
+		List<Circuit> results;
+		
+		results = this.circuitRepository.findByType(type);
+		
+		return results;
 	}
 	
 }

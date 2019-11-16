@@ -71,7 +71,7 @@ public class DriverService {
 		Document doc, subDoc;
 		Elements ls_tr, ls_td;
 		Element a, tbody;
-		String href = "";
+		String href;
 		Set<Driver> drivers;
 		Driver driver;
 		
@@ -156,6 +156,22 @@ public class DriverService {
 		}
 		
 		return result;
+	}
+	
+	public Driver findByFullname(String fullname) {
+		Driver result;
+		
+		result = this.driverRepository.findByFullname(fullname);
+		
+		return result;
+	}
+	
+	public List<Driver> findByCountry(String country) {
+		List<Driver> results;
+		
+		results = this.driverRepository.findByCountry(country);
+		
+		return results;
 	}
 	
 }

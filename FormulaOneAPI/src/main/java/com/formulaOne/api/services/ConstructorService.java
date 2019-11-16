@@ -177,4 +177,20 @@ public class ConstructorService {
 		return result;
 	}
 	
+	public Constructor findByName(String name) {
+		Constructor result;
+		
+		result = this.constructorRepository.findByName(name);
+		
+		return result;
+	}
+	
+	public List<Constructor> findByCountry(String country) {
+		List<Constructor> results;
+		
+		results = this.constructorRepository.findByCountry(country);
+		
+		return results;
+	}
+	
 }

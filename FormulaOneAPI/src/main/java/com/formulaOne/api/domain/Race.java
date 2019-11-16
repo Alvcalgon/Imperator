@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Race")
@@ -25,10 +26,12 @@ public class Race {
 	
 	private Date raceDate;
 	
+	@DBRef
 	@Valid
 	@NotNull
 	private Circuit circuit;
 	
+	@DBRef
 	@NotNull
 	Set<Result> results;
 	
