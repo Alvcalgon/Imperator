@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.formulaOne.api.services.UtilityService;
 import com.formulaOne.api.services.utilities.AbstractTest;
 
 @SpringBootTest
@@ -42,6 +41,20 @@ public class UtilityServiceTest extends AbstractTest {
 		
 		str_date = "Jan 7th 1985 - 34 years old";
 		date = this.utilityService.getDate(str_date);
+		
+		assertNotNull(date);
+	}
+	
+	@Test
+	@DisplayName("Crear una fecha a partir de un formato recibido")
+	public void test_getDateByParameters() {
+		String season, monthDay;
+		Date date;
+		
+		season = "1950";
+		monthDay = "May 13";
+		
+		date = this.utilityService.getDateByParameters(season, monthDay);
 		
 		assertNotNull(date);
 	}

@@ -26,6 +26,8 @@ public class Race {
 	
 	private Date raceDate;
 	
+	private String event;
+	
 	@DBRef
 	@Valid
 	@NotNull
@@ -47,18 +49,26 @@ public class Race {
 		this.results = new HashSet<Result>();
 	}
 
-	public Race(String raceId, String season, Date raceDate, Circuit circuit,
-			    FastestLap fastestLap, Set<Result> results) {
+	public Race(String season, Date raceDate) {
+		super();
+		
+		this.raceId = new ObjectId().toString();
+		this.season = season;
+		this.raceDate = raceDate;
+		this.results = new HashSet<Result>();
+	}
+	
+	public Race(String season, Date raceDate, String event, Circuit circuit) {
 		super();
 		
 		this.raceId = new ObjectId().toString();
 		this.season = season;
 		this.raceDate = raceDate;
 		this.circuit = circuit;
-		this.fastestLap = fastestLap;
-		this.results = new HashSet<Result>(results);
+		this.event = event;
+		this.results = new HashSet<Result>();
 	}
-
+	
 	
 	// Getters y setters ----------------
 	public String getRaceId() {
@@ -85,6 +95,14 @@ public class Race {
 		this.raceDate = raceDate;
 	}
 	
+	public String getEvent() {
+		return event;
+	}
+
+	public void setEvent(String event) {
+		this.event = event;
+	}
+
 	public Circuit getCircuit() {
 		return circuit;
 	}

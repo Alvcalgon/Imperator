@@ -10,10 +10,10 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jsoup.Jsoup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jsoup.Connection.Response;
+import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,34 @@ public class UtilityService {
 	
 	
 	// Metodos ------------------------------------
-	public Date getDate(String str_date) {
+	protected Date getDateByParameters(String season, String monthDay) {
+		Date result;
+		String str_date, day, month, nameMonth, nameDay;
+		String[] fields;
+		SimpleDateFormat format;
+		
+		fields = monthDay.split(" ");
+		
+		nameDay = fields[1].trim();
+		nameMonth = fields[0];
+		
+		day = nameDay.trim();
+		month = this.getMM(nameMonth.trim());
+		
+		str_date = String.join("/", day, month, season);
+		format = new SimpleDateFormat("dd/MM/yyyy");
+		
+		try {
+			result = format.parse(str_date);
+		} catch (Exception e) {
+			result = null;
+			log.info("Error al definir un valor correcto para Race::raceDate");
+		}
+		
+		return result;
+	}
+	
+	protected Date getDate(String str_date) {
 		Date result;
 		String str_day, str_month, monthAsNumber, str_year, strDate;
 		String[] fields;
@@ -74,6 +101,10 @@ public class UtilityService {
 		return this.getNameMonth().get(month);
 	}
 	
+	protected String getMM(String month) {
+		return this.getNameByMonth().get(month);
+	}
+	
 	protected Map<String, String> getNameMonth() {
 		Map<String, String> result;
 		
@@ -94,6 +125,26 @@ public class UtilityService {
 		return result;
 	}
 	
+	protected Map<String, String> getNameByMonth() {
+		Map<String, String> result;
+		
+		result = new HashMap<String, String>();
+		result.put("January", "01");
+		result.put("February", "02");
+		result.put("March", "03");
+		result.put("April", "04");
+		result.put("May", "05");
+		result.put("June", "06");
+		result.put("July", "07");
+		result.put("August", "08");
+		result.put("September", "09");
+		result.put("October", "10");
+		result.put("November", "11");
+		result.put("December", "12");
+		
+		return result;
+	}
+	
 	
 	protected Document getDocument(String url) {
 		Response response;
@@ -103,11 +154,6 @@ public class UtilityService {
 			// Añadimos esos parametros en el header para evitar que nos bloqueen el acceso a la 
 			// pagina web.
 			response = Jsoup.connect(url)
-					//.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
-					//.header("Accept-Encoding", "gzip, deflate, br")
-					//.header("Accept-Language", "es-ES,es;q=0.8,en-US;q=0.5,en;q=0.3")
-					//.header("Dnt", "1")
-					//.header("Upgrade-Insecure-Requests", "1")
 					.referrer("https://www.google.com/") // Sitio desde el cual se realiza la busqueda
 					.userAgent(this.getUserAgent())
 					.execute();
@@ -123,7 +169,7 @@ public class UtilityService {
 	}
 	
 	// Cambiamos de user agent para evitar que nos bloqueen el acceso a la pagina web
-	public String getUserAgent() {
+	protected String getUserAgent() {
 		String result;
 		String[] userAgents = {"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0",
 					  		   "Chrome/77.0.3865.120 Safari/537.36",

@@ -25,8 +25,7 @@ public class Result {
 	@Min(0)
 	private Integer laps;
 	
-	@Min(0)
-	private Integer grid;
+	private String grid;
 	
 	@Min(0)
 	private Integer points;
@@ -50,7 +49,7 @@ public class Result {
 	}
 
 
-	public Result(String position, String time, Integer laps, Integer grid, Integer points,
+	public Result(String position, String time, Integer laps, String grid, Integer points,
 			      Driver driver, Constructor constructor) {
 		super();
 		
@@ -106,12 +105,12 @@ public class Result {
 	}
 
 
-	public Integer getGrid() {
+	public String getGrid() {
 		return grid;
 	}
 
 
-	public void setGrid(Integer grid) {
+	public void setGrid(String grid) {
 		this.grid = grid;
 	}
 
