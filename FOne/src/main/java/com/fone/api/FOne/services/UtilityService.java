@@ -40,7 +40,7 @@ public class UtilityService {
 		
 		fields = monthDay.split(" ");
 		
-		nameDay = fields[1].trim();
+		nameDay = fields[1];
 		nameMonth = fields[0];
 		
 		day = nameDay.trim();

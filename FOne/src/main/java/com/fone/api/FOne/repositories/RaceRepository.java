@@ -14,4 +14,6 @@ public interface RaceRepository extends MongoRepository<Race, String> {
 	@Query("{\"circuit.circuitId\": ?0}")
 	List<Race> findByCircuit(String circuitId);
 	
+	@Query("{season: ?0}")
+	List<Race> findBySeason(String season);	
 }

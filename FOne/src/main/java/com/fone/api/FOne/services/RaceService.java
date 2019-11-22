@@ -80,6 +80,13 @@ public class RaceService {
 		return results;
 	}
 
+	public List<Race> findBySeason(String season) {
+		List<Race> results;
+		
+		results = this.raceRepository.findBySeason(season);
+		
+		return results;
+	}
 	
 	public void loadRacesAndResults() {
 		log.info("Cargando las carreras y resultados en la BD");
@@ -89,7 +96,6 @@ public class RaceService {
 		Document doc;
 		
 		seasons = this.getAllSeasons();
-		
 		seasonKeys = seasons.keySet();
 		
 		if (!seasons.isEmpty()) {
@@ -106,7 +112,7 @@ public class RaceService {
 	}
 	
 	public void loadRacesBySeason(Document document, String season) {
-		log.info("Extrayendo las carreras y sus resultados de la temporada " + season);
+		log.info("Carreras y sus resultados de " + season);
 		
 		Document doc;
 		Element table, tbody, td_href, td_raceDate, a;
@@ -125,41 +131,44 @@ public class RaceService {
 			
 			ls_tr = tbody.select("tr");
 			for (Element tr: ls_tr) {
-				td_href = tr.selectFirst("td.msr_col1");
-				td_raceDate = tr.selectFirst("td.msr_col2");
-				
-				monthDay = td_raceDate.text();
-				raceDate = this.utilityService.getDateByParameters(season, monthDay);
-				
-				a = td_href.selectFirst("a");
-				
-				// Este enlace contiene los resultados de una carrera, además
-				// de otros datos de una carrera
-				href = a.attr("href").trim();
-				
-				doc = this.utilityService.getDocument(href);
-				if (doc != null) {
-					// Este objeto ya está almacenado en la BD: falta agregarle los resultados
-					race = this.getRace(document, season, raceDate);
+				try {
+					td_href = tr.selectFirst("td.msr_col1");
+					td_raceDate = tr.selectFirst("td.msr_col2");
 					
-					races.add(race);
-				}		
+					monthDay = td_raceDate.text().trim();
+					raceDate = this.utilityService.getDateByParameters(season, monthDay);
+					
+					a = td_href.selectFirst("a");
+					
+					// Este enlace contiene los datos Race::results, Race::event y Race::circuit
+					href = a.attr("href").trim();
+					doc = this.utilityService.getDocument(href);
+					if (doc != null) {
+						race = this.getRace(doc, season, raceDate);
+						
+						races.add(race);
+					}
+				} catch (Exception ex) {
+					log.info("Error al recuperar una carrera concreta");
+				}
 			}
+			
 		} catch (Exception e) {
 			log.info("Error inesperado recuperando las carreras de la temporada " + season);
 		}
 		
 		this.raceRepository.saveAll(races);
 		
-		log.info("Obtenidas las carreras y los resultados de la temporada " + season + ": #carreras: " + races.size());
+		log.info("Carreras obtenidas: " + races.size());
 	}
 	
 	private Race getRace(Document document, String season, Date raceDate) {
 		Race result;
 		Element div_parent, div_child, p, a_event, a_circuit;
+		
 		Elements ls_a;
-		String event, circuitName; 
-		Circuit circuit;
+		String event = "", circuitName; 
+		Circuit circuit = null;
 		Set<Result> results;
 		
 		try {
@@ -169,25 +178,27 @@ public class RaceService {
 			p = div_child.selectFirst("p");
 			ls_a = p.select("a");
 			
-			a_event = ls_a.get(0);
-			a_circuit = ls_a.get(1);
+			if (ls_a.size() >= 2) {
+				a_event = ls_a.get(0);
+				a_circuit = ls_a.get(1);
 			
-			event = a_event.text().trim();
-			circuitName = a_circuit.text().trim();
+				event = a_event.text().trim();
+				circuitName = a_circuit.text().trim();
 			
-			circuit = this.circuitService.findByName(circuitName);
+				circuit = this.circuitService.findByName(circuitName);
+			}
 			
-			result = new Race(season, raceDate, event, circuit);
+		 result = new Race(season, raceDate, event, circuit);
 		} catch (Exception e) {
 			result = new Race(season, raceDate);
 			
 			log.info("No se encontraron todos los datos de la carrera");
 		}
 		
-		results = this.resultService.loadResultsByRace(document);
-		result.setResults(results);
+//		results = this.resultService.loadResultsByRace(document);
+//		result.setResults(results);
 		
-		log.info("Carrera: " + raceDate.toString() + " " + season);
+		log.info("Carrera: " + raceDate.getTime() + " " + season);
 		
 		return result;
 	}
@@ -204,7 +215,7 @@ public class RaceService {
 		document = this.utilityService.getDocument("https://www.f1-fansite.com/f1-results/");
 		if (document != null) {
 			try {
-				table = document.selectFirst("motor-sport-results.msr_seasons");
+				table = document.selectFirst("table.motor-sport-results.msr_seasons");
 				
 				tbody = table.selectFirst("tbody");
 				
@@ -223,9 +234,11 @@ public class RaceService {
 				}
 				
 			} catch (Exception e) {
-				log.info("Error inesperado: " + e.getMessage());
+				log.info("Error inesperado al recuperar las temporadas: " + e.getMessage());
 			}
 		}
+		
+		log.info("Numero de temporadas: " + results.size());
 		
 		return results;
 	}
