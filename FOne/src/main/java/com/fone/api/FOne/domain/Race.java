@@ -30,7 +30,6 @@ public class Race {
 	
 	@DBRef
 	@Valid
-	@NotNull
 	private Circuit circuit;
 	
 	@DBRef

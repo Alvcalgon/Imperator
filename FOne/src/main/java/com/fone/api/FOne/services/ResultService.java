@@ -66,6 +66,10 @@ public class ResultService {
 		this.resultRepository.delete(result);
 	}
 	
+	// This method is used in RaceService::loadRacesAndResults
+	public void deleteAll() {
+		this.resultRepository.deleteAll();
+	}
 	
 	public Set<Result> loadResultsByRace(Document document) {
 		Element div, table, tbody, th, td, a;
@@ -130,13 +134,11 @@ public class ResultService {
 					}
 					
 					result = new Result(position, time, laps, grid, points, driver, constructor);	
-				
-					log.info("Resultado: " + result.getResultId());
-					
 					results.add(result);
 					
+					log.info("Resultado: " + result.getResultId());
 				} catch (Exception ex) {
-					log.info("Error al obtener un resultado concreto");
+					log.info("Error al obtener un resultado de una carrera");
 				}
 				
 			}

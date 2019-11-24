@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -159,12 +160,21 @@ public class UtilityService {
 					.execute();
 			
 			result = response.parse();
+		
+			try {
+				// Añadimos este tiempo de retraso para que el sistema web no interprete
+				// de que somos un robot
+				TimeUnit.SECONDS.sleep(4);
+			} catch (InterruptedException e) {
+				log.info("Error con el retraso agregado");
+			}
+			
 		} catch (IOException e) {
 			result = null;
 			
-			log.info("Error al recuperar la pagina web");
+			log.info("Error al recuperar la pagina web: " + e.getMessage());
 		}
-	
+		
 		return result;
 	}
 	

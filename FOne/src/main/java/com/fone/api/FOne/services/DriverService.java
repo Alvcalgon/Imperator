@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -99,10 +98,6 @@ public class DriverService {
 						if (driver != null) {
 							drivers.add(driver);
 						}
-						
-						// Añadimos este tiempo de retraso para que el sistema web no interprete
-						// de que somos un robot
-						TimeUnit.SECONDS.sleep(5);
 					}	
 				}
 				

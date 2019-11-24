@@ -94,26 +94,45 @@ public class RaceService {
 		Map<String, String> seasons;
 		Set<String> seasonKeys;
 		Document doc;
+		int counter;
 		
 		seasons = this.getAllSeasons();
 		seasonKeys = seasons.keySet();
 		
+		// Insertadas 1976 (1), 1975 (2), 1974 (3), 1973 (4), 1972 (5)
+		// Insertadas: 1971 (6) , 1970 (7), 1979 (8) , 1978 (9), 1977 (10)
+		// 	1990 (11), 2001 (12), 2000 (13), 1987 (14), 1986 (15)
+		// Insertadas: 1985 (16), 1984 (17), 1983 (18), 1982 a medias (19),
+		// 1981 (20), 1980 (21), 1989 (22), 1988 (23), 2012 (24), 2011 (25)
+		// (26), (27), (28), (29), (30), (31), (32), (33), (34), (35)
+		
+		
+		counter = 1;
 		if (!seasons.isEmpty()) {
 			for (String season: seasonKeys) {
-				doc = this.utilityService.getDocument(seasons.get(season));
 				
-				if (doc != null) {
-					this.loadRacesBySeason(doc, season);
+				if (counter >= 26 && counter <= 35) {
+					log.info("Temporada por insertar: " + season);
+					
+					doc = this.utilityService.getDocument(seasons.get(season));
+					
+					if (doc != null) {
+						this.loadRacesBySeason(doc, season);
+					}
+					
+				} else if (counter < 26) {
+					log.info("Temporada ya insertada: " + season);
+				} else {
+					break;
 				}
 				
+				counter++;
 			}
 		}
 		
 	}
 	
 	public void loadRacesBySeason(Document document, String season) {
-		log.info("Carreras y sus resultados de " + season);
-		
 		Document doc;
 		Element table, tbody, td_href, td_raceDate, a;
 		Elements ls_tr;
@@ -143,13 +162,15 @@ public class RaceService {
 					// Este enlace contiene los datos Race::results, Race::event y Race::circuit
 					href = a.attr("href").trim();
 					doc = this.utilityService.getDocument(href);
+					
 					if (doc != null) {
 						race = this.getRace(doc, season, raceDate);
 						
 						races.add(race);
 					}
+					
 				} catch (Exception ex) {
-					log.info("Error al recuperar una carrera concreta");
+					log.info("Error al recuperar la carrera");
 				}
 			}
 			
@@ -195,10 +216,10 @@ public class RaceService {
 			log.info("No se encontraron todos los datos de la carrera");
 		}
 		
-//		results = this.resultService.loadResultsByRace(document);
-//		result.setResults(results);
+		log.info("Carrera: " + result.getRaceId() + " " + season);
 		
-		log.info("Carrera: " + raceDate.getTime() + " " + season);
+		results = this.resultService.loadResultsByRace(document);
+		result.setResults(results);
 		
 		return result;
 	}

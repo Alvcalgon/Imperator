@@ -3,7 +3,6 @@ package com.fone.api.FOne.services;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -103,11 +102,6 @@ public class ConstructorService {
 						if (constructor != null) {
 							constructors.add(constructor);
 						}
-						
-						// Añadimos este tiempo de retraso para que el sistema web
-						// interprete de que es un humano quien esta realizando
-						// peticiones.
-						TimeUnit.SECONDS.sleep(5);
 					}
 					
 				}
