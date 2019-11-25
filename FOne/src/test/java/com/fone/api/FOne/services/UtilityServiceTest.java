@@ -46,7 +46,7 @@ public class UtilityServiceTest extends AbstractTest {
 		}
 		
 		@Test
-		public void test_getDateByParameters() {
+		public void testUno_getDateByParameters() {
 			String season, monthDay;
 			Date date;
 			
@@ -58,4 +58,17 @@ public class UtilityServiceTest extends AbstractTest {
 			assertNotNull(date);
 		}
 	
+		@Test
+		public void testDos_getDateByParameters() {
+			String season, monthDay;
+			Date date;
+			
+			season = "1950";
+			monthDay = "13 May";
+			
+			date = this.utilityService.getDateByParameters(season, monthDay);
+			
+			assertNotNull(date);
+		}
+		
 }

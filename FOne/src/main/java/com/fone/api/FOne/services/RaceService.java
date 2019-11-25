@@ -71,7 +71,7 @@ public class RaceService {
 	public void delete(Race race) {
 		this.raceRepository.delete(race);
 	}
-	
+
 	public List<Race> findByCircuit(String circuitId) {
 		List<Race> results;
 		
@@ -94,39 +94,22 @@ public class RaceService {
 		Map<String, String> seasons;
 		Set<String> seasonKeys;
 		Document doc;
-		int counter;
 		
 		seasons = this.getAllSeasons();
 		seasonKeys = seasons.keySet();
 		
-		// Insertadas 1976 (1), 1975 (2), 1974 (3), 1973 (4), 1972 (5)
-		// Insertadas: 1971 (6) , 1970 (7), 1979 (8) , 1978 (9), 1977 (10)
-		// 	1990 (11), 2001 (12), 2000 (13), 1987 (14), 1986 (15)
-		// Insertadas: 1985 (16), 1984 (17), 1983 (18), 1982 a medias (19),
-		// 1981 (20), 1980 (21), 1989 (22), 1988 (23), 2012 (24), 2011 (25)
-		// (26), (27), (28), (29), (30), (31), (32), (33), (34), (35)
-		
-		
-		counter = 1;
 		if (!seasons.isEmpty()) {
 			for (String season: seasonKeys) {
+				log.info("Temporada por insertar: " + season);
 				
-				if (counter >= 26 && counter <= 35) {
-					log.info("Temporada por insertar: " + season);
-					
-					doc = this.utilityService.getDocument(seasons.get(season));
-					
-					if (doc != null) {
-						this.loadRacesBySeason(doc, season);
-					}
-					
-				} else if (counter < 26) {
-					log.info("Temporada ya insertada: " + season);
-				} else {
-					break;
+				doc = this.utilityService.getDocument(seasons.get(season));
+				
+				if (doc != null) {
+					this.loadRacesBySeason(doc, season);
 				}
 				
-				counter++;
+			
+				log.info("Temporada ya insertada: " + season);
 			}
 		}
 		

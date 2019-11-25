@@ -33,19 +33,29 @@ public class UtilityService {
 	
 	
 	// Metodos ------------------------------------
+	
+	// monthDay = "May 18" or monthDay = "18 May"
 	protected Date getDateByParameters(String season, String monthDay) {
 		Date result;
-		String str_date, day, month, nameMonth, nameDay;
+		String str_date, day, month, field_two, field_one;
 		String[] fields;
 		SimpleDateFormat format;
 		
 		fields = monthDay.split(" ");
 		
-		nameDay = fields[1];
-		nameMonth = fields[0];
+		field_one = fields[0].trim();
+		field_two = fields[1].trim();
 		
-		day = nameDay.trim();
-		month = this.getMM(nameMonth.trim());
+		try {
+			Integer.valueOf(field_one);
+			
+			day = field_one;
+			month = this.getMM(field_two);
+			
+		} catch (NumberFormatException nfe) {
+			day = field_two;
+			month = this.getMM(field_one);
+		}
 		
 		str_date = String.join("/", day, month, season);
 		format = new SimpleDateFormat("dd/MM/yyyy");

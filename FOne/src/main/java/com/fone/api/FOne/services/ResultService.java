@@ -1,5 +1,6 @@
 package com.fone.api.FOne.services;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -64,6 +65,11 @@ public class ResultService {
 	
 	public void delete(Result result) {
 		this.resultRepository.delete(result);
+	}
+	
+	// This method is used in RaceService::delete
+	protected void deleteAll(Collection<Result> results) {
+		this.resultRepository.deleteAll(results);
 	}
 	
 	// This method is used in RaceService::loadRacesAndResults
