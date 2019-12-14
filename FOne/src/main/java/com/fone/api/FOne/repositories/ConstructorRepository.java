@@ -11,10 +11,16 @@ import com.fone.api.FOne.domain.Constructor;
 @Repository
 public interface ConstructorRepository extends MongoRepository<Constructor, String> {
 
+	// Consultas usadas en el sistema internamente
 	@Query("{name: ?0}")
 	Constructor findByName(String name);
 	
 	@Query("{country: ?0}")
 	List<Constructor> findByCountry(String country);
 	
+	// Consultas usadas por la API
+	
+	// Ambas
+	@Query("{name: {$regex: ?0, $options: 'i'}}")
+	List<Constructor> findByName2(String name);
 }

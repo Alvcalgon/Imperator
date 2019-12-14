@@ -152,7 +152,7 @@ public class DriverService {
 		return result;
 	}
 	
-	public Driver findByFullname(String fullname) {
+	protected Driver findByFullname(String fullname) {
 		Driver result;
 		
 		result = this.driverRepository.findByFullname(fullname);
@@ -166,6 +166,14 @@ public class DriverService {
 		results = this.driverRepository.findByCountry(country);
 		
 		return results;
+	}
+	
+	protected Driver findByFullname2(String fullname) {
+		Driver result;
+		
+		result = this.driverRepository.findByFullname2(fullname);
+		
+		return result;
 	}
 	
 }

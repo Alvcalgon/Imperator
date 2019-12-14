@@ -68,7 +68,7 @@ public class ResultService {
 	}
 	
 	// This method is used in RaceService::delete
-	protected void deleteAll(Collection<Result> results) {
+	public void deleteAll(Collection<Result> results) {
 		this.resultRepository.deleteAll(results);
 	}
 	

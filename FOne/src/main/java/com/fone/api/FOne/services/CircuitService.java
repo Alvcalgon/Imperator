@@ -57,6 +57,11 @@ public class CircuitService {
 		return result;
 	}
 	
+	public void delete(String circuitId) {
+		this.circuitRepository.deleteById(circuitId);
+	}
+	
+	
 	public void loadCircuits() {
 		log.info("------------ Cargando datos de los circuitos en la BD ----------------");
 		this.circuitRepository.deleteAll();

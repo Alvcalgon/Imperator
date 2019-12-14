@@ -174,7 +174,9 @@ public class UtilityService {
 			try {
 				// Añadimos este tiempo de retraso para que el sistema web no interprete
 				// de que somos un robot
-				TimeUnit.SECONDS.sleep(4);
+				log.info("Retraso agregado");
+				
+				TimeUnit.SECONDS.sleep(5);
 			} catch (InterruptedException e) {
 				log.info("Error con el retraso agregado");
 			}

@@ -188,4 +188,12 @@ public class ConstructorService {
 		return results;
 	}
 	
+	protected List<Constructor> findByName2(String name) {
+		List<Constructor> result;
+		
+		result = this.constructorRepository.findByName2(name);
+		
+		return result;
+	}
+	
 }

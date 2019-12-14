@@ -54,6 +54,15 @@ public class ConstructorServiceTest extends AbstractTest {
 //		}
 		
 		@Test
+		public void test_findByName2() {
+			List<Constructor> constructors;
+			
+			constructors = this.constructorService.findByName2("FERRARI");
+			
+			assertNotNull(constructors);
+		}
+		
+		@Test
 		public void test_findAll() {
 			List<Constructor> all;
 			

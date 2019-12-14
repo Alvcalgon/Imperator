@@ -13,6 +13,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -82,8 +84,18 @@ public class RaceService {
 
 	public List<Race> findBySeason(String season) {
 		List<Race> results;
+		Sort sort;
 		
-		results = this.raceRepository.findBySeason(season);
+		sort = Sort.by(Direction.ASC, "raceDate");
+		results = this.raceRepository.findBySeason(season, sort);
+		
+		return results;
+	}
+	
+	public List<Race> findByEvent(String event, String season) {
+		List<Race> results;
+		
+		results = this.raceRepository.findByEvent(event, season);
 		
 		return results;
 	}
