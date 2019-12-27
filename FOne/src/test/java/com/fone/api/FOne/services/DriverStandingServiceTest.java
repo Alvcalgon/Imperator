@@ -1,12 +1,9 @@
 package com.fone.api.FOne.services;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.Map;
 
-import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,35 +20,30 @@ public class DriverStandingServiceTest extends AbstractTest {
 	@Autowired
 	private DriverStandingService driverStandingService;
 	
-	@Autowired
-	private UtilityService utilityService;
-	
-	@Test
-	public void test_findGetSeasons() {
-		Map<String, String> mapa;
-		
-		mapa = this.driverStandingService.getSeasons(1950, 1960);
-		
-		assertNotNull(mapa);
-		assertTrue(!mapa.isEmpty());
-	}
 	
 	@Test
 	public void test_getDriverStanding() {
-		String season;
-		String url;
-		Document document;
-		List<DriverStanding> driversStanding;
+		DriverStanding driverStanding;
+		String driverStandingId;
 		
-		season = "1950";
-		url = "https://www.formula1.com/en/results.html/1950/drivers.html";
+		driverStandingId = "5df50306052230392c690eb8";
+		driverStanding = this.driverStandingService.findOne(driverStandingId);
 		
-		document = this.utilityService.getDocument(url);
+		assertNotNull(driverStanding);
 		
-		driversStanding = this.driverStandingService.getDriversStanding(document, season);
+	}
+	
+	@Test
+	public void test_findBySeason() {
+		List<DriverStanding> allSeason;
+		String season = "1951";
+		allSeason = this.driverStandingService.findBySeason(season);
 		
-		assertNotNull(driversStanding);
-		assertTrue(driversStanding.size() > 0);
+		System.out.println("Driver Standing - " + season);
+		
+		for (DriverStanding ds: allSeason) {
+			System.out.println(ds.toString());
+		}
 		
 	}
 	

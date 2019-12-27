@@ -15,6 +15,7 @@ public class DriverStanding {
 	@NotBlank
 	private String driverStandingId;
 	
+	@NotBlank
 	private String season;
 	
 	private String points;
@@ -97,8 +98,7 @@ public class DriverStanding {
 	}
 
 	public String toString() {
-		return "Posición de " + this.driver.getFullname() + ": " + this.position;
+		return "Posición de " + this.driver.getFullname() + " - " + this.constructor.getName() + ": " + this.position;
 	}
-	
 	
 }

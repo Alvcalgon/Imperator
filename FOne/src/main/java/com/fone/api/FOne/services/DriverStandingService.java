@@ -11,6 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,48 @@ public class DriverStandingService {
 	}
 	
 	
+	public DriverStanding findOne(String driverStandingId) {
+		DriverStanding result;
+		
+		result = this.driverStandingRepository.findById(driverStandingId).get();
+		
+		return result;
+	}
+	
+	public List<DriverStanding> findBySeason(String season) {
+		List<DriverStanding> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "position");
+		results = this.driverStandingRepository.findBySeason(season, sort);
+		
+		return results;
+	}
+	
+	public void saveDriver(String driverStandingId, String driverId) {
+		Driver c;
+		DriverStanding ds;
+		
+		c = this.driverService.findOne(driverId);
+		ds = this.findOne(driverStandingId);
+		
+		ds.setDriver(c);
+		
+		this.driverStandingRepository.save(ds);
+	}
+	
+	public void saveConstructor(String driverStandingId, String constructorId) {
+		Constructor c;
+		DriverStanding ds;
+		
+		c = this.constructorService.findOne(constructorId);
+		ds = this.findOne(driverStandingId);
+		
+		ds.setConstructor(c);
+		
+		this.driverStandingRepository.save(ds);
+	}
+	
 	public void deleteAll() {
 		this.driverStandingRepository.deleteAll();
 	}
@@ -55,7 +99,7 @@ public class DriverStandingService {
 		String url;
 		Document document;
 		
-		seasons = this.getSeasons(2005, 2018);
+		seasons = this.getSeasons(1950, 2018);
 		
 		driversStanding = new ArrayList<DriverStanding>();
 		for (String season: seasons.keySet()) {
@@ -75,7 +119,6 @@ public class DriverStandingService {
 	
 	protected List<DriverStanding> getDriversStanding(Document document, String season) {
 		List<DriverStanding> results;
-		List<Constructor> constructors;
 		Element div, table, tbody, td, a;
 		Elements ls_tr;
 		String position, driverName, aText, constructorName, points;
@@ -83,7 +126,7 @@ public class DriverStandingService {
 		Constructor constructor;
 		DriverStanding driverStanding;
 		
-		position = "";
+		position = "0";
 		points = "";
 		driver = null;
 		constructor = null;
@@ -110,13 +153,7 @@ public class DriverStandingService {
 					
 					a = tr.selectFirst("a.grey.semi-bold.uppercase.ArchiveLink");
 					constructorName = a.text().trim();
-					constructors = this.constructorService.findByName2(constructorName);
-					
-					if (!constructors.isEmpty()) {
-						constructor = constructors.get(0);
-					
-						log.info("----- Escogida la primera escudería -----");
-					}
+					constructor = this.constructorService.findByName(constructorName);
 					
 					td = tr.selectFirst("td.dark.bold");
 					points = td.text().trim();
@@ -146,7 +183,7 @@ public class DriverStandingService {
 		return results;
 	}
 	
-	protected Map<String, String> getSeasons(int seasonStart, int seasonEnd) {
+	private Map<String, String> getSeasons(int seasonStart, int seasonEnd) {
 		Map<String, String> results;
 		String link, str_season;
 		int season;

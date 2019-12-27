@@ -18,27 +18,12 @@ import com.fone.api.FOne.services.utilities.AbstractTest;
 @SpringBootTest
 public class DriverServiceTest extends AbstractTest {
 
-	// Services under testing -------------
+	// Servicio bajo testeo -------------
 	@Autowired
 	private DriverService driverService;
 
-	@Autowired
-	private UtilityService utilityService;
-
+	
 	// Suite test -----------------------
-
-//	@Test
-//	public void test_getDriver() {
-//		Driver driver;
-//		Document doc;
-//
-//		doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-drivers/adrian-sutil/");
-//
-//		driver = this.driverService.getDriver(doc);
-//
-//		assertNotNull(driver);
-//	}
-
 	@Test
 	public void test_list() {
 		List<Driver> drivers;

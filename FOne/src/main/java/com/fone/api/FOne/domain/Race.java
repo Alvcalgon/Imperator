@@ -33,9 +33,6 @@ public class Race {
 	private Circuit circuit;
 	
 	@DBRef
-	private FastestLap fastestLap;
-	
-	@DBRef
 	@NotNull
 	Set<Result> results;
 	
@@ -108,14 +105,6 @@ public class Race {
 
 	public void setCircuit(Circuit circuit) {
 		this.circuit = circuit;
-	}
-
-	public FastestLap getFastestLap() {
-		return fastestLap;
-	}
-
-	public void setFastestLap(FastestLap fastestLap) {
-		this.fastestLap = fastestLap;
 	}
 
 	public Set<Result> getResults() {

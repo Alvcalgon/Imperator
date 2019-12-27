@@ -1,9 +1,6 @@
 package com.fone.api.FOne.domain;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -18,18 +15,16 @@ public class ConstructorStanding {
 	@NotBlank
 	private String constructorStandingId;
 	
-	@Min(0)
-	private int points;
+	@NotBlank
+	private String season;
+	
+	private String position;
+	
+	private String points;
 	
 	@DBRef
-	@Valid
-	@NotNull
 	private Constructor constructor;
 	
-	@DBRef
-	@Valid
-	@NotNull
-	private Race race;
 	
 	// Constructores ----------------------
 	public ConstructorStanding() {
@@ -38,12 +33,14 @@ public class ConstructorStanding {
 		this.constructorStandingId = new ObjectId().toString();
 	}
 	
-	public ConstructorStanding(int points, Constructor constructor, Race race) {
+	public ConstructorStanding(String season, String position, String points, Constructor constructor) {
 		super();
 		
 		this.constructorStandingId = new ObjectId().toString();
+		this.season = season;
+		this.position = position;
+		this.points = points;
 		this.constructor = constructor;
-		this.race = race;
 	}
 
 	// Getters y setters
@@ -54,12 +51,28 @@ public class ConstructorStanding {
 	public void setConstructorStandingId(String constructorStandingId) {
 		this.constructorStandingId = constructorStandingId;
 	}
+	
+	public String getSeason() {
+		return season;
+	}
 
-	public int getPoints() {
+	public void setSeason(String season) {
+		this.season = season;
+	}
+	
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(String points) {
 		this.points = points;
 	}
 
@@ -69,14 +82,6 @@ public class ConstructorStanding {
 
 	public void setConstructor(Constructor constructor) {
 		this.constructor = constructor;
-	}
-
-	public Race getRace() {
-		return race;
-	}
-
-	public void setRace(Race race) {
-		this.race = race;
 	}
 	
 	
