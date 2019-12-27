@@ -33,11 +33,14 @@ public class DriverService {
 		super();
 	}
 	
-	public Driver findOne(String driverId) {
+	
+	// Consultas disponibles en la API ----------------------------
+	public Driver findOneAPI(String driverId) {
 		return this.driverRepository.findById(driverId).get();
 	}
 	
-	public List<Driver> findAll() {
+	// UC-001
+	public List<Driver> findAllAPI() {
 		List<Driver> resultados;
 		
 		resultados = this.driverRepository.findAll();
@@ -45,23 +48,26 @@ public class DriverService {
 		return resultados;
 	}
 	
-	public Driver save(Driver driver) {
-		Driver resultado;
+	// UC-002
+	public List<Driver> findByCountryAPI(String country) {
+		List<Driver> results;
 		
-		resultado = this.driverRepository.save(driver);
+		results = this.driverRepository.findByCountryAPI(country);
 		
-		return resultado;
+		return results;
 	}
 	
-	
-	public void delete(Driver driver) {
-		this.driverRepository.delete(driver);
+	// UC-005
+	public List<Driver> findByFullnameAPI(String fullname) {
+		List<Driver> results;
+		
+		results = this.driverRepository.findByFullnameAPI(fullname);
+		
+		return results;
 	}
+		
 	
-	public void deleteAll() {
-		this.driverRepository.deleteAll();
-	}
-	
+	// Método principal para web scraping
 	public void loadDrivers() {
 		log.info("--------------- Cargando datos de los pilotos en la BD ----------------");
 		this.driverRepository.deleteAll();
@@ -111,7 +117,8 @@ public class DriverService {
 		
 	}
 	
-	protected Driver getDriver(Document doc) {
+	// Métodos auxiliares -----------------------------------------
+	private Driver getDriver(Document doc) {
 		Driver result;
 		Element div, tbody, tr, td, a;
 		String fullname, country, placeOfBirth, str_birthOfDate;
@@ -158,14 +165,6 @@ public class DriverService {
 		result = this.driverRepository.findByFullname(fullname);
 		
 		return result;
-	}
-	
-	public List<Driver> findByCountry(String country) {
-		List<Driver> results;
-		
-		results = this.driverRepository.findByCountry(country);
-		
-		return results;
 	}
 	
 	protected Driver findByFullname2(String fullname) {

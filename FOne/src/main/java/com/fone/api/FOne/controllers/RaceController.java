@@ -1,7 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,14 +21,10 @@ public class RaceController {
 		super();
 	}
 	
-	@GetMapping(value = "/list")
-	public List<Race> findAll() {
-		return this.raceService.findAll();
-	}
 	
 	@GetMapping(value = "/list{id}")
 	public Race findOne(@PathVariable String id) {
-		return this.raceService.findOne(id);
+		return this.raceService.findOneAPI(id);
 	}
 	
 }

@@ -25,66 +25,68 @@ public class DriverServiceTest extends AbstractTest {
 	
 	// Suite test -----------------------
 	@Test
-	public void test_list() {
+	public void test_findAllAPI() {
 		List<Driver> drivers;
 
-		drivers = this.driverService.findAll();
+		drivers = this.driverService.findAllAPI();
 
 		assertTrue(drivers.size() > 0);
 	}
 
 	@Test
-	public void test_findById() {
+	public void test_findOneAPI() {
 		Driver driver;
 		String id;
 
 		id = "5dc696a0f6e188527b2baabf";
-		driver = this.driverService.findOne(id);
+		driver = this.driverService.findOneAPI(id);
 
 		assertNotNull(driver);
 	}
 
 	@Test
-	public void positiveTest_findDriverByName() {
-		Driver driver;
+	public void positiveTest_findByFullnameAPI() {
+		List<Driver> drivers;
 		String fullname;
 
 		fullname = "Fernando Alonso";
-		driver = this.driverService.findByFullname(fullname);
-
-		assertNotNull(driver);
-	}
-
-	@Test
-	public void negativeTest_findDriverByName() {
-		Driver driver;
-		String fullname;
-
-		fullname = "Nombre completo erroneo";
-		driver = this.driverService.findByFullname(fullname);
-
-		assertTrue(driver == null);
-	}
-
-	@Test
-	public void positiveTest_findDriverByCountry() {
-		List<Driver> drivers;
-		String country;
-
-		country = "Spain";
-		drivers = this.driverService.findByCountry(country);
+		drivers = this.driverService.findByFullnameAPI(fullname);
 
 		assertNotNull(drivers);
 		assertTrue(drivers.size() > 0);
 	}
 
 	@Test
-	public void negativeTest_findDriverByCountry() {
+	public void negativeTest_findDriverByFullnameAPI() {
+		List<Driver> drivers;
+		String fullname;
+
+		fullname = "Nombre completo erroneo";
+		drivers = this.driverService.findByFullnameAPI(fullname);
+
+		assertNotNull(drivers);
+		assertTrue(drivers.size() == 0);
+	}
+
+	@Test
+	public void positiveTest_findByCountryAPI() {
+		List<Driver> drivers;
+		String country;
+
+		country = "Spain";
+		drivers = this.driverService.findByCountryAPI(country);
+
+		assertNotNull(drivers);
+		assertTrue(drivers.size() > 0);
+	}
+
+	@Test
+	public void negativeTest_findByCountryAPI() {
 		List<Driver> drivers;
 		String country;
 
 		country = "Nombre completo erroneo";
-		drivers = this.driverService.findByCountry(country);
+		drivers = this.driverService.findByCountryAPI(country);
 
 		assertNotNull(drivers);
 		assertTrue(drivers.size() == 0);

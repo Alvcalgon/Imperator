@@ -67,7 +67,7 @@ public class DriverStandingService {
 		Driver c;
 		DriverStanding ds;
 		
-		c = this.driverService.findOne(driverId);
+		c = this.driverService.findOneAPI(driverId);
 		ds = this.findOne(driverStandingId);
 		
 		ds.setDriver(c);

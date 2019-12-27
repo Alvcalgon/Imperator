@@ -39,6 +39,21 @@ public class ResultService {
 		super();
 	}
 	
+	
+	// Consultas que aparecen en la API ------------------
+	
+	// UC-004
+	public List<Result> findDriversByConstructorAPI(String constructorName) {
+		List<Result> results;
+		Constructor constructor;
+		
+		//constructor = this.constructorService.findByName(constructorName);
+		results = this.resultRepository.findDriversByConstructorAPI(constructorName);
+		
+		return results;
+	}
+	
+	
 	public Result findOne(String resultId) {
 		Result result;
 		

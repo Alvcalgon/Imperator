@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fone.api.FOne.domain.Circuit;
+import com.fone.api.FOne.domain.Driver;
 import com.fone.api.FOne.domain.Race;
 import com.fone.api.FOne.domain.Result;
 import com.fone.api.FOne.repositories.RaceRepository;
@@ -46,7 +47,9 @@ public class RaceService {
 		super();
 	}
 	
-	public Race findOne(String raceId) {
+	
+	// Consultas disponibles en la API ---------------------------------
+	public Race findOneAPI(String raceId) {
 		Race result;
 		
 		result = this.raceRepository.findById(raceId).get();
@@ -54,7 +57,16 @@ public class RaceService {
 		return result;
 	}
 	
-	public List<Race> findAll() {
+	// UC-003
+	public List<Driver> findDriversBySeason(String season) {
+		List<Driver> results;
+		
+		results = this.raceRepository.findDriversBySeason(season);
+		
+		return results;
+	}
+	
+	protected List<Race> findAll() {
 		List<Race> results;
 		
 		results = this.raceRepository.findAll();
@@ -62,18 +74,6 @@ public class RaceService {
 		return results;
 	}
 	
-	public Race save(Race race) {
-		Race result;
-		
-		result = this.raceRepository.save(race);
-		
-		return result;
-	}
-	
-	public void delete(Race race) {
-		this.raceRepository.delete(race);
-	}
-
 	public List<Race> findByCircuit(String circuitId) {
 		List<Race> results;
 		
@@ -100,6 +100,7 @@ public class RaceService {
 		return results;
 	}
 	
+	// Metodo principal para web scraping
 	public void loadRacesAndResults() {
 		log.info("Cargando las carreras y resultados en la BD");
 		
@@ -127,6 +128,7 @@ public class RaceService {
 		
 	}
 	
+	// Metodos auxiliares
 	public void loadRacesBySeason(Document document, String season) {
 		Document doc;
 		Element table, tbody, td_href, td_raceDate, a;
@@ -219,7 +221,7 @@ public class RaceService {
 		return result;
 	}
 	
-	protected Map<String, String> getAllSeasons() {
+	private Map<String, String> getAllSeasons() {
 		Map<String, String> results;
 		Document document;
 		Elements ls_tr, ls_td;

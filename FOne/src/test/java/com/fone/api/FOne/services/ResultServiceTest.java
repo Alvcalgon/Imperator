@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,23 +21,14 @@ public class ResultServiceTest extends AbstractTest {
 	@Autowired
 	private ResultService resultService;
 	
-	@Autowired
-	private UtilityService utilityService;
-	
-	
 	// Suite test --------------------------
 	@Test
-	public void test_loadResultsByRace() {
-		String enlace;
-		Document doc;
+	public void positiveTest_findDriversByConstructorAPI() {
+		String constructor;
 		List<Result> results;
 		
-		enlace = "https://www.f1-fansite.com/f1-result/results-1950-formula-1-grand-prix-of-great-britain/";
-		doc = this.utilityService.getDocument(enlace);
-		
-		this.resultService.loadResultsByRace(doc);
-		
-		results = this.resultService.findAll();
+		constructor = "Ferrari";
+		results = this.resultService.findDriversByConstructorAPI(constructor);
 		
 		assertNotNull(results);
 		assertTrue(results.size() > 0);
