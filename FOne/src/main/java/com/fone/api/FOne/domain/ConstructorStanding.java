@@ -4,7 +4,6 @@ import javax.validation.constraints.NotBlank;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "ConstructorStanding")
@@ -22,7 +21,6 @@ public class ConstructorStanding {
 	
 	private String points;
 	
-	@DBRef
 	private Constructor constructor;
 	
 	
