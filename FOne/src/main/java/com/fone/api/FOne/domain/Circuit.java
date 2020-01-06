@@ -102,8 +102,32 @@ public class Circuit {
 	
 	
 	@Override
+	public int hashCode() {
+		return this.circuitId.hashCode();
+	}
+	
+	@Override
+	public  boolean equals(Object other) {
+		boolean result;
+		
+		if (this == other) {
+			result = true;
+		} else if (other == null) {
+			result = false;
+		} else if (other instanceof String) {
+			result = (this.getCircuitId() == (String) other);
+		} else if (!this.getClass().isInstance(other)) {
+			result = false;
+		} else {
+			result = (this.getCircuitId() == ((Circuit) other).getCircuitId());
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public String toString() {
-		return "Nombre del circuito: " + this.name;
+		return "Circuit [id=" + this.circuitId + ", name=" + this.name + "]";
 	}
 	
 }

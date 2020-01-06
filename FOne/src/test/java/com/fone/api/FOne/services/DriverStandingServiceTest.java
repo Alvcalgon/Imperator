@@ -1,6 +1,7 @@
 package com.fone.api.FOne.services;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -17,34 +18,114 @@ import com.fone.api.FOne.services.utilities.AbstractTest;
 @SpringBootTest
 public class DriverStandingServiceTest extends AbstractTest {
 
+	// Servicio bajo pruebas unitarias ----------
 	@Autowired
 	private DriverStandingService driverStandingService;
-	
-	
+
+	// Suite test -------------------------------
+
+	// Test de UC-027
 	@Test
-	public void test_getDriverStanding() {
-		DriverStanding driverStanding;
-		String driverStandingId;
-		
-		driverStandingId = "5df50306052230392c690eb8";
-		driverStanding = this.driverStandingService.findOne(driverStandingId);
-		
-		assertNotNull(driverStanding);
-		
-	}
-	
-	@Test
-	public void test_findBySeason() {
+	public void positiveTest_findBySeason() {
 		List<DriverStanding> allSeason;
-		String season = "1951";
-		allSeason = this.driverStandingService.findBySeason(season);
-		
-		System.out.println("Driver Standing - " + season);
-		
-		for (DriverStanding ds: allSeason) {
-			System.out.println(ds.toString());
-		}
-		
+		String season;
+
+		season = "1951";
+		allSeason = this.driverStandingService.findBySeasonAPI(season);
+
+		assertNotNull(allSeason);
+		assertTrue(allSeason.size() > 0);
 	}
-	
+
+	// Test de UC-027
+	@Test
+	public void negativeTest_findBySeason() {
+		List<DriverStanding> allSeason;
+		String season;
+
+		season = "1949";
+		allSeason = this.driverStandingService.findBySeasonAPI(season);
+
+		assertNotNull(allSeason);
+		assertTrue(allSeason.size() == 0);
+	}
+
+	// Test de UC-028
+	@Test
+	public void positiveTest_findByPositionAndDriver() {
+		List<DriverStanding> driversStanding;
+		String position;
+
+		position = "9";
+		driversStanding = this.driverStandingService.findByPositionAPI(position);
+
+		assertNotNull(driversStanding);
+		assertTrue(driversStanding.size() > 0);
+	}
+
+	// Test de UC-028
+	@Test
+	public void negativeTest_findByPositionAndDriver() {
+		List<DriverStanding> driversStanding;
+		String position;
+
+		position = "50";
+		driversStanding = this.driverStandingService.findByPositionAPI(position);
+
+		assertNotNull(driversStanding);
+		assertTrue(driversStanding.size() == 0);
+	}
+
+	// Test de UC-029
+	@Test
+	public void positiveTestUno_findByDriver() {
+		List<DriverStanding> driversStanding;
+		String driver;
+
+		driver = "Niki Lauda";
+		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+
+		assertNotNull(driversStanding);
+		assertTrue(driversStanding.size() > 0);
+	}
+
+	// Test de UC-029
+	@Test
+	public void positiveTestDos_findByDriver() {
+		List<DriverStanding> driversStanding;
+		String driver;
+
+		driver = "pastor maldonado";
+		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+
+		assertNotNull(driversStanding);
+		assertTrue(driversStanding.size() > 0);
+	}
+
+	// Test de UC-029
+	@Test
+	public void positiveTestTres_findByDriver() {
+		List<DriverStanding> driversStanding;
+		String driver;
+
+		driver = "alonso";
+		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+
+		assertNotNull(driversStanding);
+		assertTrue(driversStanding.size() > 0);
+	}
+
+	// Test de UC-029
+	@Test
+	public void negativeTest_findByDriver() {
+		List<DriverStanding> driversStanding;
+		String driver;
+
+		driver = "Piloto desconocido";
+		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+
+		assertNotNull(driversStanding);
+		assertTrue(driversStanding.size() == 0);
+	}
+
 }

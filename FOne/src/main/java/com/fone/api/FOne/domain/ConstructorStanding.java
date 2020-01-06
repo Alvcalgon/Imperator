@@ -19,7 +19,7 @@ public class ConstructorStanding {
 	
 	private String position;
 	
-	private String points;
+	private Integer points;
 	
 	private Constructor constructor;
 	
@@ -31,7 +31,7 @@ public class ConstructorStanding {
 		this.constructorStandingId = new ObjectId().toString();
 	}
 	
-	public ConstructorStanding(String season, String position, String points, Constructor constructor) {
+	public ConstructorStanding(String season, String position, Integer points, Constructor constructor) {
 		super();
 		
 		this.constructorStandingId = new ObjectId().toString();
@@ -66,11 +66,11 @@ public class ConstructorStanding {
 		this.position = position;
 	}
 
-	public String getPoints() {
+	public Integer getPoints() {
 		return points;
 	}
 
-	public void setPoints(String points) {
+	public void setPoints(Integer points) {
 		this.points = points;
 	}
 
@@ -83,8 +83,33 @@ public class ConstructorStanding {
 	}
 	
 	
+	@Override
+	public int hashCode() {
+		return this.constructorStandingId.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		boolean result;
+		
+		if (this == other) {
+			result = true;
+		} else if (other == null) {
+			result = false;
+		} else if (other instanceof String) {
+			result = (this.getConstructorStandingId() == (String) other);
+		} else if (!this.getClass().isInstance(other)) {
+			result = false;
+		} else {
+			result = (this.getConstructorStandingId() == ((ConstructorStanding) other).getConstructorStandingId());
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public String toString() {
-		return this.constructor.getName() + ": " + this.points + " puntos"; 
+		return "ConstructorStanding [id=" + this.constructorStandingId + ", season=" + this.season + ", constructor=" + this.getConstructor() + "]"; 
 	}
 	
 }

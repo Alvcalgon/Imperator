@@ -79,10 +79,33 @@ public class Constructor {
 		this.principal = principal;
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.constructorId.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		boolean result;
+		
+		if (this == other) {
+			result = true;
+		} else if (other == null) {
+			result = false;
+		} else if (other instanceof String) {
+			result = (this.getConstructorId() == (String) other);
+		} else if (!this.getClass().isInstance(other)) {
+			result = false;
+		} else {
+			result = (this.getConstructorId() == ((Constructor) other).getConstructorId());
+		}
+		
+		return result;
+	}
 	
 	@Override
 	public String toString() {
-		return "Constructor's name: " + this.name;
+		return "Constructor [id=" + this.constructorId + ", name=" + this.name + "]";
 	}
 	
 }

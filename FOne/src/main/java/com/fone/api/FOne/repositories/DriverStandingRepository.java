@@ -13,5 +13,11 @@ import com.fone.api.FOne.domain.DriverStanding;
 public interface DriverStandingRepository extends MongoRepository<DriverStanding, String> {
 
 	@Query("{season: ?0}")
-	List<DriverStanding> findBySeason(String season, Sort sort);
+	List<DriverStanding> findBySeasonAPI(String season, Sort sort);
+	
+	@Query("{position: ?0}")
+	List<DriverStanding> findByPositionAPI(String position, Sort sort);
+	
+	@Query("{\"driver.fullname\": {$regex: ?0, $options: 'i'}}")
+	List<DriverStanding> findByDriverAPI(String driver, Sort sort);
 }

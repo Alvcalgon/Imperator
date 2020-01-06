@@ -10,6 +10,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,13 +44,38 @@ public class ConstructorService {
 		return result;
 	}
 	
-	public List<Constructor> findAll() {
+	// UC-006
+	public List<Constructor> findAllAPI() {
 		List<Constructor> results;
+		Sort sort;
 		
-		results = this.constructorRepository.findAll();
+		sort = Sort.by(Direction.ASC, "name");
+		results = this.constructorRepository.findAll(sort);
 		
 		return results;
  	}
+	
+	// UC-007
+	public List<Constructor> findByCountryAPI(String country) {
+		List<Constructor> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "name");
+		results = this.constructorRepository.findByCountryAPI(country, sort);
+		
+		return results;
+	}
+	
+	// UC-010
+	public List<Constructor> findByNameAPI(String name) {
+		List<Constructor> result;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "name");
+		result = this.constructorRepository.findByNameAPI(name, sort);
+		
+		return result;
+	}
 	
 	public Constructor save(Constructor constructor) {
 		Constructor result;
@@ -161,18 +188,7 @@ public class ConstructorService {
 		return result;
 	}
 	
-	private String getPrincipal(String text) {
-		String result;
-		int index;
-		
-		index = text.indexOf(":");
-			
-		result = (index != -1) ? text.substring(index+1).trim(): "";
-		
-		return result;
-	}
-	
-	public Constructor findByName(String name) {
+	protected Constructor findByName(String name) {
 		Constructor result;
 		
 		result = this.constructorRepository.findByName(name);
@@ -180,18 +196,13 @@ public class ConstructorService {
 		return result;
 	}
 	
-	public List<Constructor> findByCountry(String country) {
-		List<Constructor> results;
+	private String getPrincipal(String text) {
+		String result;
+		int index;
 		
-		results = this.constructorRepository.findByCountry(country);
-		
-		return results;
-	}
-	
-	protected List<Constructor> findByName2(String name) {
-		List<Constructor> result;
-		
-		result = this.constructorRepository.findByName2(name);
+		index = text.indexOf(":");
+			
+		result = (index != -1) ? text.substring(index+1).trim(): "";
 		
 		return result;
 	}

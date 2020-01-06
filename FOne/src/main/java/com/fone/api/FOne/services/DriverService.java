@@ -11,6 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,8 +44,10 @@ public class DriverService {
 	// UC-001
 	public List<Driver> findAllAPI() {
 		List<Driver> resultados;
+		Sort sort;
 		
-		resultados = this.driverRepository.findAll();
+		sort = Sort.by(Direction.ASC, "dateOfBirth");
+		resultados = this.driverRepository.findAll(sort);
 		
 		return resultados;
 	}
@@ -51,8 +55,10 @@ public class DriverService {
 	// UC-002
 	public List<Driver> findByCountryAPI(String country) {
 		List<Driver> results;
+		Sort sort;
 		
-		results = this.driverRepository.findByCountryAPI(country);
+		sort = Sort.by(Direction.ASC, "dateOfBirth");
+		results = this.driverRepository.findByCountryAPI(country, sort);
 		
 		return results;
 	}
@@ -60,8 +66,11 @@ public class DriverService {
 	// UC-005
 	public List<Driver> findByFullnameAPI(String fullname) {
 		List<Driver> results;
+		Sort sort;
 		
-		results = this.driverRepository.findByFullnameAPI(fullname);
+		sort = Sort.by(Direction.ASC, "dateOfBirth");
+		
+		results = this.driverRepository.findByFullnameAPI(fullname, sort);
 		
 		return results;
 	}
@@ -163,14 +172,6 @@ public class DriverService {
 		Driver result;
 		
 		result = this.driverRepository.findByFullname(fullname);
-		
-		return result;
-	}
-	
-	protected Driver findByFullname2(String fullname) {
-		Driver result;
-		
-		result = this.driverRepository.findByFullname2(fullname);
 		
 		return result;
 	}

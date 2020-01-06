@@ -112,10 +112,33 @@ public class Race {
 		this.results = results;
 	}
 
+	@Override
+	public int hashCode() {
+		return this.raceId.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		boolean result;
+		
+		if (this == other) {
+			result = true;
+		} else if (other == null) {
+			result = false;
+		} else if (other instanceof String) {
+			result = (this.getRaceId() == (String) other);
+		} else if (!this.getClass().isInstance(other)) {
+			result = false;
+		} else {
+			result = (this.getRaceId() == ((Race) other).getRaceId());
+		}
+		
+		return result;
+	}
 	
 	@Override
 	public String toString() {
-		return "Race: " + this.circuit.getName() + " - " + this.season;
+		return "[Race [id=" + this.raceId + ", season=" + this.season + ", event=" + this.event + "]";
 	}
 	
 	

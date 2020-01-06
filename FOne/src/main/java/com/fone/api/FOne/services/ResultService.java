@@ -1,8 +1,10 @@
 package com.fone.api.FOne.services;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -43,16 +45,90 @@ public class ResultService {
 	// Consultas que aparecen en la API ------------------
 	
 	// UC-004
-	public List<Result> findDriversByConstructorAPI(String constructorName) {
+	// TODO: Chapuza
+	public Set<Driver> findDriversByConstructorAPI(String constructorName) {
 		List<Result> results;
+		Set<Driver> drivers;
+		Map<String, Driver> mapa; 
+		Driver driver;
+		
+		results = this.resultRepository.findDriversByConstructorAPI(constructorName);
+		
+		mapa = new HashMap<String, Driver>();
+		for (Result r: results) {
+			driver = r.getDriver();
+			
+			if (driver != null) {
+				mapa.put(driver.getFullname(), driver);
+			}
+			
+		}
+		
+		drivers = new HashSet<Driver>(mapa.values());
+		
+		return drivers;
+	}
+	
+	// UC-009
+	// TODO: Chapuza
+	public Set<Constructor> findConstructorsByDriverAPI(String driverFullname) {
+		Set<Constructor> constructors;
+		List<Result> results;
+		Map<String, Constructor> mapa;
 		Constructor constructor;
 		
-		//constructor = this.constructorService.findByName(constructorName);
-		results = this.resultRepository.findDriversByConstructorAPI(constructorName);
+		results = this.resultRepository.findConstructorsByDriverAPI(driverFullname);
+		
+		mapa = new HashMap<String, Constructor>();
+		for (Result r: results) {
+			constructor = r.getConstructor();
+			
+			if (constructor != null) {
+				mapa.put(constructor.getName(), constructor);
+			}
+			
+		}
+		
+		constructors = new HashSet<Constructor>(mapa.values());
+		
+		return constructors;
+	}
+	
+	// UC-023
+	public List<Result> findResultsByPositionAndDriverAPI(String driverFullname, String position) {
+		List<Result> results;
+		
+		results = this.resultRepository.findResultsByPositionAndDriverAPI(driverFullname, position);
 		
 		return results;
 	}
 	
+	// UC-024
+	public List<Result> findResultsByGridAndDriverAPI(String driverFullname, String grid) {
+		List<Result> results;
+		
+		results = this.resultRepository.findResultsByGridAndDriverAPI(driverFullname, grid);
+		
+		return results;
+	}
+	
+	// UC-025
+	public List<Result> findResultsByPositionAndConstructorAPI(String constructorName, String position) {
+		List<Result> results;
+		
+		results = this.resultRepository.findResultsByPositionAndConstructorAPI(constructorName, position);
+		
+		return results;
+	}
+	
+	// UC-026
+	public List<Result> findResultsByGridAndConstructorAPI(String constructorName, String grid) {
+		List<Result> results;
+		
+		results = this.resultRepository.findResultsByGridAndConstructorAPI(constructorName, grid);
+		
+		return results;
+	}
 	
 	public Result findOne(String resultId) {
 		Result result;

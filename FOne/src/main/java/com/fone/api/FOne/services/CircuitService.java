@@ -10,6 +10,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,27 +43,52 @@ public class CircuitService {
 		return result;
 	}
 	
-	public List<Circuit> findAll() {
+	// UC-011
+	public List<Circuit> findAllAPI() {
 		List<Circuit> result;
+		Sort sort;
 		
-		result = this.circuitRepository.findAll();
-		
-		return result;
-	}
-	
-	public Circuit save(Circuit circuit) {
-		Circuit result;
-		
-		result = this.circuitRepository.save(circuit);
+		sort = Sort.by(Direction.ASC, "name");
+		result = this.circuitRepository.findAll(sort);
 		
 		return result;
 	}
 	
-	public void delete(String circuitId) {
-		this.circuitRepository.deleteById(circuitId);
+	// UC-012
+	public List<Circuit> findByTypeAPI(String type) {
+		List<Circuit> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "name");
+		results = this.circuitRepository.findByTypeAPI(type, sort);
+		
+		return results;
 	}
 	
+	// UC-013
+	public List<Circuit> findByLocationAPI(String location) {
+		List<Circuit> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "name");
+		results = this.circuitRepository.findByLocationAPI(location, sort);
+		
+		return results;
+	}
 	
+	// UC-015
+	public List<Circuit> findByNameAPI(String name) {
+		List<Circuit> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "name");
+		
+		results = this.circuitRepository.findByNameAPI(name, sort);
+		
+		return results;
+	}
+	
+	// Metodo principal para el web scraping -----------------------------
 	public void loadCircuits() {
 		log.info("------------ Cargando datos de los circuitos en la BD ----------------");
 		this.circuitRepository.deleteAll();
@@ -113,7 +140,7 @@ public class CircuitService {
 		
 	}
 	
-	public Circuit getCircuit(Document doc, String name) {
+	protected Circuit getCircuit(Document doc, String name) {
 		Circuit result;
 		String location, type, lapDistance;
 		Element div, tbody, tr, td;
@@ -146,20 +173,24 @@ public class CircuitService {
 		return result;
 	}
 	
-	public Circuit findByName(String name) {
+	protected Circuit save(Circuit circuit) {
+		Circuit result;
+		
+		result = this.circuitRepository.save(circuit);
+		
+		return result;
+	}
+	
+	protected void delete(String circuitId) {
+		this.circuitRepository.deleteById(circuitId);
+	}
+	
+	protected Circuit findByName(String name) {
 		Circuit result;
 		
 		result = this.circuitRepository.findByName(name);
 		
 		return result;
-	}
-	
-	public List<Circuit> findByType(String type) {
-		List<Circuit> results;
-		
-		results = this.circuitRepository.findByType(type);
-		
-		return results;
 	}
 	
 }

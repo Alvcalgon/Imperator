@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import org.jsoup.nodes.Document;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,30 +17,101 @@ import com.fone.api.FOne.domain.ConstructorStanding;
 @SpringBootTest
 public class ConstructorStandingServiceTest {
 
-	// Servicio bajo testeo --------------
+	// Servicio bajo testeo -------------------
 	@Autowired
 	private ConstructorStandingService contructorStandingService;
-	
-	@Autowired
-	private UtilityService utilityService;
-	
-	// Suite test
-	@Test
-	public void test_getConstructorStanding() {
-		String url;
-		String season;
-		Document document;
-		List<ConstructorStanding> constructorsStanding;
-		
-		season = "1958";
-		url = "https://www.formula1.com/en/results.html/1958/team.html";
 
-		document = this.utilityService.getDocument(url);
-		
-		constructorsStanding = this.contructorStandingService.getConstructorStanding(document, season);
-		
-		assertNotNull(constructorsStanding);
-		assertTrue(constructorsStanding.size() > 0);
+	// Suite test -----------------------------
+
+	// Test de UC-030
+	@Test
+	public void positiveTest_findBySeason() {
+		List<ConstructorStanding> standing;
+		String season;
+
+		season = "1966";
+		standing = this.contructorStandingService.findBySeasonAPI(season);
+
+		assertNotNull(standing);
+		assertTrue(standing.size() > 0);
 	}
-	
+
+	// Test de UC-030
+	@Test
+	public void negativeTest_findBySeason() {
+		List<ConstructorStanding> standing;
+		String season;
+
+		season = "1957";
+		standing = this.contructorStandingService.findBySeasonAPI(season);
+
+		assertNotNull(standing);
+		assertTrue(standing.size() == 0);
+	}
+
+	// Test de UC-031
+	@Test
+	public void positiveTest_findByPosition() {
+		List<ConstructorStanding> standing;
+		String position;
+
+		position = "10";
+		standing = this.contructorStandingService.findByPositionAPI(position);
+
+		assertNotNull(standing);
+		assertTrue(standing.size() > 0);
+	}
+
+	// Test de UC-031
+	@Test
+	public void negativeTest_findByPosition() {
+		List<ConstructorStanding> standing;
+		String position;
+
+		position = "40";
+		standing = this.contructorStandingService.findByPositionAPI(position);
+
+		assertNotNull(standing);
+		assertTrue(standing.size() == 0);
+	}
+
+	// Test de UC-032
+	@Test
+	public void positiveTestUno_findByConstructor() {
+		List<ConstructorStanding> standing;
+		String constructor;
+
+		constructor = "Renault";
+		standing = this.contructorStandingService.findByConstructorAPI(constructor);
+
+		assertNotNull(standing);
+		assertTrue(standing.size() > 0);
+	}
+
+	// Test de UC-032
+	@Test
+	public void positiveTestDos_findByConstructor() {
+		List<ConstructorStanding> standing;
+		String constructor;
+
+		constructor = "alfa romeo";
+		standing = this.contructorStandingService.findByConstructorAPI(constructor);
+
+		assertNotNull(standing);
+		assertTrue(standing.size() > 0);
+	}
+
+	// Test de UC-032
+	@Test
+	public void negativeTestUno_findByConstructor() {
+		List<ConstructorStanding> standing;
+		String constructor;
+
+		constructor = "Escuderia desconocida";
+		standing = this.contructorStandingService.findByConstructorAPI(constructor);
+
+		assertNotNull(standing);
+		assertTrue(standing.size() == 0);
+	}
+
 }

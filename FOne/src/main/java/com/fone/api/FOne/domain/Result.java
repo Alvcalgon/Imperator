@@ -141,10 +141,33 @@ public class Result {
 		this.constructor = constructor;
 	}
 	
+	@Override
+	public int hashCode() {
+		return this.resultId.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		boolean result;
+		
+		if (this == other) {
+			result = true;
+		} else if (other == null) {
+			result = false;
+		} else if (other instanceof String) {
+			result = (this.getResultId() == (String) other);
+		} else if (!this.getClass().isInstance(other)) {
+			result = false;
+		} else {
+			result = (this.getResultId() == ((Result) other).getResultId());
+		}
+		
+		return result;
+	}
 	
 	@Override
 	public String toString() {
-		return this.driver.getFullname() + " - " + this.position;
+		return "Result [id=" + this.resultId + ", driver=" + this.driver.getFullname() + ", constructor=" + this.getConstructor().getName() + ", position=" + this.position + "]";
 	}
 	
 }

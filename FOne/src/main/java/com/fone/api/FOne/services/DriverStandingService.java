@@ -45,22 +45,45 @@ public class DriverStandingService {
 	}
 	
 	
+	// UC-027
+	public List<DriverStanding> findBySeasonAPI(String season) {
+		List<DriverStanding> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.DESC, "points");
+		results = this.driverStandingRepository.findBySeasonAPI(season, sort);
+		
+		return results;
+	}
+	
+	// UC-028
+	public List<DriverStanding> findByPositionAPI(String position) {
+		List<DriverStanding> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "season");
+		results = this.driverStandingRepository.findByPositionAPI(position, sort);
+		
+		return results;
+	}
+	
+	// UC-029
+	public List<DriverStanding> findByDriverAPI(String driver) {
+		List<DriverStanding> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "season");
+		results = this.driverStandingRepository.findByDriverAPI(driver, sort);
+		
+		return results;
+	}
+	
 	public DriverStanding findOne(String driverStandingId) {
 		DriverStanding result;
 		
 		result = this.driverStandingRepository.findById(driverStandingId).get();
 		
 		return result;
-	}
-	
-	public List<DriverStanding> findBySeason(String season) {
-		List<DriverStanding> results;
-		Sort sort;
-		
-		sort = Sort.by(Direction.ASC, "position");
-		results = this.driverStandingRepository.findBySeason(season, sort);
-		
-		return results;
 	}
 	
 	public void saveDriver(String driverStandingId, String driverId) {
@@ -91,6 +114,7 @@ public class DriverStandingService {
 		this.driverStandingRepository.deleteAll();
 	}
 	
+	// Metodo principal para web scraping ------------------------
 	public void loadDriverStandings() {
 		log.info("------------------ Cargando Drivers standing -----------------------");
 		
@@ -127,7 +151,7 @@ public class DriverStandingService {
 		DriverStanding driverStanding;
 		
 		position = "0";
-		points = "";
+		points = "-1";
 		driver = null;
 		constructor = null;
 		
@@ -165,7 +189,7 @@ public class DriverStandingService {
 				}
 				
 				driverStanding = new DriverStanding(season,
-						points,
+						Integer.valueOf(points),
 						position,
 						driver,
 						constructor);
@@ -176,7 +200,7 @@ public class DriverStandingService {
 		} catch (Exception e) {
 			log.info("Datos parciales 2");
 			
-			driverStanding = new DriverStanding(season, points, position, driver, constructor);
+			driverStanding = new DriverStanding(season, Integer.valueOf(points), position, driver, constructor);
 			results.add(driverStanding);
 		}
 		

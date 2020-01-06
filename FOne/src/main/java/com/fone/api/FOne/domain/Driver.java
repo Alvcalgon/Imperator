@@ -98,8 +98,32 @@ public class Driver {
 	
 	
 	@Override
+	public int hashCode() {
+		return this.driverId.hashCode();
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		boolean result;
+		
+		if (this == other) {
+			result = true;
+		} else if (other == null) {
+			result = false;
+		} else if (other instanceof String) {
+			result = (this.getDriverId() == (String) other);
+		} else if (!this.getClass().isInstance(other)) {
+			result = false;
+		} else {
+			result = (this.getDriverId() == ((Driver) other).getDriverId());
+		}
+		
+		return result;
+	}
+	
+	@Override
 	public String toString() {
-		return "Driver's fullname: " + this.fullname;
+		return "Driver [id=" + this.driverId + ", fullname=" + this.fullname + ", country=" + this.country + "]";
 	}
 	
 }

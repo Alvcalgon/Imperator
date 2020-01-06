@@ -2,6 +2,7 @@ package com.fone.api.FOne.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,12 +16,12 @@ public interface ConstructorRepository extends MongoRepository<Constructor, Stri
 	@Query("{name: ?0}")
 	Constructor findByName(String name);
 	
-	@Query("{country: ?0}")
-	List<Constructor> findByCountry(String country);
-	
 	// Consultas usadas por la API
+	@Query("{country: {$regex: ?0, $options: 'i'}}")
+	List<Constructor> findByCountryAPI(String country, Sort sort);
+	
+	@Query("{name: {$regex: ?0, $options: 'i'}}")
+	List<Constructor> findByNameAPI(String name, Sort sort);
 	
 	// Ambas
-	@Query("{name: {$regex: ?0, $options: 'i'}}")
-	List<Constructor> findByName2(String name);
 }

@@ -22,8 +22,9 @@ public class DriverServiceTest extends AbstractTest {
 	@Autowired
 	private DriverService driverService;
 
-	
 	// Suite test -----------------------
+
+	// Test de UC-001
 	@Test
 	public void test_findAllAPI() {
 		List<Driver> drivers;
@@ -44,8 +45,9 @@ public class DriverServiceTest extends AbstractTest {
 		assertNotNull(driver);
 	}
 
+	// Test UC-005
 	@Test
-	public void positiveTest_findByFullnameAPI() {
+	public void positiveTestUno_findByFullnameAPI() {
 		List<Driver> drivers;
 		String fullname;
 
@@ -56,6 +58,46 @@ public class DriverServiceTest extends AbstractTest {
 		assertTrue(drivers.size() > 0);
 	}
 
+	// Test UC-005
+	@Test
+	public void positiveTestDos_findByFullnameAPI() {
+		List<Driver> drivers;
+		String fullname;
+
+		fullname = "Fernando";
+		drivers = this.driverService.findByFullnameAPI(fullname);
+
+		assertNotNull(drivers);
+		assertTrue(drivers.size() > 0);
+	}
+
+	// Test UC-005
+	@Test
+	public void positiveTestTres_findByFullnameAPI() {
+		List<Driver> drivers;
+		String fullname;
+
+		fullname = "Alonso";
+		drivers = this.driverService.findByFullnameAPI(fullname);
+
+		assertNotNull(drivers);
+		assertTrue(drivers.size() > 0);
+	}
+
+	// Test UC-005
+	@Test
+	public void positiveTestCuatro_findByFullnameAPI() {
+		List<Driver> drivers;
+		String fullname;
+
+		fullname = "FeRNAnDo AlOnSO";
+		drivers = this.driverService.findByFullnameAPI(fullname);
+
+		assertNotNull(drivers);
+		assertTrue(drivers.size() > 0);
+	}
+
+	// Test UC-005
 	@Test
 	public void negativeTest_findDriverByFullnameAPI() {
 		List<Driver> drivers;
@@ -68,8 +110,9 @@ public class DriverServiceTest extends AbstractTest {
 		assertTrue(drivers.size() == 0);
 	}
 
+	// Test UC-002
 	@Test
-	public void positiveTest_findByCountryAPI() {
+	public void positiveTestUno_findByCountryAPI() {
 		List<Driver> drivers;
 		String country;
 
@@ -80,6 +123,33 @@ public class DriverServiceTest extends AbstractTest {
 		assertTrue(drivers.size() > 0);
 	}
 
+	// Test UC-002
+	@Test
+	public void positiveTestDos_findByCountryAPI() {
+		List<Driver> drivers;
+		String country;
+
+		country = "spain";
+		drivers = this.driverService.findByCountryAPI(country);
+
+		assertNotNull(drivers);
+		assertTrue(drivers.size() > 0);
+	}
+
+	// Test UC-002
+	@Test
+	public void positiveTestTres_findByCountryAPI() {
+		List<Driver> drivers;
+		String country;
+
+		country = "SpAiN";
+		drivers = this.driverService.findByCountryAPI(country);
+
+		assertNotNull(drivers);
+		assertTrue(drivers.size() > 0);
+	}
+
+	// Test UC-002
 	@Test
 	public void negativeTest_findByCountryAPI() {
 		List<Driver> drivers;

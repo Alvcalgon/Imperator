@@ -11,6 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,39 @@ public class ConstructorStandingService {
 	
 	public ConstructorStandingService() {
 		super();
+	}
+	
+	// UC-030
+	public List<ConstructorStanding> findBySeasonAPI(String season) {
+		List<ConstructorStanding> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.DESC, "points");
+		results = this.constructorStandingRepository.findBySeasonAPI(season, sort);
+		
+		return results;
+	}
+	
+	// UC-031
+	public List<ConstructorStanding> findByPositionAPI(String position) {
+		List<ConstructorStanding> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "season");
+		results = this.constructorStandingRepository.findByPositionAPI(position, sort);
+		
+		return results;
+	}
+	
+	// UC-032
+	public List<ConstructorStanding> findByConstructorAPI(String constructor) {
+		List<ConstructorStanding> results;
+		Sort sort;
+		
+		sort = Sort.by(Direction.ASC, "season");
+		results = this.constructorStandingRepository.findByConstructorAPI(constructor, sort);
+		
+		return results;
 	}
 	
 	public List<ConstructorStanding> findAll() {
@@ -101,8 +136,8 @@ public class ConstructorStandingService {
 		Constructor constructor;
 		ConstructorStanding constructorStanding;
 		
-		position = "";
-		points = "";
+		position = "0";
+		points = "-1";
 		constructor = null;
 		
 		results = new ArrayList<ConstructorStanding>();
@@ -131,14 +166,14 @@ public class ConstructorStandingService {
 					td = tr.selectFirst("td.dark.bold");
 					points = td.text().trim();
 					
-					constructorStanding = new ConstructorStanding(season, position, points, constructor);
+					constructorStanding = new ConstructorStanding(season, position, Integer.valueOf(points), constructor);
 					results.add(constructorStanding);
 					
 					log.info("Constructor standing (" + season + "): " + position + " - " + points);
 				} catch (Exception ee) {
 					log.info("Datos parciales 1");
 					
-					constructorStanding = new ConstructorStanding(season, position, points, constructor);
+					constructorStanding = new ConstructorStanding(season, position, Integer.valueOf(points), constructor);
 					results.add(constructorStanding);
 				}
 				
