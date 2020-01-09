@@ -16,6 +16,9 @@ import org.apache.commons.logging.LogFactory;
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +36,21 @@ public class UtilityService {
 	
 	
 	// Metodos ------------------------------------
+	public Pageable getPageable(int limit, int offset, Sort sort) {
+		Pageable result;
+		
+		result = PageRequest.of(offset, limit, sort);
+		
+		return result;
+	}
+	
+	public Pageable getPageable(int limit, int offset) {
+		Pageable result;
+		
+		result = PageRequest.of(offset, limit);
+		
+		return result;
+	}
 	
 	// monthDay = "May 18" or monthDay = "18 May"
 	protected Date getDateByParameters(String season, String monthDay) {

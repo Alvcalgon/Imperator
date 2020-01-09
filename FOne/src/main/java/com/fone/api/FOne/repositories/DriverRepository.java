@@ -2,6 +2,8 @@ package com.fone.api.FOne.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -21,7 +23,7 @@ public interface DriverRepository extends MongoRepository<Driver, String>  {
 	List<Driver> findByFullnameAPI(String fullname, Sort sort);
 	
 	@Query("{country: {$regex: ?0, $options: 'i'}}")
-	List<Driver> findByCountryAPI(String country, Sort sort);
+	Page<Driver> findByCountryAPI(String country, Pageable pageable);
 
 	// Ambas -------------------------------------------------------
 

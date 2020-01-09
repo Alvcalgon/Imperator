@@ -10,6 +10,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -44,34 +46,28 @@ public class CircuitService {
 	}
 	
 	// UC-011
-	public List<Circuit> findAllAPI() {
-		List<Circuit> result;
-		Sort sort;
+	public Page<Circuit> findAllAPI(Pageable pageable) {
+		Page<Circuit> result;
 		
-		sort = Sort.by(Direction.ASC, "name");
-		result = this.circuitRepository.findAll(sort);
+		result = this.circuitRepository.findAll(pageable);
 		
 		return result;
 	}
 	
 	// UC-012
-	public List<Circuit> findByTypeAPI(String type) {
-		List<Circuit> results;
-		Sort sort;
+	public Page<Circuit> findByTypeAPI(String type, Pageable pageable) {
+		Page<Circuit> results;
 		
-		sort = Sort.by(Direction.ASC, "name");
-		results = this.circuitRepository.findByTypeAPI(type, sort);
+		results = this.circuitRepository.findByTypeAPI(type, pageable);
 		
 		return results;
 	}
 	
 	// UC-013
-	public List<Circuit> findByLocationAPI(String location) {
-		List<Circuit> results;
-		Sort sort;
+	public Page<Circuit> findByLocationAPI(String location, Pageable pageable) {
+		Page<Circuit> results;
 		
-		sort = Sort.by(Direction.ASC, "name");
-		results = this.circuitRepository.findByLocationAPI(location, sort);
+		results = this.circuitRepository.findByLocationAPI(location, pageable);
 		
 		return results;
 	}

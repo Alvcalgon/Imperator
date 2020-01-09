@@ -5,21 +5,31 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Constructor;
 import com.fone.api.FOne.services.ConstructorService;
 import com.fone.api.FOne.services.RaceService;
 import com.fone.api.FOne.services.ResultService;
+import com.fone.api.FOne.services.UtilityService;
 
 @RestController
 @RequestMapping("/constructor")
 public class ConstructorController {
 
+	private static final Log log = LogFactory.getLog(ConstructorController.class);
+	
 	@Autowired
 	private ConstructorService constructorService;
 	
@@ -29,19 +39,34 @@ public class ConstructorController {
 	@Autowired
 	private ResultService resultService;
 	
+	@Autowired
+	private UtilityService utilityService;
+	
 	public ConstructorController() {
 		super();
 	}
 	
 	// UC-006
 	@GetMapping(value = "/list")
-	public List<Constructor> findAllAPI() {
-		List<Constructor> results;
+	public Page<Constructor> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
+			   							@RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Constructor> results = null;
+		Sort sort;
+		Pageable pageable;
 		
 		try {
-			results = this.constructorService.findAllAPI();
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.constructorService.findAllAPI(pageable);
 		} catch (Exception e) {
-			results = new ArrayList<Constructor>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;
@@ -49,13 +74,28 @@ public class ConstructorController {
 	
 	// UC-007
 	@GetMapping(value = "/list/country/{country}")
-	public List<Constructor> findByCountryAPI(@PathVariable(required = true) String country) {
-		List<Constructor> results;
-
+	public Page<Constructor> findByCountryAPI(@PathVariable(required = true) String country,
+											  @RequestParam(defaultValue = "1", required = false) Integer offset,
+											  @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Constructor> results;
+		Sort sort;
+		Pageable pageable;
+		
+		
 		try {
-			results = this.constructorService.findByCountryAPI(country);
-		} catch (Exception e) {
-			results = new ArrayList<Constructor>();
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.constructorService.findByCountryAPI(country, pageable);
+		} catch (Exception e) {			
+			results = this.findAllAPI(offset, limit);
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 
 		return results;
@@ -70,6 +110,13 @@ public class ConstructorController {
 			results = this.raceService.findConstructorsBySeasonAPI(season);
 		} catch (Exception e) {
 			results = new HashSet<Constructor>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 
 		return results;
@@ -84,6 +131,13 @@ public class ConstructorController {
 			results = this.resultService.findConstructorsByDriverAPI(driver);
 		} catch (Exception e) {
 			results = new HashSet<Constructor>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;
@@ -98,6 +152,13 @@ public class ConstructorController {
 			results = this.constructorService.findByNameAPI(name);
 		} catch (Exception e) {
 			results = new ArrayList<Constructor>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;

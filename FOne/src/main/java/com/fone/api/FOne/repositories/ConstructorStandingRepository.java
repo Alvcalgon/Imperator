@@ -2,6 +2,8 @@ package com.fone.api.FOne.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -16,8 +18,8 @@ public interface ConstructorStandingRepository extends MongoRepository<Construct
 	List<ConstructorStanding> findBySeasonAPI(String season, Sort sort);
 	
 	@Query("{position: ?0}")
-	List<ConstructorStanding> findByPositionAPI(String position, Sort sort);
+	Page<ConstructorStanding> findByPositionAPI(String position, Pageable pageable);
 	
 	@Query("{\"constructor.name\": {$regex: ?0, $options: 'i'}}")
-	List<ConstructorStanding> findByConstructorAPI(String constructor, Sort sort);
+	Page<ConstructorStanding> findByConstructorAPI(String constructor, Pageable pageable);
 }

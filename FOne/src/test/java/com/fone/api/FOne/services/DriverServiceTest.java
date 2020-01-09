@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fone.api.FOne.domain.Driver;
@@ -22,16 +24,21 @@ public class DriverServiceTest extends AbstractTest {
 	@Autowired
 	private DriverService driverService;
 
+	@Autowired
+	private UtilityService utilityService;
+	
 	// Suite test -----------------------
 
 	// Test de UC-001
 	@Test
 	public void test_findAllAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		drivers = this.driverService.findAllAPI(pageable);
 
-		drivers = this.driverService.findAllAPI();
-
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	@Test
@@ -113,53 +120,61 @@ public class DriverServiceTest extends AbstractTest {
 	// Test UC-002
 	@Test
 	public void positiveTestUno_findByCountryAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String country;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "Spain";
-		drivers = this.driverService.findByCountryAPI(country);
+		drivers = this.driverService.findByCountryAPI(country, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	// Test UC-002
 	@Test
 	public void positiveTestDos_findByCountryAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String country;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "spain";
-		drivers = this.driverService.findByCountryAPI(country);
+		drivers = this.driverService.findByCountryAPI(country, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	// Test UC-002
 	@Test
 	public void positiveTestTres_findByCountryAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String country;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "SpAiN";
-		drivers = this.driverService.findByCountryAPI(country);
+		drivers = this.driverService.findByCountryAPI(country, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	// Test UC-002
 	@Test
 	public void negativeTest_findByCountryAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String country;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "Nombre completo erroneo";
-		drivers = this.driverService.findByCountryAPI(country);
+		drivers = this.driverService.findByCountryAPI(country, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() == 0);
+		assertTrue(!drivers.hasContent());
 	}
 
 }

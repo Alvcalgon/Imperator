@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fone.api.FOne.domain.Constructor;
@@ -22,68 +24,81 @@ public class ConstructorServiceTest extends AbstractTest {
 	@Autowired
 	private ConstructorService constructorService;
 
+	@Autowired
+	private UtilityService utilityService;
+	
 	// Suite test -------------------
 
 	// Test de UC-006
 	@Test
 	public void test_findAll() {
-		List<Constructor> all;
-
-		all = this.constructorService.findAllAPI();
+		Page<Constructor> all;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		all = this.constructorService.findAllAPI(pageable);
 
 		assertNotNull(all);
-		assertTrue(all.size() > 0);
+		assertTrue(all.hasContent());
 	}
 
 	// Test de UC-007
 	@Test
 	public void positiveTestUno_findByCountry() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String country;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "Italy";
-		constructors = this.constructorService.findByCountryAPI(country);
+		constructors = this.constructorService.findByCountryAPI(country, pageable);
 
 		assertNotNull(constructors);
-		assertTrue(constructors.size() > 0);
+		assertTrue(constructors.hasContent());
 	}
 
 	// Test de UC-007
 	@Test
 	public void positiveTestDos_findByCountry() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String country;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "ITALY";
-		constructors = this.constructorService.findByCountryAPI(country);
+		constructors = this.constructorService.findByCountryAPI(country, pageable);
 
 		assertNotNull(constructors);
-		assertTrue(constructors.size() > 0);
+		assertTrue(constructors.hasContent());
 	}
 
 	// Test de UC-007
 	@Test
 	public void positiveTestTres_findByCountry() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String country;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "ItAlY";
-		constructors = this.constructorService.findByCountryAPI(country);
+		constructors = this.constructorService.findByCountryAPI(country, pageable);
 
 		assertNotNull(constructors);
-		assertTrue(constructors.size() > 0);
+		assertTrue(constructors.hasContent());
 	}
 
 	@Test
 	public void negativeTest_findByCountry() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String country;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		country = "Pais erroneo";
-		constructors = this.constructorService.findByCountryAPI(country);
+		constructors = this.constructorService.findByCountryAPI(country, pageable);
 
 		assertNotNull(constructors);
-		assertNotNull(constructors.size() == 0);
+		assertNotNull(!constructors.hasContent());
 	}
 
 	// Test de UC-010

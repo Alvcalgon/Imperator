@@ -3,22 +3,35 @@ package com.fone.api.FOne.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Race;
 import com.fone.api.FOne.services.RaceService;
+import com.fone.api.FOne.services.UtilityService;
 
 @RestController
 @RequestMapping("/race")
 public class RaceController {
-
+	
+	private static final Log log = LogFactory.getLog(RaceController.class);
+	
 	@Autowired
 	private RaceService raceService;
 
+	@Autowired
+	private UtilityService utilityService;
+	
 	public RaceController() {
 		super();
 	}
@@ -32,6 +45,13 @@ public class RaceController {
 			results = this.raceService.findBySeasonAPI(season);
 		} catch (Exception e) {
 			results = new ArrayList<Race>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 
 		return results;
@@ -39,13 +59,27 @@ public class RaceController {
 
 	// UC-017
 	@GetMapping(value = "/list/circuit/{circuit}")
-	public List<Race> findByCircuitAPI(@PathVariable(required = true) String circuit) {
-		List<Race> results;
-
+	public Page<Race> findByCircuitAPI(@PathVariable(required = true) String circuit,
+									   @RequestParam(defaultValue = "0", required = false) Integer offset,
+									   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Race> results;
+		Pageable pageable;
+		Sort sort;
+		
 		try {
-			results = this.raceService.findByCircuitAPI(circuit);
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findByCircuitAPI(circuit, pageable);
 		} catch (Exception e) {
-			results = new ArrayList<Race>();
+			results = null;
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 
 		return results;
@@ -53,13 +87,27 @@ public class RaceController {
 
 	// UC-018
 	@GetMapping(value = "/list/driver/{driver}")
-	public List<Race> findByDriverAPI(@PathVariable(required = true) String driver) {
-		List<Race> results;
-
+	public Page<Race> findByDriverAPI(@PathVariable(required = true) String driver,
+									  @RequestParam(defaultValue = "0", required = false) Integer offset,
+									  @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Race> results;
+		Sort sort;
+		Pageable pageable;
+		
 		try {
-			results = this.raceService.findRacesByDriverAPI(driver);
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findRacesByDriverAPI(driver, pageable);
 		} catch (Exception e) {
-			results = new ArrayList<Race>();
+			results = null;
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 
 		return results;
@@ -67,13 +115,26 @@ public class RaceController {
 
 	// UC-019
 	@GetMapping(value = "/list/constructor/{constructor}")
-	public List<Race> findByConstructorAPI(@PathVariable(required = true) String constructor) {
-		List<Race> results;
-
+	public Page<Race> findByConstructorAPI(@PathVariable(required = true) String constructor,
+										   @RequestParam(defaultValue = "0", required = false) Integer offset,
+										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Race> results;
+		Sort sort;
+		Pageable pageable;
+		
 		try {
-			results = this.raceService.findRacesByConstructorAPI(constructor);
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findRacesByConstructorAPI(constructor, pageable);
 		} catch (Exception e) {
-			results = new ArrayList<Race>();
+			results = null;
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
 		}
 
 		return results;
@@ -81,14 +142,27 @@ public class RaceController {
 
 	// UC-020
 	@GetMapping(value = "/list/driver/{driver}/season/{season}")
-	public List<Race> findByDriverAndSeasonAPI(@PathVariable(required = true) String driver,
-											   @PathVariable(required = true) String season) {
-		List<Race> results;
-
+	public Page<Race> findByDriverAndSeasonAPI(@PathVariable(required = true) String driver,
+											   @PathVariable(required = true) String season,
+											   @RequestParam(defaultValue = "0", required = false) Integer offset,
+											   @RequestParam(defaultValue = "5", required = false) Integer limit) {
+		Page<Race> results;
+		Sort sort;
+		Pageable pageable;
+		
 		try {
-			results = this.raceService.findRacesByDriverAndSeasonAPI(driver, season);
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findRacesByDriverAndSeasonAPI(driver, season, pageable);
 		} catch (Exception e) {
-			results = new ArrayList<Race>();
+			results = null;
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
 		}
 
 		return results;
@@ -96,14 +170,27 @@ public class RaceController {
 	
 	// UC-021
 	@GetMapping(value = "/list/constructor/{constructor}/season/{season}")
-	public List<Race> findByConstructorAndSeasonAPI(@PathVariable(required = true) String constructor,
-													@PathVariable(required = true) String season) {
-		List<Race> results;
-
+	public Page<Race> findByConstructorAndSeasonAPI(@PathVariable(required = true) String constructor,
+													@PathVariable(required = true) String season,
+													@RequestParam(defaultValue = "0", required = false) Integer offset,
+													@RequestParam(defaultValue = "5", required = false) Integer limit) {
+		Page<Race> results;
+		Sort sort;
+		Pageable pageable;
+		
 		try {
-			results = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season);
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season, pageable);
 		} catch (Exception e) {
-			results = new ArrayList<Race>();
+			results = null;
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
 		}
 
 		return results;

@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fone.api.FOne.domain.DriverStanding;
@@ -22,6 +24,9 @@ public class DriverStandingServiceTest extends AbstractTest {
 	@Autowired
 	private DriverStandingService driverStandingService;
 
+	@Autowired
+	private UtilityService utilityService;
+	
 	// Suite test -------------------------------
 
 	// Test de UC-027
@@ -53,79 +58,91 @@ public class DriverStandingServiceTest extends AbstractTest {
 	// Test de UC-028
 	@Test
 	public void positiveTest_findByPositionAndDriver() {
-		List<DriverStanding> driversStanding;
+		Page<DriverStanding> driversStanding;
 		String position;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		position = "9";
-		driversStanding = this.driverStandingService.findByPositionAPI(position);
+		driversStanding = this.driverStandingService.findByPositionAPI(position, pageable);
 
 		assertNotNull(driversStanding);
-		assertTrue(driversStanding.size() > 0);
+		assertTrue(driversStanding.hasContent());
 	}
 
 	// Test de UC-028
 	@Test
 	public void negativeTest_findByPositionAndDriver() {
-		List<DriverStanding> driversStanding;
+		Page<DriverStanding> driversStanding;
 		String position;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		position = "50";
-		driversStanding = this.driverStandingService.findByPositionAPI(position);
+		driversStanding = this.driverStandingService.findByPositionAPI(position, pageable);
 
 		assertNotNull(driversStanding);
-		assertTrue(driversStanding.size() == 0);
+		assertTrue(!driversStanding.hasContent());
 	}
 
 	// Test de UC-029
 	@Test
 	public void positiveTestUno_findByDriver() {
-		List<DriverStanding> driversStanding;
+		Page<DriverStanding> driversStanding;
 		String driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		driver = "Niki Lauda";
-		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+		driversStanding = this.driverStandingService.findByDriverAPI(driver, pageable);
 
 		assertNotNull(driversStanding);
-		assertTrue(driversStanding.size() > 0);
+		assertTrue(driversStanding.hasContent());
 	}
 
 	// Test de UC-029
 	@Test
 	public void positiveTestDos_findByDriver() {
-		List<DriverStanding> driversStanding;
+		Page<DriverStanding> driversStanding;
 		String driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		driver = "pastor maldonado";
-		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+		driversStanding = this.driverStandingService.findByDriverAPI(driver, pageable);
 
 		assertNotNull(driversStanding);
-		assertTrue(driversStanding.size() > 0);
+		assertTrue(driversStanding.hasContent());
 	}
 
 	// Test de UC-029
 	@Test
 	public void positiveTestTres_findByDriver() {
-		List<DriverStanding> driversStanding;
+		Page<DriverStanding> driversStanding;
 		String driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		driver = "alonso";
-		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+		driversStanding = this.driverStandingService.findByDriverAPI(driver, pageable);
 
 		assertNotNull(driversStanding);
-		assertTrue(driversStanding.size() > 0);
+		assertTrue(driversStanding.hasContent());
 	}
 
 	// Test de UC-029
 	@Test
 	public void negativeTest_findByDriver() {
-		List<DriverStanding> driversStanding;
+		Page<DriverStanding> driversStanding;
 		String driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		driver = "Piloto desconocido";
-		driversStanding = this.driverStandingService.findByDriverAPI(driver);
+		driversStanding = this.driverStandingService.findByDriverAPI(driver, pageable);
 
 		assertNotNull(driversStanding);
-		assertTrue(driversStanding.size() == 0);
+		assertTrue(!driversStanding.hasContent());
 	}
 
 }

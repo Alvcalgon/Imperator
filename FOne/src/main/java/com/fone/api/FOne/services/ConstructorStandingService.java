@@ -11,6 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -52,23 +54,19 @@ public class ConstructorStandingService {
 	}
 	
 	// UC-031
-	public List<ConstructorStanding> findByPositionAPI(String position) {
-		List<ConstructorStanding> results;
-		Sort sort;
+	public Page<ConstructorStanding> findByPositionAPI(String position, Pageable pageable) {
+		Page<ConstructorStanding> results;
 		
-		sort = Sort.by(Direction.ASC, "season");
-		results = this.constructorStandingRepository.findByPositionAPI(position, sort);
+		results = this.constructorStandingRepository.findByPositionAPI(position, pageable);
 		
 		return results;
 	}
 	
 	// UC-032
-	public List<ConstructorStanding> findByConstructorAPI(String constructor) {
-		List<ConstructorStanding> results;
-		Sort sort;
+	public Page<ConstructorStanding> findByConstructorAPI(String constructor, Pageable pageable) {
+		Page<ConstructorStanding> results;
 		
-		sort = Sort.by(Direction.ASC, "season");
-		results = this.constructorStandingRepository.findByConstructorAPI(constructor, sort);
+		results = this.constructorStandingRepository.findByConstructorAPI(constructor, pageable);
 		
 		return results;
 	}

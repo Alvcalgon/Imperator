@@ -2,6 +2,8 @@ package com.fone.api.FOne.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,14 +21,14 @@ public interface ResultRepository extends MongoRepository<Result, String> {
 	List<Result> findConstructorsByDriverAPI(String driverFullname);
 
 	@Query("{\"driver.fullname\": {$regex: ?0, $options: 'i'}, position: ?1}")
-	List<Result> findResultsByPositionAndDriverAPI(String driverFullname, String position);
+	Page<Result> findResultsByPositionAndDriverAPI(String driverFullname, String position, Pageable pageable);
 
 	@Query("{\"driver.fullname\": {$regex: ?0, $options: 'i'}, grid: ?1}")
-	List<Result> findResultsByGridAndDriverAPI(String driverFullname, String grid);
+	Page<Result> findResultsByGridAndDriverAPI(String driverFullname, String grid, Pageable pageable);
 
 	@Query("{\"constructor.name\": {$regex: ?0, $options: 'i'}, position: ?1}")
-	List<Result> findResultsByPositionAndConstructorAPI(String constructorName, String position);
+	Page<Result> findResultsByPositionAndConstructorAPI(String constructorName, String position, Pageable pageable);
 
 	@Query("{\"constructor.name\": {$regex: ?0, $options: 'i'}, grid: ?1}")
-	List<Result> findResultsByGridAndConstructorAPI(String constructorName, String grid);
+	Page<Result> findResultsByGridAndConstructorAPI(String constructorName, String grid, Pageable pageable);
 }

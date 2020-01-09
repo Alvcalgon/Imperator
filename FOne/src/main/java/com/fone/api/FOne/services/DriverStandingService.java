@@ -11,6 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -57,23 +59,19 @@ public class DriverStandingService {
 	}
 	
 	// UC-028
-	public List<DriverStanding> findByPositionAPI(String position) {
-		List<DriverStanding> results;
-		Sort sort;
+	public Page<DriverStanding> findByPositionAPI(String position, Pageable pageable) {
+		Page<DriverStanding> results;
 		
-		sort = Sort.by(Direction.ASC, "season");
-		results = this.driverStandingRepository.findByPositionAPI(position, sort);
+		results = this.driverStandingRepository.findByPositionAPI(position, pageable);
 		
 		return results;
 	}
 	
 	// UC-029
-	public List<DriverStanding> findByDriverAPI(String driver) {
-		List<DriverStanding> results;
-		Sort sort;
+	public Page<DriverStanding> findByDriverAPI(String driver, Pageable pageable) {
+		Page<DriverStanding> results;
 		
-		sort = Sort.by(Direction.ASC, "season");
-		results = this.driverStandingRepository.findByDriverAPI(driver, sort);
+		results = this.driverStandingRepository.findByDriverAPI(driver, pageable);
 		
 		return results;
 	}

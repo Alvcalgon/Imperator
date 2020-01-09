@@ -13,6 +13,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,37 +97,37 @@ public class ResultService {
 	}
 	
 	// UC-023
-	public List<Result> findResultsByPositionAndDriverAPI(String driverFullname, String position) {
-		List<Result> results;
+	public Page<Result> findResultsByPositionAndDriverAPI(String driverFullname, String position, Pageable pageable) {
+		Page<Result> results;
 		
-		results = this.resultRepository.findResultsByPositionAndDriverAPI(driverFullname, position);
+		results = this.resultRepository.findResultsByPositionAndDriverAPI(driverFullname, position, pageable);
 		
 		return results;
 	}
 	
 	// UC-024
-	public List<Result> findResultsByGridAndDriverAPI(String driverFullname, String grid) {
-		List<Result> results;
+	public Page<Result> findResultsByGridAndDriverAPI(String driverFullname, String grid, Pageable pageable) {
+		Page<Result> results;
 		
-		results = this.resultRepository.findResultsByGridAndDriverAPI(driverFullname, grid);
+		results = this.resultRepository.findResultsByGridAndDriverAPI(driverFullname, grid, pageable);
 		
 		return results;
 	}
 	
 	// UC-025
-	public List<Result> findResultsByPositionAndConstructorAPI(String constructorName, String position) {
-		List<Result> results;
+	public Page<Result> findResultsByPositionAndConstructorAPI(String constructorName, String position, Pageable pageable) {
+		Page<Result> results;
 		
-		results = this.resultRepository.findResultsByPositionAndConstructorAPI(constructorName, position);
+		results = this.resultRepository.findResultsByPositionAndConstructorAPI(constructorName, position, pageable);
 		
 		return results;
 	}
 	
 	// UC-026
-	public List<Result> findResultsByGridAndConstructorAPI(String constructorName, String grid) {
-		List<Result> results;
+	public Page<Result> findResultsByGridAndConstructorAPI(String constructorName, String grid, Pageable pageable) {
+		Page<Result> results;
 		
-		results = this.resultRepository.findResultsByGridAndConstructorAPI(constructorName, grid);
+		results = this.resultRepository.findResultsByGridAndConstructorAPI(constructorName, grid, pageable);
 		
 		return results;
 	}

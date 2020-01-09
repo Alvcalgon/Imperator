@@ -3,25 +3,38 @@ package com.fone.api.FOne.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Circuit;
 import com.fone.api.FOne.services.CircuitService;
 import com.fone.api.FOne.services.RaceService;
+import com.fone.api.FOne.services.UtilityService;
 
 @RestController
 @RequestMapping("/circuit")
 public class CircuitController {
 
+	private static final Log log = LogFactory.getLog(CircuitController.class);
+	
 	@Autowired
 	private CircuitService circuitService;
 	
 	@Autowired
 	private RaceService raceService;
+	
+	@Autowired
+	private UtilityService utilityService;
 	
 	public CircuitController() {
 		super();
@@ -29,13 +42,25 @@ public class CircuitController {
 	
 	// UC-011
 	@GetMapping(value = "/list")
-	public List<Circuit> findAllAPI() {
-		List<Circuit> results;
+	public Page<Circuit> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
+			   						@RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results = null;
+		Pageable pageable;
+		Sort sort;
 		
 		try {
-			results = this.circuitService.findAllAPI();
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findAllAPI(pageable);
 		} catch (Exception e) {
-			results = new ArrayList<Circuit>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;
@@ -43,13 +68,27 @@ public class CircuitController {
 	
 	// UC-012
 	@GetMapping(value = "/list/type/{type}")
-	public List<Circuit> findByType(@PathVariable(required = true) String type) {
-		List<Circuit> results;
+	public Page<Circuit> findByType(@PathVariable(required = true) String type,
+									@RequestParam(defaultValue = "0", required = false) Integer offset,
+									@RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results;
+		Pageable pageable;
+		Sort sort;
 		
 		try {
-			results = this.circuitService.findByTypeAPI(type);
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findByTypeAPI(type, pageable);
 		} catch (Exception e) {
-			results = this.findAllAPI();
+			results = this.findAllAPI(offset, limit);
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;
@@ -57,13 +96,27 @@ public class CircuitController {
 	
 	// UC-013
 	@GetMapping(value = "/list/location/{location}")
-	public List<Circuit> findByLocation(@PathVariable(required = true) String location) {
-		List<Circuit> results;
+	public Page<Circuit> findByLocation(@PathVariable(required = true) String location,
+										@RequestParam(defaultValue = "0", required = false) Integer offset,
+										@RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results;
+		Pageable pageable;
+		Sort sort;
 		
 		try {
-			results = this.circuitService.findByLocationAPI(location);
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findByLocationAPI(location, pageable);
 		} catch (Exception e) {
-			results = this.findAllAPI();
+			results = this.findAllAPI(offset, limit);
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;
@@ -77,7 +130,14 @@ public class CircuitController {
 		try {
 			results = this.raceService.findCircuitsBySeasonAPI(season);
 		} catch (Exception e) {
-			results = this.findAllAPI();
+			results = new ArrayList<Circuit>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;
@@ -91,7 +151,14 @@ public class CircuitController {
 		try {
 			results = this.circuitService.findByNameAPI(name);
 		} catch (Exception e) {
-			results = this.findAllAPI();
+			results = new ArrayList<Circuit>();
+			
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
 		}
 		
 		return results;

@@ -2,6 +2,8 @@ package com.fone.api.FOne.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -18,10 +20,10 @@ public interface CircuitRepository extends MongoRepository<Circuit, String> {
 	
 	// Consultas disponibles en la API ------------------------
 	@Query("{type: {$regex: ?0, $options: 'i'}}")
-	List<Circuit> findByTypeAPI(String type, Sort sort);
+	Page<Circuit> findByTypeAPI(String type, Pageable pageable);
 	
 	@Query("{location: {$regex: ?0, $options: 'i'}}")
-	List<Circuit> findByLocationAPI(String location, Sort sort);
+	Page<Circuit> findByLocationAPI(String location, Pageable pageable);
 	
 	@Query("{name: {$regex: ?0, $options: 'i'}}")
 	List<Circuit> findByNameAPI(String name, Sort sort);

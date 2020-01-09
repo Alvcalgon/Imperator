@@ -14,6 +14,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -133,56 +135,46 @@ public class RaceService {
 	}
 	
 	// UC-017
-	public List<Race> findByCircuitAPI(String circuitName) {
-		List<Race> results;
-		Sort sort;
-
-		sort = Sort.by(Direction.ASC, "raceDate");
-		results = this.raceRepository.findByCircuitAPI(circuitName, sort);
+	public Page<Race> findByCircuitAPI(String circuitName, Pageable pageable) {
+		Page<Race> results;
+		
+		results = this.raceRepository.findByCircuitAPI(circuitName, pageable);
 
 		return results;
 	}
 
 	// UC-018
-	public List<Race> findRacesByDriverAPI(String driverFullname) {
-		List<Race> results;
-		Sort sort;
-
-		sort = Sort.by(Direction.ASC, "raceDate");
-		results = this.raceRepository.findRacesByDriverAPI(driverFullname, sort);
+	public Page<Race> findRacesByDriverAPI(String driverFullname, Pageable pageable) {
+		Page<Race> results;
+		
+		results = this.raceRepository.findRacesByDriverAPI(driverFullname, pageable);
 		
 		return results;
 	}
 	
 	// UC-019
-	public List<Race> findRacesByConstructorAPI(String constructorName) {
-		List<Race> results;
-		Sort sort;
+	public Page<Race> findRacesByConstructorAPI(String constructorName, Pageable pageable) {
+		Page<Race> results;
 
-		sort = Sort.by(Direction.ASC, "raceDate");
-		results = this.raceRepository.findRacesByConstructorAPI(constructorName, sort);
+		results = this.raceRepository.findRacesByConstructorAPI(constructorName, pageable);
 		
 		return results;
 	}
 	
 	// UC-020
-	public List<Race> findRacesByDriverAndSeasonAPI(String driverFullname, String season) {
-		List<Race> results;
-		Sort sort;
+	public Page<Race> findRacesByDriverAndSeasonAPI(String driverFullname, String season, Pageable pageable) {
+		Page<Race> results;
 
-		sort = Sort.by(Direction.ASC, "raceDate");
-		results = this.raceRepository.findRacesByDriverAndSeasonAPI(driverFullname, season, sort);
+		results = this.raceRepository.findRacesByDriverAndSeasonAPI(driverFullname, season, pageable);
 		
 		return results;
 	}
 	
 	// UC-021
-	public List<Race> findRacesByConstructorAndSeasonAPI(String constructorName, String season) {
-		List<Race> results;
-		Sort sort;
-
-		sort = Sort.by(Direction.ASC, "raceDate");
-		results = this.raceRepository.findRacesByConstructorAndSeasonAPI(constructorName, season, sort);
+	public Page<Race> findRacesByConstructorAndSeasonAPI(String constructorName, String season, Pageable pageable) {
+		Page<Race> results;
+		
+		results = this.raceRepository.findRacesByConstructorAndSeasonAPI(constructorName, season, pageable);
 		
 		return results;
 	}

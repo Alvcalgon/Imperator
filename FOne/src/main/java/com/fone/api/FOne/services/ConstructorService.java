@@ -10,6 +10,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -45,23 +47,19 @@ public class ConstructorService {
 	}
 	
 	// UC-006
-	public List<Constructor> findAllAPI() {
-		List<Constructor> results;
-		Sort sort;
+	public Page<Constructor> findAllAPI(Pageable pageable) {
+		Page<Constructor> results;
 		
-		sort = Sort.by(Direction.ASC, "name");
-		results = this.constructorRepository.findAll(sort);
+		results = this.constructorRepository.findAll(pageable);
 		
 		return results;
  	}
 	
 	// UC-007
-	public List<Constructor> findByCountryAPI(String country) {
-		List<Constructor> results;
-		Sort sort;
+	public Page<Constructor> findByCountryAPI(String country, Pageable pageable) {
+		Page<Constructor> results;
 		
-		sort = Sort.by(Direction.ASC, "name");
-		results = this.constructorRepository.findByCountryAPI(country, sort);
+		results = this.constructorRepository.findByCountryAPI(country, pageable);
 		
 		return results;
 	}

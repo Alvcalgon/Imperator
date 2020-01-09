@@ -2,6 +2,8 @@ package com.fone.api.FOne.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -16,8 +18,8 @@ public interface DriverStandingRepository extends MongoRepository<DriverStanding
 	List<DriverStanding> findBySeasonAPI(String season, Sort sort);
 	
 	@Query("{position: ?0}")
-	List<DriverStanding> findByPositionAPI(String position, Sort sort);
+	Page<DriverStanding> findByPositionAPI(String position, Pageable pageable);
 	
 	@Query("{\"driver.fullname\": {$regex: ?0, $options: 'i'}}")
-	List<DriverStanding> findByDriverAPI(String driver, Sort sort);
+	Page<DriverStanding> findByDriverAPI(String driver, Pageable pageable);
 }

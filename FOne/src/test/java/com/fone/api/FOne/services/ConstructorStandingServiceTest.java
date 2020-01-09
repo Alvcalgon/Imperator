@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fone.api.FOne.domain.ConstructorStanding;
@@ -21,6 +23,9 @@ public class ConstructorStandingServiceTest {
 	@Autowired
 	private ConstructorStandingService contructorStandingService;
 
+	@Autowired
+	private UtilityService utilityService;
+	
 	// Suite test -----------------------------
 
 	// Test de UC-030
@@ -52,66 +57,76 @@ public class ConstructorStandingServiceTest {
 	// Test de UC-031
 	@Test
 	public void positiveTest_findByPosition() {
-		List<ConstructorStanding> standing;
+		Page<ConstructorStanding> standing;
 		String position;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		position = "10";
-		standing = this.contructorStandingService.findByPositionAPI(position);
+		standing = this.contructorStandingService.findByPositionAPI(position, pageable);
 
 		assertNotNull(standing);
-		assertTrue(standing.size() > 0);
+		assertTrue(standing.hasContent());
 	}
 
 	// Test de UC-031
 	@Test
 	public void negativeTest_findByPosition() {
-		List<ConstructorStanding> standing;
+		Page<ConstructorStanding> standing;
 		String position;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		position = "40";
-		standing = this.contructorStandingService.findByPositionAPI(position);
+		standing = this.contructorStandingService.findByPositionAPI(position, pageable);
 
 		assertNotNull(standing);
-		assertTrue(standing.size() == 0);
+		assertTrue(!standing.hasContent());
 	}
 
 	// Test de UC-032
 	@Test
 	public void positiveTestUno_findByConstructor() {
-		List<ConstructorStanding> standing;
+		Page<ConstructorStanding> standing;
 		String constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		constructor = "Renault";
-		standing = this.contructorStandingService.findByConstructorAPI(constructor);
+		standing = this.contructorStandingService.findByConstructorAPI(constructor, pageable);
 
 		assertNotNull(standing);
-		assertTrue(standing.size() > 0);
+		assertTrue(standing.hasContent());
 	}
 
 	// Test de UC-032
 	@Test
 	public void positiveTestDos_findByConstructor() {
-		List<ConstructorStanding> standing;
+		Page<ConstructorStanding> standing;
 		String constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		constructor = "alfa romeo";
-		standing = this.contructorStandingService.findByConstructorAPI(constructor);
+		standing = this.contructorStandingService.findByConstructorAPI(constructor, pageable);
 
 		assertNotNull(standing);
-		assertTrue(standing.size() > 0);
+		assertTrue(standing.hasContent());
 	}
 
 	// Test de UC-032
 	@Test
 	public void negativeTestUno_findByConstructor() {
-		List<ConstructorStanding> standing;
+		Page<ConstructorStanding> standing;
 		String constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		constructor = "Escuderia desconocida";
-		standing = this.contructorStandingService.findByConstructorAPI(constructor);
+		standing = this.contructorStandingService.findByConstructorAPI(constructor, pageable);
 
 		assertNotNull(standing);
-		assertTrue(standing.size() == 0);
+		assertTrue(!standing.hasContent());
 	}
 
 }

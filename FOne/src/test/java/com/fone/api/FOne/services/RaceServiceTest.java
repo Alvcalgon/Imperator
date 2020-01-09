@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.fone.api.FOne.domain.Circuit;
@@ -26,6 +28,9 @@ public class RaceServiceTest extends AbstractTest {
 	@Autowired
 	private RaceService raceService;
 
+	@Autowired
+	private UtilityService utilityService;
+	
 	// Test suite -------------------
 
 	// Test de UC-003
@@ -136,208 +141,238 @@ public class RaceServiceTest extends AbstractTest {
 	// Test de UC-017
 	@Test
 	public void positiveTestUno_findByCircuit() {
-		List<Race> races;
+		Page<Race> races;
 		String circuitName;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		circuitName = "Spa";
-		races = this.raceService.findByCircuitAPI(circuitName);
+		races = this.raceService.findByCircuitAPI(circuitName, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-017
 	@Test
 	public void positiveTestDos_findByCircuit() {
-		List<Race> races;
+		Page<Race> races;
 		String circuitName;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		circuitName = "adelaide";
-		races = this.raceService.findByCircuitAPI(circuitName);
+		races = this.raceService.findByCircuitAPI(circuitName, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-017
 	@Test
 	public void negativeTest_findByCircuit() {
-		List<Race> races;
+		Page<Race> races;
 		String circuitName;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		circuitName = "Circuito incorrecto";
-		races = this.raceService.findByCircuitAPI(circuitName);
+		races = this.raceService.findByCircuitAPI(circuitName, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() == 0);
+		assertTrue(!races.hasContent());
 	}
 
 	// Test de UC-018
 	@Test
 	public void positiveTestUno_findRacesByDriver() {
-		List<Race> races;
+		Page<Race> races;
 		String driver;
+		Pageable pageable;
 
-		driver = "Carlos Sainz";
-		races = this.raceService.findRacesByDriverAPI(driver);
+		pageable = this.utilityService.getPageable(10, 0);
+		driver = "Carlos Sainz Jr.";
+		races = this.raceService.findRacesByDriverAPI(driver, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-018
 	@Test
 	public void positiveTestDos_findRacesByDriver() {
-		List<Race> races;
+		Page<Race> races;
 		String driver;
+		Pageable pageable;
 
-		driver = "lewis hamilton";
-		races = this.raceService.findRacesByDriverAPI(driver);
+		pageable = this.utilityService.getPageable(10, 0);
+		driver = "Lewis Hamilton";
+		races = this.raceService.findRacesByDriverAPI(driver, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-018
 	@Test
 	public void negativeTest_findRacesByDriver() {
-		List<Race> races;
+		Page<Race> races;
 		String driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		driver = "Piloto desconocido";
-		races = this.raceService.findRacesByDriverAPI(driver);
+		races = this.raceService.findRacesByDriverAPI(driver, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() == 0);
+		assertTrue(!races.hasContent());
 	}
 
 	// Test de UC-019
 	@Test
 	public void positiveTestUno_findRacesByConstructor() {
-		List<Race> races;
+		Page<Race> races;
 		String constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		constructor = "Renault";
-		races = this.raceService.findRacesByConstructorAPI(constructor);
+		races = this.raceService.findRacesByConstructorAPI(constructor, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-019
 	@Test
 	public void positiveTestDos_findRacesByConstructor() {
-		List<Race> races;
+		Page<Race> races;
 		String constructor;
+		Pageable pageable;
 
-		constructor = "vanwall";
-		races = this.raceService.findRacesByConstructorAPI(constructor);
+		pageable = this.utilityService.getPageable(10, 0);
+		constructor = "Vanwall";
+		races = this.raceService.findRacesByConstructorAPI(constructor, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-019
 	@Test
 	public void negativeTest_findRacesByConstructor() {
-		List<Race> races;
+		Page<Race> races;
 		String constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		constructor = "Escuderia incorrecta";
-		races = this.raceService.findRacesByConstructorAPI(constructor);
+		races = this.raceService.findRacesByConstructorAPI(constructor, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() == 0);
+		assertTrue(!races.hasContent());
 	}
 
 	// Test de UC-020
 	@Test
 	public void positiveTestUno_findRacesByDriverAndSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season, driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		season = "2018";
 		driver = "Carlos Sainz";
 
-		races = this.raceService.findRacesByDriverAndSeasonAPI(driver, season);
+		races = this.raceService.findRacesByDriverAndSeasonAPI(driver, season, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-020
 	@Test
 	public void positiveTestDos_findRacesByDriverAndSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season, driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		season = "2013";
 		driver = "vettel";
 
-		races = this.raceService.findRacesByDriverAndSeasonAPI(driver, season);
+		races = this.raceService.findRacesByDriverAndSeasonAPI(driver, season, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-020
 	@Test
 	public void negativeTest_findRacesByDriverAndSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season, driver;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		season = "1951";
 		driver = "Carlos Sainz";
 
-		races = this.raceService.findRacesByDriverAndSeasonAPI(driver, season);
+		races = this.raceService.findRacesByDriverAndSeasonAPI(driver, season, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() == 0);
+		assertTrue(!races.hasContent());
 	}
 
 	// Test de UC-021
 	@Test
 	public void positiveTestUno_findRacesByConstructorAndSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season, constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		season = "2011";
 		constructor = "Ferrari";
 
-		races = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season);
+		races = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-021
 	@Test
 	public void positiveTestDos_findRacesByConstructorAndSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season, constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		season = "2015";
 		constructor = "mercedes";
 
-		races = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season);
+		races = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-021
 	@Test
 	public void negativeTest_findRacesByConstructorAndSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season, constructor;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		season = "1950";
 		constructor = "brawn";
 
-		races = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season);
+		races = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season, pageable);
 
 		assertNotNull(races);
-		assertTrue(races.size() == 0);
+		assertTrue(!races.hasContent());
 	}
 
 	// Test de UC-022

@@ -11,6 +11,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -42,23 +44,19 @@ public class DriverService {
 	}
 	
 	// UC-001
-	public List<Driver> findAllAPI() {
-		List<Driver> resultados;
-		Sort sort;
+	public Page<Driver> findAllAPI(Pageable pageable) {
+		Page<Driver> resultados;
 		
-		sort = Sort.by(Direction.ASC, "dateOfBirth");
-		resultados = this.driverRepository.findAll(sort);
+		resultados = this.driverRepository.findAll(pageable);
 		
 		return resultados;
 	}
 	
 	// UC-002
-	public List<Driver> findByCountryAPI(String country) {
-		List<Driver> results;
-		Sort sort;
+	public Page<Driver> findByCountryAPI(String country, Pageable pageable) {
+		Page<Driver> results;
 		
-		sort = Sort.by(Direction.ASC, "dateOfBirth");
-		results = this.driverRepository.findByCountryAPI(country, sort);
+		results = this.driverRepository.findByCountryAPI(country, pageable);
 		
 		return results;
 	}
