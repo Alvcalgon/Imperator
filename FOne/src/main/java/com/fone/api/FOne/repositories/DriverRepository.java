@@ -22,7 +22,7 @@ public interface DriverRepository extends MongoRepository<Driver, String>  {
 	@Query("{fullname: {$regex: ?0, $options: 'i'}}")
 	List<Driver> findByFullnameAPI(String fullname, Sort sort);
 	
-	@Query("{country: {$regex: ?0, $options: 'i'}}")
+	@Query(value = "{country: {$regex: ?0, $options: 'i'}}")
 	Page<Driver> findByCountryAPI(String country, Pageable pageable);
 
 	// Ambas -------------------------------------------------------

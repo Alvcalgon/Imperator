@@ -11,12 +11,12 @@ public class LoadDatabase implements CommandLineRunner {
 	private static final Log log = LogFactory.getLog(LoadDatabase.class);
 
 	private static final boolean MODE = true;
-	
+
 	@Override
 	public void run(String... args) throws Exception {
 
-		if (MODE) {
-			log.info("Condicion verdadera");
+		if (MODE) {			
+			log.info("condicion verdadera");
 		} else {
 			log.info("condicion falsa");
 		}

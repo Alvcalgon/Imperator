@@ -358,4 +358,12 @@ public class RaceService {
 		return results;
 	}
 
+	public Race save(Race race) {
+		Race result;
+		
+		result = this.raceRepository.save(race);
+		
+		return result;
+	}
+	
 }

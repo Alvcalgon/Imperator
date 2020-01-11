@@ -9,6 +9,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document(collection = "Result")
 public class Result {
 
@@ -62,6 +64,7 @@ public class Result {
 
 	
 	// Getters y setters -----------------------------
+	@JsonIgnore
 	public String getResultId() {
 		return resultId;
 	}

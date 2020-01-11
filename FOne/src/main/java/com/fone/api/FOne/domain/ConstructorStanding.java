@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document(collection = "ConstructorStanding")
 public class ConstructorStanding {
 
@@ -42,6 +44,7 @@ public class ConstructorStanding {
 	}
 
 	// Getters y setters
+	@JsonIgnore
 	public String getConstructorStandingId() {
 		return constructorStandingId;
 	}

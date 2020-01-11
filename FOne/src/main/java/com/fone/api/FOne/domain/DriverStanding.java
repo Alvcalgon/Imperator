@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Document(collection = "DriverStanding")
 public class DriverStanding {
 
@@ -45,6 +47,7 @@ public class DriverStanding {
 
 	
 	// Getter y setters -------------------
+	@JsonIgnore
 	public String getDriverStandingId() {
 		return driverStandingId;
 	}
