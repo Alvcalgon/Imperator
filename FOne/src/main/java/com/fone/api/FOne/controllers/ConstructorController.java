@@ -1,7 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Constructor;
+import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.ConstructorService;
 import com.fone.api.FOne.services.RaceService;
 import com.fone.api.FOne.services.ResultService;
@@ -50,7 +49,7 @@ public class ConstructorController {
 	@GetMapping(value = "/list")
 	public Page<Constructor> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
 			   							@RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Constructor> results = null;
+		Page<Constructor> results;
 		Sort sort;
 		Pageable pageable;
 		
@@ -60,13 +59,13 @@ public class ConstructorController {
 			
 			results = this.constructorService.findAllAPI(pageable);
 		} catch (Exception e) {
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve constructors list", e);
 		}
 		
 		return results;
@@ -81,7 +80,6 @@ public class ConstructorController {
 		Sort sort;
 		Pageable pageable;
 		
-		
 		try {
 			sort = Sort.by(Direction.ASC, "name");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
@@ -95,7 +93,8 @@ public class ConstructorController {
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
-			
+		
+			throw new ApiRequestException("It cannot retrieve constructors list by country", e);
 		}
 
 		return results;
@@ -109,14 +108,13 @@ public class ConstructorController {
 		try {
 			results = this.raceService.findConstructorsBySeasonAPI(season);
 		} catch (Exception e) {
-			results = new HashSet<Constructor>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve constructors list by season", e);
 		}
 
 		return results;
@@ -130,14 +128,13 @@ public class ConstructorController {
 		try {
 			results = this.resultService.findConstructorsByDriverAPI(driver);
 		} catch (Exception e) {
-			results = new HashSet<Constructor>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve constructors list by driver", e);
 		}
 		
 		return results;
@@ -151,14 +148,13 @@ public class ConstructorController {
 		try {
 			results = this.constructorService.findByNameAPI(name);
 		} catch (Exception e) {
-			results = new ArrayList<Constructor>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve a constructor", e);
 		}
 		
 		return results;

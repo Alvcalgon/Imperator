@@ -1,7 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Driver;
+import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.DriverService;
 import com.fone.api.FOne.services.RaceService;
 import com.fone.api.FOne.services.ResultService;
@@ -60,13 +59,13 @@ public class DriverController {
 			
 			results = this.driverService.findAllAPI(pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
+			
+			throw new ApiRequestException("It cannot retrieve drivers list", e);
 		}
 
 		return results;
@@ -88,14 +87,13 @@ public class DriverController {
 			
 			results = this.driverService.findByCountryAPI(country, pageable);
 		} catch (Exception e) {
-			results = this.findAllAPI(offset, limit);
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve drivers list by country", e);
 		}
 
 		return results;
@@ -109,14 +107,13 @@ public class DriverController {
 		try {
 			results = this.raceService.findDriversBySeasonAPI(season);
 		} catch (Exception e) {
-			results = new HashSet<Driver>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve drivers list by season", e);
 		}
 
 		return results;
@@ -130,14 +127,13 @@ public class DriverController {
 		try {
 			results = this.resultService.findDriversByConstructorAPI(constructor);
 		} catch (Exception e) {
-			results = new HashSet<Driver>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve drivers list by constructor", e);
 		}
 
 		return results;
@@ -151,14 +147,13 @@ public class DriverController {
 		try {
 			results = this.driverService.findByFullnameAPI(fullname);
 		} catch (Exception e) {
-			results = new ArrayList<Driver>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve the request driver", e);
 		}
 
 		return results;

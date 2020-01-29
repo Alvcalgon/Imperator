@@ -14,6 +14,10 @@ import com.fone.api.FOne.domain.Race;
 @Repository
 public interface RaceRepository extends MongoRepository<Race, String> {
 
+	// Consultas internas del sistema ---------------------------
+	@Query(value = "{season: ?0}", fields = "{results:1}")
+	List<Race> findBySeason(String season);
+	
 	// Consultas disponibles en la API ---------------------------
 	@Query("{\"circuit.name\": {$regex: ?0, $options: 'i'}}")
 	Page<Race> findByCircuitAPI(String name, Pageable pageable);
@@ -35,4 +39,7 @@ public interface RaceRepository extends MongoRepository<Race, String> {
 	
 	@Query("{season: ?1, event: {$regex: ?0, $options: 'i'}}")
 	List<Race> findRaceBySeasonAndEventAPI(String event, String season, Sort sort);
+	
+	// Ambas ---------------------------
+	
 }

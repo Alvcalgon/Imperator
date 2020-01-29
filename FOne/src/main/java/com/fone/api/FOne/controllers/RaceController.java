@@ -1,6 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Race;
+import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.RaceService;
 import com.fone.api.FOne.services.UtilityService;
 
@@ -44,14 +44,13 @@ public class RaceController {
 		try {
 			results = this.raceService.findBySeasonAPI(season);
 		} catch (Exception e) {
-			results = new ArrayList<Race>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve races list by season", e);
 		}
 
 		return results;
@@ -72,14 +71,13 @@ public class RaceController {
 			
 			results = this.raceService.findByCircuitAPI(circuit, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve races list by circuit", e);
 		}
 
 		return results;
@@ -100,14 +98,13 @@ public class RaceController {
 			
 			results = this.raceService.findRacesByDriverAPI(driver, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve races list by driver", e);
 		}
 
 		return results;
@@ -128,13 +125,13 @@ public class RaceController {
 			
 			results = this.raceService.findRacesByConstructorAPI(constructor, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
+			
+			throw new ApiRequestException("It cannot retrieve races list by constructor", e);
 		}
 
 		return results;
@@ -156,13 +153,13 @@ public class RaceController {
 			
 			results = this.raceService.findRacesByDriverAndSeasonAPI(driver, season, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
+			
+			throw new ApiRequestException("It cannot retrieve races list by driver and season", e);
 		}
 
 		return results;
@@ -183,14 +180,14 @@ public class RaceController {
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season, pageable);
-		} catch (Exception e) {
-			results = null;
-			
+		} catch (Exception e) {			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
+			
+			throw new ApiRequestException("It cannot retrieve races list by constructor and season", e);
 		}
 
 		return results;
@@ -205,7 +202,13 @@ public class RaceController {
 		try {
 			results = this.raceService.findRaceBySeasonAndEventAPI(event, season);
 		} catch (Exception e) {
-			results = new ArrayList<Race>();
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve a race", e);
 		}
 
 		return results;

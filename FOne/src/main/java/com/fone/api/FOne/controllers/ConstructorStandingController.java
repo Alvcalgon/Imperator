@@ -1,6 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.ConstructorStanding;
+import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.ConstructorStandingService;
 import com.fone.api.FOne.services.UtilityService;
 
@@ -44,7 +44,13 @@ public class ConstructorStandingController {
 		try {
 			results = this.constructorStandingService.findBySeasonAPI(season);
 		} catch (Exception e) {
-			results = new ArrayList<ConstructorStanding>();
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve constructors standing list by season", e);
 		}
 
 		return results;
@@ -65,13 +71,13 @@ public class ConstructorStandingController {
 			
 			results = this.constructorStandingService.findByPositionAPI(position, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
+			
+			throw new ApiRequestException("It cannot retrieve constructors standing list by position", e);
 		}
 
 		return results;
@@ -91,14 +97,14 @@ public class ConstructorStandingController {
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.constructorStandingService.findByConstructorAPI(constructor, pageable);
-		} catch (Exception e) {
-			results = null;
-			
+		} catch (Exception e) {	
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
+			
+			throw new ApiRequestException("It cannot retrieve constructor standing list by constructor", e);
 		}
 
 		return results;

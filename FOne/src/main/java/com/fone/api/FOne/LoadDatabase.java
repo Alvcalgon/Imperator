@@ -12,10 +12,21 @@ public class LoadDatabase implements CommandLineRunner {
 
 	private static final boolean MODE = true;
 
+//	@Autowired
+//	private DriverService driverService;
+//	
+//	@Autowired
+//	private RaceService raceService;
+//	
+//	@Autowired
+//	private ResultService resultService;
+	
 	@Override
 	public void run(String... args) throws Exception {
 
-		if (MODE) {			
+		if (MODE) {
+			
+			
 			log.info("condicion verdadera");
 		} else {
 			log.info("condicion falsa");

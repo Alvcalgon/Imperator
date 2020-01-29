@@ -1,6 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Circuit;
+import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.CircuitService;
 import com.fone.api.FOne.services.RaceService;
 import com.fone.api.FOne.services.UtilityService;
@@ -44,7 +44,7 @@ public class CircuitController {
 	@GetMapping(value = "/list")
 	public Page<Circuit> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
 			   						@RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Circuit> results = null;
+		Page<Circuit> results;
 		Pageable pageable;
 		Sort sort;
 		
@@ -54,13 +54,13 @@ public class CircuitController {
 			
 			results = this.circuitService.findAllAPI(pageable);
 		} catch (Exception e) {
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
-			
+		
+			throw new ApiRequestException("It cannot retrieve circuit list", e);
 		}
 		
 		return results;
@@ -81,14 +81,13 @@ public class CircuitController {
 			
 			results = this.circuitService.findByTypeAPI(type, pageable);
 		} catch (Exception e) {
-			results = this.findAllAPI(offset, limit);
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve circuit list by type", e);
 		}
 		
 		return results;
@@ -109,14 +108,13 @@ public class CircuitController {
 			
 			results = this.circuitService.findByLocationAPI(location, pageable);
 		} catch (Exception e) {
-			results = this.findAllAPI(offset, limit);
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve circuits list by location", e);
 		}
 		
 		return results;
@@ -130,14 +128,13 @@ public class CircuitController {
 		try {
 			results = this.raceService.findCircuitsBySeasonAPI(season);
 		} catch (Exception e) {
-			results = new ArrayList<Circuit>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve circuits list by season", e);
 		}
 		
 		return results;
@@ -151,14 +148,13 @@ public class CircuitController {
 		try {
 			results = this.circuitService.findByNameAPI(name);
 		} catch (Exception e) {
-			results = new ArrayList<Circuit>();
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve a circuit", e);
 		}
 		
 		return results;

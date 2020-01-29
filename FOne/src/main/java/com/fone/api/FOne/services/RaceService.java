@@ -69,14 +69,18 @@ public class RaceService {
 		List<Race> races;
 		Driver driver;
 		
-		races = this.findBySeasonAPI(season);
+		
+		races = this.findBySeason(season);
 		
 		mapa = new HashMap<String, Driver>();
 		for (Race r: races) {
 			for (Result res: r.getResults()) {
 				driver = res.getDriver();
 				
-				mapa.put(driver.getFullname(), driver);
+				if (driver != null) {
+					mapa.put(driver.getFullname(), driver);
+				}
+				
 			}
 		}
 		
@@ -84,7 +88,7 @@ public class RaceService {
 		
 		return results;
 	}
-
+	
 	// UC-008
 	public Set<Constructor> findConstructorsBySeasonAPI(String season) {
 		Map<String, Constructor> mapa;
@@ -92,14 +96,17 @@ public class RaceService {
 		List<Race> races;
 		Constructor constructor;
 		
-		races = this.findBySeasonAPI(season);
+		races = this.findBySeason(season);
 		
 		mapa = new HashMap<String, Constructor>();
 		for (Race r: races) {
 			for (Result res: r.getResults()) {
 				constructor = res.getConstructor();
 				
-				mapa.put(constructor.getName(), constructor);
+				if (constructor != null) {
+					mapa.put(constructor.getName(), constructor);
+				}
+				
 			}
 		}
 		
@@ -364,6 +371,14 @@ public class RaceService {
 		result = this.raceRepository.save(race);
 		
 		return result;
+	}
+	
+	private List<Race> findBySeason(String season) {
+		List<Race> results;
+		
+		results = this.raceRepository.findBySeason(season);
+		
+		return results;
 	}
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.Result;
+import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.ResultService;
 import com.fone.api.FOne.services.UtilityService;
 
@@ -45,14 +46,13 @@ public class ResultController {
 			
 			results = this.resultService.findResultsByPositionAndDriverAPI(driver, position, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve results list by position and driver", e);
 		}
 
 		return results;
@@ -72,14 +72,13 @@ public class ResultController {
 			
 			results = this.resultService.findResultsByGridAndDriverAPI(driver, grid, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve results list by driver and grid", e);
 		}
 
 		return results;
@@ -98,14 +97,13 @@ public class ResultController {
 			pageable = this.utilityService.getPageable(limit, offset);
 			results = this.resultService.findResultsByPositionAndConstructorAPI(constructor, position, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve results list by position and constructor", e);
 		}
 
 		return results;
@@ -125,14 +123,13 @@ public class ResultController {
 			
 			results = this.resultService.findResultsByGridAndConstructorAPI(constructor, grid, pageable);
 		} catch (Exception e) {
-			results = null;
-			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
 			} else {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
+			throw new ApiRequestException("It cannot retrieve constructors list by grid and constructor", e);
 		}
 
 		return results;

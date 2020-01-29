@@ -31,9 +31,7 @@ public class RaceServiceTest extends AbstractTest {
 	@Autowired
 	private UtilityService utilityService;
 	
-	// Test suite -------------------
-
-	// Test de UC-003
+	// Test suite -------------------	
 	@Test
 	public void positiveTest_findDriversBySeason() {
 		Set<Driver> drivers;
