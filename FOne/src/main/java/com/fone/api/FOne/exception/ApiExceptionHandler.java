@@ -12,7 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(value = {ApiRequestException.class})
-	public ResponseEntity<Object> handleAnyException(ApiRequestException exception) {
+	public ResponseEntity<Object> handleApiException(ApiRequestException exception) {
 		ApiException apiException;
 		HttpStatus status;
 		

@@ -45,10 +45,12 @@ public class DriverController {
 		super();
 	}
 
+	
 	// UC-001
 	@GetMapping(value = "/list")
 	public Page<Driver> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
 								   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		
 		Page<Driver> results = null;
 		Pageable pageable;
 		Sort sort;
@@ -69,7 +71,6 @@ public class DriverController {
 		}
 
 		return results;
-
 	}
 
 	// UC-002
