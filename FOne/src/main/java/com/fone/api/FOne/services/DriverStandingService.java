@@ -171,7 +171,7 @@ public class DriverStandingService {
 					a = tr.selectFirst("a.dark.bold.ArchiveLink");
 					aText = a.text().trim();
 					driverName = this.findDriverName(aText);
-					driver = this.driverService.findByFullname(driverName);
+					driver = this.driverService.findByFullname2(driverName);
 					
 					a = tr.selectFirst("a.grey.semi-bold.uppercase.ArchiveLink");
 					constructorName = a.text().trim();

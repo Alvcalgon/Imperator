@@ -216,7 +216,7 @@ public class ResultService {
 					if (a != null) {
 						driverFullname = a.text().trim();
 						
-						driver = this.driverService.findByFullname(driverFullname);
+						driver = this.driverService.findByFullname2(driverFullname);
 					} else {
 						driver = null;
 					}

@@ -3,8 +3,6 @@ package com.fone.api.FOne.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,8 @@ public class DriverServiceTest extends AbstractTest {
 	// Servicio bajo testeo -------------
 	@Autowired
 	private DriverService driverService;
-
+	
+	// Servicio de apoyo
 	@Autowired
 	private UtilityService utilityService;
 	
@@ -55,66 +54,78 @@ public class DriverServiceTest extends AbstractTest {
 	// Test UC-005
 	@Test
 	public void positiveTestUno_findByFullnameAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String fullname;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
+		
 		fullname = "Fernando Alonso";
-		drivers = this.driverService.findByFullnameAPI(fullname);
+		drivers = this.driverService.findByFullnameAPI(fullname, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	// Test UC-005
 	@Test
 	public void positiveTestDos_findByFullnameAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String fullname;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
+		
 		fullname = "Fernando";
-		drivers = this.driverService.findByFullnameAPI(fullname);
+		drivers = this.driverService.findByFullnameAPI(fullname, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	// Test UC-005
 	@Test
 	public void positiveTestTres_findByFullnameAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String fullname;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		fullname = "Alonso";
-		drivers = this.driverService.findByFullnameAPI(fullname);
+		drivers = this.driverService.findByFullnameAPI(fullname, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	// Test UC-005
 	@Test
 	public void positiveTestCuatro_findByFullnameAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String fullname;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		fullname = "FeRNAnDo AlOnSO";
-		drivers = this.driverService.findByFullnameAPI(fullname);
+		drivers = this.driverService.findByFullnameAPI(fullname, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() > 0);
+		assertTrue(drivers.hasContent());
 	}
 
 	// Test UC-005
 	@Test
 	public void negativeTest_findDriverByFullnameAPI() {
-		List<Driver> drivers;
+		Page<Driver> drivers;
 		String fullname;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		fullname = "Nombre completo erroneo";
-		drivers = this.driverService.findByFullnameAPI(fullname);
+		drivers = this.driverService.findByFullnameAPI(fullname, pageable);
 
 		assertNotNull(drivers);
-		assertTrue(drivers.size() == 0);
+		assertTrue(!drivers.hasContent());
 	}
 
 	// Test UC-002

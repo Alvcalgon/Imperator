@@ -1,7 +1,6 @@
 package com.fone.api.FOne.services;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -12,8 +11,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,12 +62,19 @@ public class ConstructorService {
 	}
 	
 	// UC-010
-	public List<Constructor> findByNameAPI(String name) {
-		List<Constructor> result;
-		Sort sort;
+	public Page<Constructor> findByNameAPI(String name, Pageable pageable) {
+		Page<Constructor> result;
 		
-		sort = Sort.by(Direction.ASC, "name");
-		result = this.constructorRepository.findByNameAPI(name, sort);
+		result = this.constructorRepository.findByNameAPI(name, pageable);
+		
+		return result;
+	}
+	
+	// UC-010
+	public Constructor findByNameAPI2(String name) {
+		Constructor result;
+		
+		result = this.constructorRepository.findByName(name);
 		
 		return result;
 	}

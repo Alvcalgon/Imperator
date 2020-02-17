@@ -3,8 +3,6 @@ package com.fone.api.FOne.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,40 +163,46 @@ public class CircuitServiceTest extends AbstractTest {
 	// Test de UC-015
 	@Test
 	public void positiveTestUno_findByNameAPI() {
-		List<Circuit> circuits;
+		Page<Circuit> circuits;
 		String name;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		name = "Baku";
-		circuits = this.circuitService.findByNameAPI(name);
+		circuits = this.circuitService.findByNameAPI(name, pageable);
 
 		assertNotNull(circuits);
-		assertTrue(circuits.size() > 0);
+		assertTrue(circuits.hasContent());
 	}
 
 	// Test de UC-015
 	@Test
 	public void positiveTestDos_findByNameAPI() {
-		List<Circuit> circuits;
+		Page<Circuit> circuits;
 		String name;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		name = "zeltweg airfield";
-		circuits = this.circuitService.findByNameAPI(name);
+		circuits = this.circuitService.findByNameAPI(name, pageable);
 
 		assertNotNull(circuits);
-		assertTrue(circuits.size() > 0);
+		assertTrue(circuits.hasContent());
 	}
 
 	// Test de UC-015
 	@Test
 	public void negativeTest_findByNameAPI() {
-		List<Circuit> circuits;
+		Page<Circuit> circuits;
 		String name;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		name = "Nombre incorrecto";
-		circuits = this.circuitService.findByNameAPI(name);
+		circuits = this.circuitService.findByNameAPI(name, pageable);
 
 		assertNotNull(circuits);
-		assertTrue(circuits.size() == 0);
+		assertTrue(!circuits.hasContent());
 	}
 
 }

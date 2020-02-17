@@ -1,6 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -142,11 +141,18 @@ public class ConstructorController {
 	
 	// UC-010
 	@GetMapping(value = "/list/name/{name}")
-	public List<Constructor> findByNameAPI(@PathVariable(required = true) String name) {
-		List<Constructor> results;
+	public Page<Constructor> findByNameAPI(@PathVariable(required = true) String name,
+										   @RequestParam(defaultValue = "0", required = false) Integer offset,
+										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Constructor> results;
+		Pageable pageable;
+		Sort sort;
 		
 		try {
-			results = this.constructorService.findByNameAPI(name);
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.constructorService.findByNameAPI(name, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -158,6 +164,27 @@ public class ConstructorController {
 		}
 		
 		return results;
+	}
+	
+	// UC-010
+	@GetMapping(value = "/list/display/{name}")
+	public Constructor findByNameAPI2(@PathVariable(required = true) String name) {
+		Constructor result;
+
+		try {
+			
+			result = this.constructorService.findByNameAPI2(name);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error en ::findByNameAPI2: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error en ::findByNameAPI2: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve a constructor", e);
+		}
+		
+		return result;
 	}
 	
 }

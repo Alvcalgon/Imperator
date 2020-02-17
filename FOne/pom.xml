@@ -6,7 +6,7 @@
 	<groupId>com.fone.api</groupId>
 	<artifactId>FOne</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	
 	<name>FOne</name>
 	<description>API REST for Spring Boot</description>

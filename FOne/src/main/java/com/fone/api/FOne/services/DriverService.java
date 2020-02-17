@@ -2,7 +2,6 @@ package com.fone.api.FOne.services;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -13,8 +12,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,17 +59,21 @@ public class DriverService {
 	}
 	
 	// UC-005
-	public List<Driver> findByFullnameAPI(String fullname) {
-		List<Driver> results;
-		Sort sort;
+	public Page<Driver> findByFullnameAPI(String fullname, Pageable pageable) {
+		Page<Driver> results;
 		
-		sort = Sort.by(Direction.ASC, "dateOfBirth");
-		
-		results = this.driverRepository.findByFullnameAPI(fullname, sort);
+		results = this.driverRepository.findByFullnameAPI(fullname, pageable);
 		
 		return results;
 	}
+	
+	public Driver findByFullname2(String fullname) {
+		Driver result;
 		
+		result = this.driverRepository.findByFullname(fullname);
+		
+		return result;
+	}
 	
 	// Método principal para web scraping
 	public void loadDrivers() {
@@ -162,14 +163,6 @@ public class DriverService {
 			
 			log.info("Error al recuperar el piloto: " + e.getMessage());
 		}
-		
-		return result;
-	}
-	
-	protected Driver findByFullname(String fullname) {
-		Driver result;
-		
-		result = this.driverRepository.findByFullname(fullname);
 		
 		return result;
 	}

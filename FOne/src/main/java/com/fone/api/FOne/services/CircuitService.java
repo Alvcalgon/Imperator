@@ -1,7 +1,6 @@
 package com.fone.api.FOne.services;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -12,8 +11,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,15 +70,21 @@ public class CircuitService {
 	}
 	
 	// UC-015
-	public List<Circuit> findByNameAPI(String name) {
-		List<Circuit> results;
-		Sort sort;
+	public Page<Circuit> findByNameAPI(String name, Pageable pageable) {
+		Page<Circuit> results;
 		
-		sort = Sort.by(Direction.ASC, "name");
-		
-		results = this.circuitRepository.findByNameAPI(name, sort);
+		results = this.circuitRepository.findByNameAPI(name, pageable);
 		
 		return results;
+	}
+	
+	// UC-015
+	public Circuit findByNameAPI2(String name) {
+		Circuit result;
+		
+		result = this.circuitRepository.findByName(name);
+		
+		return result;
 	}
 	
 	// Metodo principal para el web scraping -----------------------------

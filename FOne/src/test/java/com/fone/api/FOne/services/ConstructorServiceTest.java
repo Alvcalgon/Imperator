@@ -3,8 +3,6 @@ package com.fone.api.FOne.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,53 +102,61 @@ public class ConstructorServiceTest extends AbstractTest {
 	// Test de UC-010
 	@Test
 	public void positiveTestUno_findByName() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String name;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		name = "Ferrari";
-		constructors = this.constructorService.findByNameAPI(name);
+		constructors = this.constructorService.findByNameAPI(name, pageable);
 
 		assertNotNull(constructors);
-		assertTrue(constructors.size() > 0);
+		assertTrue(constructors.hasContent());
 	}
 
 	// Test de UC-010
 	@Test
 	public void positiveTestDos_findByName() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String name;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		name = "ferrari";
-		constructors = this.constructorService.findByNameAPI(name);
+		constructors = this.constructorService.findByNameAPI(name, pageable);
 
 		assertNotNull(constructors);
-		assertTrue(constructors.size() > 0);
+		assertTrue(constructors.hasContent());
 	}
 
 	// Test de UC-010
 	@Test
 	public void positiveTestTres_findByName() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String name;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		name = "feRrArI";
-		constructors = this.constructorService.findByNameAPI(name);
+		constructors = this.constructorService.findByNameAPI(name, pageable);
 
 		assertNotNull(constructors);
-		assertTrue(constructors.size() > 0);
+		assertTrue(constructors.hasContent());
 	}
 
 	// Test de UC-010
 	@Test
 	public void negativeTest_findByName() {
-		List<Constructor> constructors;
+		Page<Constructor> constructors;
 		String name;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
 		name = "Escuderia erroneo";
-		constructors = this.constructorService.findByNameAPI(name);
+		constructors = this.constructorService.findByNameAPI(name, pageable);
 
 		assertNotNull(constructors);
-		assertTrue(constructors.size() == 0);
+		assertTrue(!constructors.hasContent());
 	}
 
 }

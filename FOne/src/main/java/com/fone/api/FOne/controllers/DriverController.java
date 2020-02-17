@@ -1,6 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -142,11 +141,18 @@ public class DriverController {
 
 	// UC-005
 	@GetMapping(value = "/list/fullname/{fullname}")
-	public List<Driver> findByFullnameAPI(@PathVariable(required = true) String fullname) {
-		List<Driver> results;
-
+	public Page<Driver> findByFullnameAPI(@PathVariable(required = true) String fullname,
+										  @RequestParam(defaultValue = "0", required = false) Integer offset,
+			                              @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Driver> results;
+		Pageable pageable;
+		Sort sort;
+	
 		try {
-			results = this.driverService.findByFullnameAPI(fullname);
+			sort = Sort.by(Direction.ASC, "dateOfBirth");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.driverService.findByFullnameAPI(fullname, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -160,4 +166,24 @@ public class DriverController {
 		return results;
 	}
 
+	// UC-005
+	@GetMapping(value = "/list/name/{name}")
+	public Driver findByFullname2API(@PathVariable(required = true) String name) {
+		Driver result;
+
+		try {
+			result = this.driverService.findByFullname2(name);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve the request driver", e);
+		}
+
+		return result;
+	}
+	
 }

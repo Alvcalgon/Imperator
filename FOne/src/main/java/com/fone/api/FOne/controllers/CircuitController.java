@@ -142,11 +142,18 @@ public class CircuitController {
 	
 	// UC-015
 	@GetMapping(value = "/list/name/{name}")
-	public List<Circuit> findByNameAPI(@PathVariable(required = true) String name) {
-		List<Circuit> results;
+	public Page<Circuit> findByNameAPI(@PathVariable(required = true) String name,
+				@RequestParam(defaultValue = "0", required = false) Integer offset,
+				@RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results;
+		Pageable pageable;
+		Sort sort;
 		
 		try {
-			results = this.circuitService.findByNameAPI(name);
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findByNameAPI(name, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -158,6 +165,27 @@ public class CircuitController {
 		}
 		
 		return results;
+	}
+	
+	// UC-015
+	@GetMapping(value = "/list/display/{name}")
+	public Circuit findByNameAPI2(@PathVariable(required = true) String name) {
+		Circuit result;
+		
+		try {
+			
+			result = this.circuitService.findByNameAPI2(name);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve a circuit", e);
+		}
+		
+		return result;
 	}
 	
 }
