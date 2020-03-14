@@ -3,8 +3,6 @@ package com.fone.api.FOne.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,27 +30,32 @@ public class DriverStandingServiceTest extends AbstractTest {
 	// Test de UC-027
 	@Test
 	public void positiveTest_findBySeason() {
-		List<DriverStanding> allSeason;
+		Page<DriverStanding> allSeason;
 		String season;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
+		
 		season = "1951";
-		allSeason = this.driverStandingService.findBySeasonAPI(season);
+		allSeason = this.driverStandingService.findBySeasonAPI(season, pageable);
 
 		assertNotNull(allSeason);
-		assertTrue(allSeason.size() > 0);
+		assertTrue(allSeason.hasContent());
 	}
 
 	// Test de UC-027
 	@Test
 	public void negativeTest_findBySeason() {
-		List<DriverStanding> allSeason;
+		Page<DriverStanding> allSeason;
 		String season;
+		Pageable pageable;
 
+		pageable = this.utilityService.getPageable(10, 0);
 		season = "1949";
-		allSeason = this.driverStandingService.findBySeasonAPI(season);
+		allSeason = this.driverStandingService.findBySeasonAPI(season, pageable);
 
 		assertNotNull(allSeason);
-		assertTrue(allSeason.size() == 0);
+		assertTrue(!allSeason.hasContent());
 	}
 
 	// Test de UC-028

@@ -13,8 +13,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,12 +46,10 @@ public class DriverStandingService {
 	
 	
 	// UC-027
-	public List<DriverStanding> findBySeasonAPI(String season) {
-		List<DriverStanding> results;
-		Sort sort;
+	public Page<DriverStanding> findBySeasonAPI(String season, Pageable pageable) {
+		Page<DriverStanding> results;
 		
-		sort = Sort.by(Direction.DESC, "points");
-		results = this.driverStandingRepository.findBySeasonAPI(season, sort);
+		results = this.driverStandingRepository.findBySeasonAPI(season, pageable);
 		
 		return results;
 	}

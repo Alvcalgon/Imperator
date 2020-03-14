@@ -79,6 +79,15 @@ public class ConstructorService {
 		return result;
 	}
 	
+	// UC-007 y UC-010
+	public Page<Constructor> findByParametersAPI(String name, String country, Pageable pageable) {
+		Page<Constructor> results;
+		
+		results = this.constructorRepository.findByParametersAPI(name, country, pageable);
+		
+		return results;
+	}
+	
 	public Constructor save(Constructor constructor) {
 		Constructor result;
 		

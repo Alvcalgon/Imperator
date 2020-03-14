@@ -1,7 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +36,18 @@ public class RaceController {
 
 	// UC-016
 	@GetMapping(value = "/list/season/{season}")
-	public List<Race> findBySeasonAPI(@PathVariable(required = true) String season) {
-		List<Race> results;
+	public Page<Race> findBySeasonAPI(@PathVariable(required = true) String season,
+			   						  @RequestParam(defaultValue = "0", required = false) Integer offset,
+			   						  @RequestParam(defaultValue = "5", required = false) Integer limit) {
+		Page<Race> results;
+		Pageable pageable;
+		Sort sort;
 
 		try {
-			results = this.raceService.findBySeasonAPI(season);
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findBySeasonAPI(season, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -194,13 +199,19 @@ public class RaceController {
 	}
 	
 	// UC-022
-	@GetMapping(value = "/list/season/{season}/event/{event}")
-	public List<Race> findBySeasonAndEventAPI(@PathVariable(required = true) String season,
-									  @PathVariable(required = true) String event) {
-		List<Race> results;
-
+	@GetMapping(value = "/list/event/{event}")
+	public Page<Race> findByEventAPI(@PathVariable(required = true) String event,
+									 @RequestParam(defaultValue = "0", required = false) Integer offset,
+					   				 @RequestParam(defaultValue = "5", required = false) Integer limit) {
+		Page<Race> results;
+		Pageable pageable;
+		Sort sort;
+		
 		try {
-			results = this.raceService.findRaceBySeasonAndEventAPI(event, season);
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findRaceByEventAPI(event, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -214,4 +225,51 @@ public class RaceController {
 		return results;
 	}
 	
+	// UC-022
+	@GetMapping(value = "/list/season/{season}/event/{event}")
+	public Page<Race> findBySeasonAndEventAPI(@PathVariable(required = true) String season,
+									  		  @PathVariable(required = true) String event,
+									  		  @RequestParam(defaultValue = "0", required = false) Integer offset,
+					   						  @RequestParam(defaultValue = "5", required = false) Integer limit) {
+		Page<Race> results;
+		Pageable pageable;
+		Sort sort;
+		
+		try {
+			sort = Sort.by(Direction.ASC, "raceDate");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.raceService.findRaceBySeasonAndEventAPI(event, season, pageable);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve a race", e);
+		}
+
+		return results;
+	}
+	
+	@GetMapping(value = "/display/season/{season}/event/{event}")
+	public Race findOneBySeasonAndEventAPI(@PathVariable(required = true) String season,
+									       @PathVariable(required = true) String event) {
+		Race result;
+
+		try {
+			result = this.raceService.findOneBySeasonAndEventAPI(event, season);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve a race", e);
+		}
+
+		return result;
+	}
 }

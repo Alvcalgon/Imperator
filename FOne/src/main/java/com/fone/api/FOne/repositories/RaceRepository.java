@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,12 +17,15 @@ public interface RaceRepository extends MongoRepository<Race, String> {
 	@Query(value = "{season: ?0}", fields = "{results:1}")
 	List<Race> findBySeason(String season);
 	
+	@Query("{season: ?0}")
+	List<Race> findBySeason2(String season);
+	
 	// Consultas disponibles en la API ---------------------------
 	@Query("{\"circuit.name\": {$regex: ?0, $options: 'i'}}")
 	Page<Race> findByCircuitAPI(String name, Pageable pageable);
 	
 	@Query("{season: ?0}")
-	List<Race> findBySeasonAPI(String season, Sort sort);	
+	Page<Race> findBySeasonAPI(String season, Pageable pageable);	
 	
 	@Query("{\"results.driver.fullname\": ?0}")
 	Page<Race> findRacesByDriverAPI(String driverFullname, Pageable pageable);
@@ -38,7 +40,13 @@ public interface RaceRepository extends MongoRepository<Race, String> {
 	Page<Race> findRacesByConstructorAndSeasonAPI(String constructorName, String season, Pageable pageable);
 	
 	@Query("{season: ?1, event: {$regex: ?0, $options: 'i'}}")
-	List<Race> findRaceBySeasonAndEventAPI(String event, String season, Sort sort);
+	Page<Race> findRaceBySeasonAndEventAPI(String event, String season, Pageable pageable);
+	
+	@Query("{event: {$regex: ?0, $options: 'i'}}")
+	Page<Race> findRaceByEventAPI(String event, Pageable pageable);
+	
+	@Query("{season: ?1, event: ?0}")
+    Race findOneBySeasonAndEventAPI(String event, String season);
 	
 	// Ambas ---------------------------
 	

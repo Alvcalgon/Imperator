@@ -126,6 +126,7 @@ public class CircuitController {
 		List<Circuit> results;
 		
 		try {
+			
 			results = this.raceService.findCircuitsBySeasonAPI(season);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
@@ -168,7 +169,7 @@ public class CircuitController {
 	}
 	
 	// UC-015
-	@GetMapping(value = "/list/display/{name}")
+	@GetMapping(value = "/display/{name}")
 	public Circuit findByNameAPI2(@PathVariable(required = true) String name) {
 		Circuit result;
 		

@@ -89,7 +89,7 @@ public class RaceServiceTest extends AbstractTest {
 	public void positiveTest_findCircuitsBySeason() {
 		List<Circuit> circuits;
 		String season;
-
+		
 		season = "2000";
 		circuits = this.raceService.findCircuitsBySeasonAPI(season);
 
@@ -102,7 +102,7 @@ public class RaceServiceTest extends AbstractTest {
 	public void negativeTest_findCircuitsBySeason() {
 		List<Circuit> circuits;
 		String season;
-
+		
 		season = "3000";
 		circuits = this.raceService.findCircuitsBySeasonAPI(season);
 
@@ -113,27 +113,32 @@ public class RaceServiceTest extends AbstractTest {
 	// Test de UC-016
 	@Test
 	public void positiveTest_findSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(5, 0);
+		
 		season = "1977";
-		races = this.raceService.findBySeasonAPI(season);
+		races = this.raceService.findBySeasonAPI(season, pageable);
 
 		assertNotNull(season);
-		assertTrue(races.size() > 0);
+		assertTrue(races.hasContent());
 	}
 
 	// Test de UC-016
 	@Test
 	public void negativeTest_findSeason() {
-		List<Race> races;
+		Page<Race> races;
 		String season;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(5, 0);
 		season = "3000";
-		races = this.raceService.findBySeasonAPI(season);
+		races = this.raceService.findBySeasonAPI(season, pageable);
 
 		assertNotNull(season);
-		assertTrue(races.size() == 0);
+		assertTrue(!races.hasContent());
 	}
 
 	// Test de UC-017
@@ -376,77 +381,92 @@ public class RaceServiceTest extends AbstractTest {
 	// Test de UC-022
 	@Test
 	public void positiveTestUno_findRacesBySeasonAndEvent() {
-		List<Race> race;
+		Page<Race> race;
 		String season, event;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(5, 0);
+		
 		season = "1980";
 		event = "Dutch Grand Prix";
 
-		race = this.raceService.findRaceBySeasonAndEventAPI(event, season);
+		race = this.raceService.findRaceBySeasonAndEventAPI(event, season, pageable);
 
 		assertNotNull(race);
-		assertTrue(race.size() > 0);
+		assertTrue(race.hasContent());
 	}
 
 	// Test de UC-022
 	@Test
 	public void positiveTestDos_findRacesBySeasonAndEvent() {
-		List<Race> race;
+		Page<Race> race;
 		String season, event;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(5, 0);
 
 		season = "1980";
 		event = "us west";
 
-		race = this.raceService.findRaceBySeasonAndEventAPI(event, season);
+		race = this.raceService.findRaceBySeasonAndEventAPI(event, season, pageable);
 
 		assertNotNull(race);
-		assertTrue(race.size() > 0);
+		assertTrue(race.hasContent());
 	}
 
 	// Test de UC-022
 	@Test
 	public void positiveTestTres_findRacesBySeasonAndEvent() {
-		List<Race> race;
+		Page<Race> race;
 		String season, event;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(5, 0);
+		
 		season = "1980";
 		event = "british grand prix";
 
-		race = this.raceService.findRaceBySeasonAndEventAPI(event, season);
+		race = this.raceService.findRaceBySeasonAndEventAPI(event, season, pageable);
 
 		assertNotNull(race);
-		assertTrue(race.size() > 0);
+		assertTrue(race.hasContent());
 	}
 
 	// Test de UC-022
 	@Test
 	public void negativeTestUno_findRacesBySeasonAndEvent() {
-		List<Race> race;
+		Page<Race> race;
 		String season, event;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(5, 0);
+		
 		season = "1980";
 		event = "Evento incorrecto";
 
-		race = this.raceService.findRaceBySeasonAndEventAPI(event, season);
+		race = this.raceService.findRaceBySeasonAndEventAPI(event, season, pageable);
 
 		assertNotNull(race);
-		assertTrue(race.size() == 0);
+		assertTrue(!race.hasContent());
 	}
 
 	// Test de UC-022: Para el evento solicitado no existe una carrera de la
 	// temporada 1950
 	@Test
 	public void negativeTestDos_findRacesBySeasonAndEvent() {
-		List<Race> race;
+		Page<Race> race;
 		String season, event;
-
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(5, 0);
+		
 		season = "1950";
 		event = "Dutch Grand Prix";
 
-		race = this.raceService.findRaceBySeasonAndEventAPI(event, season);
+		race = this.raceService.findRaceBySeasonAndEventAPI(event, season, pageable);
 
 		assertNotNull(race);
-		assertTrue(race.size() == 0);
+		assertTrue(!race.hasContent());
 	}
 
 }

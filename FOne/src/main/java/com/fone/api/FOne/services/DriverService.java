@@ -67,6 +67,14 @@ public class DriverService {
 		return results;
 	}
 	
+	public Page<Driver> findByParametersAPI(String fullname, String country, Pageable pageable) {
+		Page<Driver> results;
+		
+		results = this.driverRepository.findByParametersAPI(fullname, country, pageable);
+		
+		return results;
+	}
+	
 	public Driver findByFullname2(String fullname) {
 		Driver result;
 		

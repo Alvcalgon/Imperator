@@ -1,7 +1,5 @@
 package com.fone.api.FOne.controllers;
 
-import java.util.List;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +36,18 @@ public class DriverStandingController {
 
 	// UC-027
 	@GetMapping(value = "/list/season/{season}")
-	public List<DriverStanding> findBySeasonAPI(@PathVariable(required = true) String season) {
-		List<DriverStanding> results;
+	public Page<DriverStanding> findBySeasonAPI(@PathVariable(required = true) String season,
+							@RequestParam(defaultValue = "0", required = false) Integer offset,
+							@RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<DriverStanding> results;
+		Pageable pageable;
+		Sort sort;
 
 		try {
-			results = this.driverStandingService.findBySeasonAPI(season);
+			sort = Sort.by(Direction.DESC, "points");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.driverStandingService.findBySeasonAPI(season, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);

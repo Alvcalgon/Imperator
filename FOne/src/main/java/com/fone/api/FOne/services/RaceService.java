@@ -16,8 +16,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -120,7 +118,7 @@ public class RaceService {
 		List<Circuit> results;
 		List<Race> races;
 		
-		races = this.findBySeasonAPI(season);
+		races = this.findBySeason2(season);
 		
 		results = new ArrayList<Circuit>();
 		for (Race r: races) {
@@ -131,12 +129,10 @@ public class RaceService {
 	}
 	
 	// UC-016
-	public List<Race> findBySeasonAPI(String season) {
-		List<Race> results;
-		Sort sort;
+	public Page<Race> findBySeasonAPI(String season, Pageable pageable) {
+		Page<Race> results;
 
-		sort = Sort.by(Direction.ASC, "raceDate");
-		results = this.raceRepository.findBySeasonAPI(season, sort);
+		results = this.raceRepository.findBySeasonAPI(season, pageable);
 
 		return results;
 	}
@@ -186,17 +182,31 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-022
-	public List<Race> findRaceBySeasonAndEventAPI(String event, String season) {
-		List<Race> results;
-		Sort sort;
+	public Page<Race> findRaceByEventAPI(String event, Pageable pageable) {
+		Page<Race> results;
 
-		sort = Sort.by(Direction.ASC, "raceDate");
-		results = this.raceRepository.findRaceBySeasonAndEventAPI(event, season, sort);
+		results = this.raceRepository.findRaceByEventAPI(event, pageable);
+
+		return results;
+	}
+	
+	// UC-022
+	public Page<Race> findRaceBySeasonAndEventAPI(String event, String season, Pageable pageable) {
+		Page<Race> results;
+
+		results = this.raceRepository.findRaceBySeasonAndEventAPI(event, season, pageable);
 
 		return results;
 	}
 
+	public Race findOneBySeasonAndEventAPI(String event, String season) {
+		Race result;
+
+		result = this.raceRepository.findOneBySeasonAndEventAPI(event, season);
+
+		return result;
+	}
+	
 	protected List<Race> findAll() {
 		List<Race> results;
 
@@ -377,6 +387,14 @@ public class RaceService {
 		List<Race> results;
 		
 		results = this.raceRepository.findBySeason(season);
+		
+		return results;
+	}
+	
+	private List<Race> findBySeason2(String season) {
+		List<Race> results;
+		
+		results = this.raceRepository.findBySeason2(season);
 		
 		return results;
 	}

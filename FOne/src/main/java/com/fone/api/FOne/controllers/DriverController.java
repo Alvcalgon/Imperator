@@ -186,4 +186,32 @@ public class DriverController {
 		return result;
 	}
 	
+	// UC-005
+	@GetMapping(value = "/list/country/{country}/fullname/{fullname}")
+	public Page<Driver> findByParametersAPI(@PathVariable(required = true) String fullname,
+											@PathVariable(required = true) String country,
+										    @RequestParam(defaultValue = "0", required = false) Integer offset,
+			                                @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Driver> results;
+		Pageable pageable;
+		Sort sort;
+	
+		try {
+			sort = Sort.by(Direction.ASC, "dateOfBirth");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.driverService.findByParametersAPI(fullname, country, pageable);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve the request driver", e);
+		}
+
+		return results;
+	}
+	
 }

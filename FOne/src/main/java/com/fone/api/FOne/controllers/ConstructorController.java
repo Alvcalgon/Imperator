@@ -187,4 +187,32 @@ public class ConstructorController {
 		return result;
 	}
 	
+	// UC-007 y UC-010
+	@GetMapping(value = "/list/country/{country}/name/{name}")
+	public Page<Constructor> findByNameAPI(@PathVariable(required = true) String name,
+										   @PathVariable(required = true) String country,
+										   @RequestParam(defaultValue = "0", required = false) Integer offset,
+										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Constructor> results;
+		Pageable pageable;
+		Sort sort;
+		
+		try {
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.constructorService.findByParametersAPI(name, country, pageable);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve a constructor", e);
+		}
+		
+		return results;
+	}
+	
 }

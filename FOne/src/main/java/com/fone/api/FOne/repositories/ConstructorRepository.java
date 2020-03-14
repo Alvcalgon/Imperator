@@ -21,6 +21,9 @@ public interface ConstructorRepository extends MongoRepository<Constructor, Stri
 	@Query("{name: {$regex: ?0, $options: 'i'}}")
 	Page<Constructor> findByNameAPI(String name, Pageable pageable);
 	
+	@Query(value = "{country: {$regex: ?1, $options: 'i'}, name: {$regex: ?0, $options: 'i'}}")
+	Page<Constructor> findByParametersAPI(String name, String country, Pageable pageable);
+	
 	// Ambas
 	@Query("{name: ?0}")
 	Constructor findByName(String name);
