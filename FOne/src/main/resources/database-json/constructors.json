@@ -1,0 +1,175 @@
+{"_id":{"$oid":"5dc68fb12d984d7d1639e168"},"name":"Nichels","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ec72d984d7d1639e141"},"name":"Iso Marlboro","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68dab2d984d7d1639e113"},"name":"Bugatti","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ea92d984d7d1639e13c"},"name":"Hesketh","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690302d984d7d1639e17d"},"name":"Renault","country":"France","principal":"Cyril Abiteboul","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690482d984d7d1639e181"},"name":"Schroeder","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690172d984d7d1639e179"},"name":"RAM","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d2d2d984d7d1639e0fe"},"name":"Alta","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e6d2d984d7d1639e132"},"name":"Fondmetal","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690fc2d984d7d1639e19f"},"name":"Vanwall","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6900b2d984d7d1639e177"},"name":"Racing Point","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690782d984d7d1639e189"},"name":"Snowberger","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68dcf2d984d7d1639e119"},"name":"Connew","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f9f2d984d7d1639e165"},"name":"Milano","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690362d984d7d1639e17e"},"name":"Rial","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e912d984d7d1639e138"},"name":"Gilby","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f992d984d7d1639e164"},"name":"Midland","country":"Russian Federation","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e2f2d984d7d1639e129"},"name":"ENB","country":"Belgium","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ec12d984d7d1639e140"},"name":"HWM","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f262d984d7d1639e151"},"name":"Leyton House","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6903d2d984d7d1639e17f"},"name":"Sauber","country":"Switzerland","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f0e2d984d7d1639e14d"},"name":"Larrousse","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d992d984d7d1639e110"},"name":"BRM","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ef72d984d7d1639e149"},"name":"Kuzma","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e052d984d7d1639e122"},"name":"Del Roy","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690662d984d7d1639e186"},"name":"Sherman","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f682d984d7d1639e15c"},"name":"Maserati","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ecd2d984d7d1639e142"},"name":"Jaguar","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e852d984d7d1639e136"},"name":"Frazer-Nash","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fdb2d984d7d1639e16f"},"name":"Parnelli","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690ef2d984d7d1639e19d"},"name":"Turner","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d452d984d7d1639e102"},"name":"Arrows","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e792d984d7d1639e134"},"name":"Force India","country":"India","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ed92d984d7d1639e144"},"name":"Jordan","country":"Ireland","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fa52d984d7d1639e166"},"name":"Minardi","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e8b2d984d7d1639e137"},"name":"Fry","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e112d984d7d1639e124"},"name":"Dunn","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d9f2d984d7d1639e111"},"name":"Bromme","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fe12d984d7d1639e170"},"name":"Pawl","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690b42d984d7d1639e193"},"name":"Team Lotus","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d692d984d7d1639e108"},"name":"Behra-Porsche","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690ba2d984d7d1639e194"},"name":"Tec-Mec","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68da52d984d7d1639e112"},"name":"BRP","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d812d984d7d1639e10c"},"name":"BMW Sauber","country":"Switzerland","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e2a2d984d7d1639e128"},"name":"EMW","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690842d984d7d1639e18b"},"name":"Spyker","country":"Netherlands","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e472d984d7d1639e12d"},"name":"Euro Brun","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fab2d984d7d1639e167"},"name":"Moore","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6908a2d984d7d1639e18c"},"name":"Stebro","country":"Canada","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fb72d984d7d1639e169"},"name":"Olson","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e352d984d7d1639e12a"},"name":"Ensign","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f142d984d7d1639e14e"},"name":"LDS","country":"South Africa","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d512d984d7d1639e104"},"name":"Aston Butterworth","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690a22d984d7d1639e190"},"name":"Surtees","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690722d984d7d1639e188"},"name":"Simtek","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68dff2d984d7d1639e121"},"name":"Deidt","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e972d984d7d1639e139"},"name":"Gordini","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f6e2d984d7d1639e15d"},"name":"Matra","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d1b2d984d7d1639e0fb"},"name":"AFM","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f562d984d7d1639e159"},"name":"March","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f032d984d7d1639e14b"},"name":"Lancia","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f7a2d984d7d1639e15f"},"name":"McGuire","country":"Australia","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d392d984d7d1639e100"},"name":"Andrea Moda","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc691082d984d7d1639e1a1"},"name":"Virgin Racing","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690e42d984d7d1639e19b"},"name":"Trevis","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fbd2d984d7d1639e16a"},"name":"Onyx","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f202d984d7d1639e150"},"name":"Lesovsky","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f742d984d7d1639e15e"},"name":"MBM","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fed2d984d7d1639e172"},"name":"Phillips","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e9d2d984d7d1639e13a"},"name":"Haas","country":"United States","principal":"Gunther Steiner","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d8d2d984d7d1639e10e"},"name":"Brabham","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f442d984d7d1639e156"},"name":"Lyncar","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d212d984d7d1639e0fc"},"name":"AGS","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d632d984d7d1639e107"},"name":"BAR","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fe72d984d7d1639e171"},"name":"Penske","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68efd2d984d7d1639e14a"},"name":"Lambo","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f2c2d984d7d1639e152"},"name":"Life","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fff2d984d7d1639e175"},"name":"Prost","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68db12d984d7d1639e114"},"name":"Caterham","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fc92d984d7d1639e16c"},"name":"Osella","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690d72d984d7d1639e199"},"name":"Toro Rosso","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690902d984d7d1639e18d"},"name":"Stevens","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690c02d984d7d1639e195"},"name":"Tecno","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690112d984d7d1639e178"},"name":"Rae","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68eaf2d984d7d1639e13d"},"name":"Hill","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68dc92d984d7d1639e118"},"name":"Connaught","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690a82d984d7d1639e191"},"name":"Sutton","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d272d984d7d1639e0fd"},"name":"Alfa Romeo","country":"Switzerland","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6912b2d984d7d1639e1a7"},"name":"Zakspeed","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68df32d984d7d1639e11f"},"name":"Dallara","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e4d2d984d7d1639e12e"},"name":"Ewing","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f082d984d7d1639e14c"},"name":"Langley","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f4a2d984d7d1639e157"},"name":"Maki","country":"Japan","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6902a2d984d7d1639e17c"},"name":"Red Bull","country":"Austria","principal":"Christian Horner","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d6f2d984d7d1639e109"},"name":"Bellasi","country":"Switzerland","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e412d984d7d1639e12c"},"name":"ERA","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d152d984d7d1639e0fa"},"name":"Adams","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fd52d984d7d1639e16e"},"name":"Pankratz","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ff92d984d7d1639e174"},"name":"Porsche","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f8d2d984d7d1639e162"},"name":"Merzario","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fcf2d984d7d1639e16d"},"name":"Pacific","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68db72d984d7d1639e115"},"name":"Christensen","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ed32d984d7d1639e143"},"name":"JBW","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68eb52d984d7d1639e13e"},"name":"Honda","country":"Japan","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68eeb2d984d7d1639e147"},"name":"Kojima","country":"Japan","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690f62d984d7d1639e19e"},"name":"Tyrrell","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6904e2d984d7d1639e182"},"name":"Scirocco","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690c52d984d7d1639e196"},"name":"Theodore","country":"","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6907e2d984d7d1639e18a"},"name":"Spirit","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690ad2d984d7d1639e192"},"name":"Talbot-Lago","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e672d984d7d1639e131"},"name":"Fittipaldi","country":"Brazil","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68fc32d984d7d1639e16b"},"name":"Osca","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690052d984d7d1639e176"},"name":"Protos","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690de2d984d7d1639e19a"},"name":"Toyota","country":"Japan","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e732d984d7d1639e133"},"name":"Footwork","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d4b2d984d7d1639e103"},"name":"Arzani-Volpini","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ea32d984d7d1639e13b"},"name":"Hall","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6901d2d984d7d1639e17a"},"name":"RE","country":"Zimbabwe","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ebb2d984d7d1639e13f"},"name":"HRT","country":"Spain","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ef12d984d7d1639e148"},"name":"Kurtis Kraft","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6911f2d984d7d1639e1a5"},"name":"Wolf","country":"Canada","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6905a2d984d7d1639e184"},"name":"Shadow","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68dd52d984d7d1639e11a"},"name":"Cooper-BRM","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68edf2d984d7d1639e145"},"name":"Kauhsen","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d332d984d7d1639e0ff"},"name":"Amon","country":"Australia","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68dbd2d984d7d1639e116"},"name":"Cisitalia","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e3b2d984d7d1639e12b"},"name":"Epperly","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f1a2d984d7d1639e14f"},"name":"LEC","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ff32d984d7d1639e173"},"name":"Politoys","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690cb2d984d7d1639e197"},"name":"Token","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68dc32d984d7d1639e117"},"name":"Coloni","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6911a2d984d7d1639e1a4"},"name":"Williams","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f502d984d7d1639e158"},"name":"Manor","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d7b2d984d7d1639e10b"},"name":"BMW","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690ea2d984d7d1639e19c"},"name":"Trojan","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d872d984d7d1639e10d"},"name":"Boro","country":"Netherlands","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6906c2d984d7d1639e187"},"name":"Simca","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d5d2d984d7d1639e106"},"name":"ATS","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e0b2d984d7d1639e123"},"name":"Derrington-Francis","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc691022d984d7d1639e1a0"},"name":"Veritas","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e242d984d7d1639e127"},"name":"Emeryson","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68df92d984d7d1639e120"},"name":"De Tomaso","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690432d984d7d1639e180"},"name":"Scarab","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6910d2d984d7d1639e1a2"},"name":"Watson","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f322d984d7d1639e153"},"name":"Ligier","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f382d984d7d1639e154"},"name":"Lola","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e162d984d7d1639e125"},"name":"Eagle","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d3f2d984d7d1639e101"},"name":"Apollon","country":"Switzerland","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ded2d984d7d1639e11e"},"name":"Copersucar-Fittipaldi","country":"Brazil","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690602d984d7d1639e185"},"name":"Shannon","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e5b2d984d7d1639e130"},"name":"Ferrari","country":"Italy","principal":"Mattia Binotto","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f622d984d7d1639e15b"},"name":"Martini","country":"France","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ddb2d984d7d1639e11b"},"name":"Cooper-Castellotti","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68de72d984d7d1639e11d"},"name":"Cooper-Maserati","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d752d984d7d1639e10a"},"name":"Benetton","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690232d984d7d1639e17b"},"name":"Rebaque","country":"Mexico","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e532d984d7d1639e12f"},"name":"Ferguson","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68ee52d984d7d1639e146"},"name":"Klenk","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f872d984d7d1639e161"},"name":"Mercedes","country":"Germany","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d932d984d7d1639e10f"},"name":"Brawn","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc6909c2d984d7d1639e18f"},"name":"Super Aguri","country":"Japan","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e7f2d984d7d1639e135"},"name":"Forti","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc691132d984d7d1639e1a3"},"name":"Wetteroth","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68e1e2d984d7d1639e126"},"name":"Elder","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690962d984d7d1639e18e"},"name":"Stewart","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f812d984d7d1639e160"},"name":"McLaren","country":"United Kingdom","principal":"Andreas Seidl","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f932d984d7d1639e163"},"name":"Meskowski","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68de12d984d7d1639e11c"},"name":"Cooper-Climax","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690542d984d7d1639e183"},"name":"Scuderia Sant Ambroeus","country":"Italy","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc690d12d984d7d1639e198"},"name":"Toleman","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f5c2d984d7d1639e15a"},"name":"Marchese","country":"United States","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc691252d984d7d1639e1a6"},"name":"Wolf-Williams","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68d572d984d7d1639e105"},"name":"Aston Martin","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dc68f3e2d984d7d1639e155"},"name":"Lotus F1","country":"United Kingdom","_class":"com.formulaOne.api.domain.Constructor"}
+{"_id":{"$oid":"5dcec75ac91dbd13f0bfaa0f"},"name":"FISA","_class":"com.formulaOne.api.domain.Constructor"}

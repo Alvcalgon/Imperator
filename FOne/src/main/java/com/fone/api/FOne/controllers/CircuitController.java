@@ -120,6 +120,119 @@ public class CircuitController {
 		return results;
 	}
 	
+	// UC-013
+	@GetMapping(value = "/list/location/{location}/type/{type}")
+	public Page<Circuit> findByLocationAndType(@PathVariable(required = true) String location,
+								   @PathVariable(required = true) String type,
+							       @RequestParam(defaultValue = "0", required = false) Integer offset,
+							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results;
+		Pageable pageable;
+		Sort sort;
+		
+		try {
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findByLocationAndTypeAPI(location, type, pageable);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve circuits list by location and type", e);
+		}
+		
+		return results;
+	}
+	
+	// UC-013
+	@GetMapping(value = "/list/type/{type}/name/{name}")
+	public Page<Circuit> findByTypeAndName(@PathVariable(required = true) String type,
+								   @PathVariable(required = true) String name,
+							       @RequestParam(defaultValue = "0", required = false) Integer offset,
+							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results;
+		Pageable pageable;
+		Sort sort;
+		
+		try {
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findByTypeAndNameAPI(type, name, pageable);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve circuits list by location and type", e);
+		}
+		
+		return results;
+	}
+	
+	// UC-013
+	@GetMapping(value = "/list/location/{location}/name/{name}")
+	public Page<Circuit> findByLocationAndName(@PathVariable(required = true) String location,
+								   @PathVariable(required = true) String name,
+							       @RequestParam(defaultValue = "0", required = false) Integer offset,
+							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results;
+		Pageable pageable;
+		Sort sort;
+		
+		try {
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findByLocationAndNameAPI(location, name, pageable);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve circuits list by location and name", e);
+		}
+		
+		return results;
+	}
+	
+	// UC-013
+	@GetMapping(value = "/list/location/{location}/type/{type}/name/{name}")
+	public Page<Circuit> findByAllParameters(@PathVariable(required = true) String location,
+								   @PathVariable(required = true) String type,
+								   @PathVariable(required = true) String name,
+							       @RequestParam(defaultValue = "0", required = false) Integer offset,
+							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
+		Page<Circuit> results;
+		Pageable pageable;
+		Sort sort;
+		
+		try {
+			sort = Sort.by(Direction.ASC, "name");
+			pageable = this.utilityService.getPageable(limit, offset, sort);
+			
+			results = this.circuitService.findByAllParametersAPI(location, type, name, pageable);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("It cannot retrieve circuits list by location, type and name", e);
+		}
+		
+		return results;
+	}
+	
 	// UC-014
 	@GetMapping(value = "/list/season/{season}")
 	public List<Circuit> findBySeasonAPI(@PathVariable(required = true) String season) {

@@ -167,7 +167,7 @@ public class DriverController {
 	}
 
 	// UC-005
-	@GetMapping(value = "/list/name/{name}")
+	@GetMapping(value = "/display/{name}")
 	public Driver findByFullname2API(@PathVariable(required = true) String name) {
 		Driver result;
 

@@ -1,0 +1,80 @@
+{"_id":{"$oid":"5dc6894242478c1928f06068"},"name":"Catalunya Circuit","location":"Spain, Barcelona","type":"Closed Circuit","lapDistance":"4.655 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a6842478c1928f0609a"},"name":"Valencia Street Circuit","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6891342478c1928f06060"},"name":"Autódromo Oscar Alfredo Gálvez","location":"Buenos Aires, Argentina","type":"Closed Circuit","lapDistance":"4.259 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6893c42478c1928f06067"},"name":"Caesars Palace Circuit","location":"Las Vegas, United States","type":"Street Circuit","lapDistance":"3.650 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6897d42478c1928f06072"},"name":"Circuito de Jerez","location":"Jerez de la Frontera, Spain","type":"Closed Circuit","lapDistance":"4.428 km (with chicane","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6892542478c1928f06063"},"name":"Baku street circuit","location":"Baku, Azerbaijan","type":"Street Circuit","lapDistance":"6.003 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a2142478c1928f0608e"},"name":"Riverside International Raceway","location":"Riverside, United States","type":"Closed Circuit","lapDistance":"5.271 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689a042478c1928f06078"},"name":"Fuji Speedway","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a5142478c1928f06096"},"name":"Sochi International Street Circuit","location":"Sochi, Russia","type":"Street Circuit","lapDistance":"5.848 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6892b42478c1928f06064"},"name":"Brands Hatch","location":"West Kingsdown, UK","type":"Closed Circuit","lapDistance":"3.908 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a7942478c1928f0609d"},"name":"Zeltweg Airfield","location":"Styria, Austria","type":"Closed Circuit","lapDistance":"3.200 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689d542478c1928f06081"},"name":"Monaco Circuit","location":"Monaco, Monte Carlo","type":"Street Circuit","lapDistance":"3.337 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a5642478c1928f06097"},"name":"Spa Francorchamps Circuit","location":"Spa, Belgium","type":"Closed Circuit","lapDistance":"7.004 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6890242478c1928f0605d"},"name":"Autodromo Interlagos","location":"São Paulo, Brazil","type":"Closed Circuit","lapDistance":"4.309 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6893142478c1928f06065"},"name":"Buddh International Circuit","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689c942478c1928f0607f"},"name":"Kyalami","location":"Midrand, South Africa","type":"Closed Circuit","lapDistance":"4.261 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a0a42478c1928f0608a"},"name":"Phoenix street circuit","location":"Phoenix, United States","type":"Street Circuit","lapDistance":"3.800 km (1989-1990) 3.720 km (1991)","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6890842478c1928f0605e"},"name":"Autódromo Internacional Nelson Piquet","location":"Rio de Janeiro, Brazil","type":"Closed Circuit","lapDistance":"5.031 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6898f42478c1928f06075"},"name":"Dijon-Prenois","location":"Prenois, France","type":"Closed Circuit","lapDistance":"3.800 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6894e42478c1928f0606a"},"name":"Circuit Bremgarten","location":"Bern, Switzerland","type":"Street Circuit","lapDistance":"7.280 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689cf42478c1928f06080"},"name":"Long Beach Street Circuit","location":"Long Beach , USA","type":"Street Circuit","lapDistance":"3.275 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a0f42478c1928f0608b"},"name":"Prince George Circuit","location":"East London, South Africa","type":"Closed Circuit","lapDistance":"3.920 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc688d842478c1928f06056"},"name":"Adelaide Street Circuit","location":"Adelaide, Australia","type":"Street Circuit","lapDistance":"3.780 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a0442478c1928f06089"},"name":"Pescara Circuit","location":"Pescara, Italy","type":"Street Circuit","lapDistance":"25.579 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6899a42478c1928f06077"},"name":"Fair Park","location":"Dallas, United States","type":"Street Circuit","lapDistance":"3.901 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a3342478c1928f06091"},"name":"Sebring Raceway","location":"Sebring, Untied States","type":"Closed Circuit","lapDistance":"8.369 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a5c42478c1928f06098"},"name":"Suzuka Circuit","location":"Nagoya, Japan","type":"Closed Circuit","lapDistance":"5.807 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a1b42478c1928f0608d"},"name":"Reims-Gueux","location":"Gueux, France","type":"Street Circuit","lapDistance":"8.302 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6898942478c1928f06074"},"name":"Detroit street circuit","location":"Detroit, United States","type":"Street Circuit","lapDistance":"4.023 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689a642478c1928f06079"},"name":"Hockenheimring","location":"Hockenheim, Germany","type":"Closed Circuit","lapDistance":"4.574 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689e742478c1928f06084"},"name":"Mosport Park","location":"Bowmanville, Canada","type":"Closed Circuit","lapDistance":"3.957 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689c442478c1928f0607e"},"name":"Korean International Circuit","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689b742478c1928f0607c"},"name":"Indianapolis Motor Speedway","location":"Indiana, United States","type":"Closed Circuit","lapDistance":"4.023 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689db42478c1928f06082"},"name":"Monsanto Park Circuit","location":"Lisbon, Portugal","type":"Street Circuit","lapDistance":"5.425 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6891942478c1928f06061"},"name":"AVUS","location":"Berlin, Germany","type":"Street Circuit","lapDistance":"8.300 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a7f42478c1928f0609e"},"name":"Zolder","location":"Heusden-Zolder, Belgium","type":"Closed Circuit","lapDistance":"4.262 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6891f42478c1928f06062"},"name":"Bahrain International Circuit","location":"Sakhir, Bahrain","type":"Closed Circuit","lapDistance":"5.412 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc688ea42478c1928f06059"},"name":"Albert Park Circuit","location":"Melbourne, Australia","type":"Street Circuit","lapDistance":"5.303 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6896042478c1928f0606d"},"name":"Circuit Mont-Tremblant","location":"Mont-Tremblant, Canada","type":"Closed Circuit","lapDistance":"4.265 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6897142478c1928f06070"},"name":"Circuit Zandvoort","location":"Zandvoort, The Netherlands","type":"Closed Circuit","lapDistance":"4.252 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689f842478c1928f06087"},"name":"Österreichring","location":"Spielberg, Austria","type":"Closed Circuit","lapDistance":"5.942 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a3f42478c1928f06093"},"name":"Shanghai International Circuit","location":"Shanghai, China","type":"Closed Circuit","lapDistance":"5.451 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6896642478c1928f0606e"},"name":"Circuit of The Americas","location":"Austin, Texas, USA","type":"Closed Circuit","lapDistance":"5.513 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6894842478c1928f06069"},"name":"Charade Circuit","location":"Clermont-Ferrand,, France","type":"Street Circuit","lapDistance":"8.055 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6898342478c1928f06073"},"name":"Circuito del Jarama","location":"Madrid, Spain","type":"Closed Circuit","lapDistance":"3.404 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a6242478c1928f06099"},"name":"TI Aida","location":"TI Aida, Japan","type":"Closed Circuit","lapDistance":"3.703 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689fe42478c1928f06088"},"name":"Pedralbes Circuit","location":"Barcelona, Spain","type":"Street Circuit","lapDistance":"6.316 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6890e42478c1928f0605f"},"name":"Autodromo Nazionale Monza","location":"Monza, Italy","type":"Closed Circuit","lapDistance":"5.793 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc688f642478c1928f0605b"},"name":"Autodromo Hermanos Rodriguez","location":"Mexico City, Mexico","type":"Closed Circuit","lapDistance":"4.304 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6896b42478c1928f0606f"},"name":"Circuit Paul Ricard","location":"Le Castellet, France","type":"Closed Circuit","lapDistance":"5.842 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6899542478c1928f06076"},"name":"Donington Park","location":"Leicestershire, UK","type":"Closed Circuit","lapDistance":"7.280 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689e142478c1928f06083"},"name":"Montjuïc Park circuit","location":"Barcelona, Spain","type":"Street Circuit","lapDistance":"3.790 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a3942478c1928f06092"},"name":"Sepang International Circuit","location":"Kuala Lumpur, Malaysia","type":"Closed Circuit","lapDistance":"5.543 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc688e442478c1928f06058"},"name":"Aintree Motor Racing Circuit","location":"Aintree, England","type":"Closed Circuit","lapDistance":"4.828 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689f342478c1928f06086"},"name":"Nürburgring","location":"Germany, Nürburg","type":"Closed Circuit","lapDistance":"5,148 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a2742478c1928f0608f"},"name":"Rouen-Les-Essarts","location":"Rouen-Les-Essarts, France","type":"Closed Circuit","lapDistance":"6.542 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a1542478c1928f0608c"},"name":"Red Bull Ring (A1-Ring)","location":"Spielberg, Austria","type":"Closed Circuit","lapDistance":"4.318 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6895a42478c1928f0606c"},"name":"Circuit Gilles Villeneuve","location":"Canada, Montreal","type":"Closed Circuit","lapDistance":"4.361 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689ac42478c1928f0607a"},"name":"Hungaroring","location":"Mogyorod, Hungary","type":"Closed Circuit","lapDistance":"4.381 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a6d42478c1928f0609b"},"name":"Watkins Glen International","location":"Watkins Glen, NY, US","type":"Closed Circuit","lapDistance":"4.828 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6895442478c1928f0606b"},"name":"Circuit de Nevers Magny-Cours","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689b242478c1928f0607b"},"name":"Indianapolis Circuit","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc688fc42478c1928f0605c"},"name":"Autodromo Imola","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a4542478c1928f06094"},"name":"Silverstone Circuit","location":"Great Britain, Silverstone","type":"Closed Circuit","lapDistance":"5.891 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a4b42478c1928f06095"},"name":"Singapore Circuit","location":"Singapore","type":"Street Circuit","lapDistance":"5.063 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689bd42478c1928f0607d"},"name":"Istanbul Park","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc688f042478c1928f0605a"},"name":"Autódromo do Estoril","location":"Alcabideche, Portugal","type":"Closed Circuit","lapDistance":"4.360 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6893642478c1928f06066"},"name":"Bugatti Circuit","location":"Le Mans, France","type":"Closed Circuit","lapDistance":"4.442 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc6897742478c1928f06071"},"name":"Circuito da Boavista","location":"Porto, Portugal","type":"Street Circuit","lapDistance":"7.407 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a2d42478c1928f06090"},"name":"Scandinavian Raceway","location":"Anderstorp, Sweden","type":"Closed Circuit","lapDistance":"4.031 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc68a7342478c1928f0609c"},"name":"Yas Marina Circuit","location":"Abu Dhabi, UAE","type":"Closed Circuit","lapDistance":"5.554 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc689ed42478c1928f06085"},"name":"Nivelles-Baulers","location":"Nivelles, Belgium","type":"Closed Circuit","lapDistance":"3.724 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dc688de42478c1928f06057"},"name":"Ain-Diab","location":"Ain-Diab, Morocco","type":"Street Circuit","lapDistance":"7.602 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dcec80fc91dbd13f0bfaa10"},"name":"Autodromo Enzo e Dino Ferrari","location":"Imola, Italy","type":"Closed Circuit","lapDistance":"4.933 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dcec935c91dbd13f0bfaa11"},"name":"Buddh International Circuit","location":"Greater Noida, India","type":"Closed Circuit","lapDistance":"5.125 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dcec9abc91dbd13f0bfaa12"},"name":"Circuit de Nevers Magny-Cours","location":"Nevers, France","type":"Closed Circuit","lapDistance":"4.411 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dceca15c91dbd13f0bfaa13"},"name":"Fuji Speedway","location":"Fuji, Japan","type":"Closed Circuit","lapDistance":"4.563 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dcecb35c91dbd13f0bfaa14"},"name":"Instanbul Park Circuit","location":"Istanbul, Turkey","type":"Closed Circuit","lapDistance":"5.340 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dcecb9fc91dbd13f0bfaa15"},"name":"Korean International Circuit","location":"Yoengam, South Korea","type":"Closed Circuit","lapDistance":"5.615 km","_class":"com.formulaOne.api.domain.Circuit"}
+{"_id":{"$oid":"5dcecc0fc91dbd13f0bfaa16"},"name":"Valencia street Circuit","location":"Valencia, Spain","type":"Street Circuit","lapDistance":"5.419 km","_class":"com.formulaOne.api.domain.Circuit"}

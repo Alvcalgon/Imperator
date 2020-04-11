@@ -167,7 +167,7 @@ public class ConstructorController {
 	}
 	
 	// UC-010
-	@GetMapping(value = "/list/display/{name}")
+	@GetMapping(value = "/display/{name}")
 	public Constructor findByNameAPI2(@PathVariable(required = true) String name) {
 		Constructor result;
 
