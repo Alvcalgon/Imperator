@@ -34,7 +34,8 @@ public class SwaggerConfiguration {
 							  "Controlador de clasificación general de pilotos"),
 					  new Tag("Carrera", "Controlador de carrera"),
 					  new Tag("Resultado", "Controlador de resultado"))
-				.apiInfo(getApiInfo());
+				.apiInfo(getApiInfo())
+				.host("fone-api.herokuapp.com");
 	}
 	
 	private ApiInfo getApiInfo() {
