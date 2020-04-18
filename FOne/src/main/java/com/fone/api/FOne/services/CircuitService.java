@@ -42,7 +42,6 @@ public class CircuitService {
 		return result;
 	}
 	
-	// UC-011
 	public Page<Circuit> findAllAPI(Pageable pageable) {
 		Page<Circuit> result;
 		
@@ -51,7 +50,6 @@ public class CircuitService {
 		return result;
 	}
 	
-	// UC-012
 	public Page<Circuit> findByTypeAPI(String type, Pageable pageable) {
 		Page<Circuit> results;
 		
@@ -60,7 +58,6 @@ public class CircuitService {
 		return results;
 	}
 	
-	// UC-013
 	public Page<Circuit> findByLocationAPI(String location, Pageable pageable) {
 		Page<Circuit> results;
 		
@@ -69,7 +66,6 @@ public class CircuitService {
 		return results;
 	}
 	
-	// UC-015
 	public Page<Circuit> findByNameAPI(String name, Pageable pageable) {
 		Page<Circuit> results;
 		
@@ -78,7 +74,6 @@ public class CircuitService {
 		return results;
 	}
 	
-	// UC-015
 	public Circuit findByNameAPI2(String name) {
 		Circuit result;
 		

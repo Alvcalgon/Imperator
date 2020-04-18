@@ -40,7 +40,6 @@ public class DriverService {
 		return this.driverRepository.findById(driverId).get();
 	}
 	
-	// UC-001
 	public Page<Driver> findAllAPI(Pageable pageable) {
 		Page<Driver> resultados;
 		
@@ -49,7 +48,6 @@ public class DriverService {
 		return resultados;
 	}
 	
-	// UC-002
 	public Page<Driver> findByCountryAPI(String country, Pageable pageable) {
 		Page<Driver> results;
 		
@@ -58,7 +56,6 @@ public class DriverService {
 		return results;
 	}
 	
-	// UC-005
 	public Page<Driver> findByFullnameAPI(String fullname, Pageable pageable) {
 		Page<Driver> results;
 		

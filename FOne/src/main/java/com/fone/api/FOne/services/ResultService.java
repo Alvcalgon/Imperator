@@ -45,9 +45,6 @@ public class ResultService {
 	
 	
 	// Consultas que aparecen en la API ------------------
-	
-	// UC-004
-	// TODO: Chapuza
 	public Set<Driver> findDriversByConstructorAPI(String constructorName) {
 		List<Result> results;
 		Set<Driver> drivers;
@@ -71,8 +68,6 @@ public class ResultService {
 		return drivers;
 	}
 	
-	// UC-009
-	// TODO: Chapuza
 	public Set<Constructor> findConstructorsByDriverAPI(String driverFullname) {
 		Set<Constructor> constructors;
 		List<Result> results;
@@ -96,7 +91,6 @@ public class ResultService {
 		return constructors;
 	}
 	
-	// UC-023
 	public Page<Result> findResultsByPositionAndDriverAPI(String driverFullname, String position, Pageable pageable) {
 		Page<Result> results;
 		
@@ -105,7 +99,6 @@ public class ResultService {
 		return results;
 	}
 	
-	// UC-024
 	public Page<Result> findResultsByGridAndDriverAPI(String driverFullname, String grid, Pageable pageable) {
 		Page<Result> results;
 		
@@ -114,7 +107,6 @@ public class ResultService {
 		return results;
 	}
 	
-	// UC-025
 	public Page<Result> findResultsByPositionAndConstructorAPI(String constructorName, String position, Pageable pageable) {
 		Page<Result> results;
 		
@@ -123,7 +115,6 @@ public class ResultService {
 		return results;
 	}
 	
-	// UC-026
 	public Page<Result> findResultsByGridAndConstructorAPI(String constructorName, String grid, Pageable pageable) {
 		Page<Result> results;
 		

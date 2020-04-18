@@ -40,7 +40,7 @@ public class ConstructorStandingService {
 		super();
 	}
 	
-	// UC-030
+	// Consultas en la API
 	public Page<ConstructorStanding> findBySeasonAPI(String season, Pageable pageable) {
 		Page<ConstructorStanding> results;
 		
@@ -49,7 +49,6 @@ public class ConstructorStandingService {
 		return results;
 	}
 	
-	// UC-031
 	public Page<ConstructorStanding> findByPositionAPI(String position, Pageable pageable) {
 		Page<ConstructorStanding> results;
 		
@@ -58,7 +57,6 @@ public class ConstructorStandingService {
 		return results;
 	}
 	
-	// UC-032
 	public Page<ConstructorStanding> findByConstructorAPI(String constructor, Pageable pageable) {
 		Page<ConstructorStanding> results;
 		

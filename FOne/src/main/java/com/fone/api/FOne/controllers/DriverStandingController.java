@@ -34,7 +34,7 @@ public class DriverStandingController {
 		super();
 	}
 
-	// UC-027
+	// UC-038
 	@GetMapping(value = "/list/season/{season}")
 	public Page<DriverStanding> findBySeasonAPI(@PathVariable(required = true) String season,
 							@RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -61,7 +61,7 @@ public class DriverStandingController {
 		return results;
 	}
 
-	// UC-028
+	// UC-039
 	@GetMapping(value = "/list/position/{position}")
 	public Page<DriverStanding> findByPositionAPI(@PathVariable(required = true) String position,
 												  @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -87,7 +87,7 @@ public class DriverStandingController {
 		return results;
 	}
 
-	// UC-029
+	// UC-040
 	@GetMapping(value = "/list/driver/{driver}")
 	public Page<DriverStanding> findByDriverAPI(@PathVariable(required = true) String driver,
 												@RequestParam(defaultValue = "0", required = false) Integer offset,

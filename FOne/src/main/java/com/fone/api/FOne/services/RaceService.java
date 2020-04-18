@@ -60,7 +60,6 @@ public class RaceService {
 		return result;
 	}
 
-	// UC-003
 	public Set<Driver> findDriversBySeasonAPI(String season) {
 		Map<String, Driver> mapa;
 		Set<Driver> results;
@@ -87,7 +86,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-008
 	public Set<Constructor> findConstructorsBySeasonAPI(String season) {
 		Map<String, Constructor> mapa;
 		Set<Constructor> results;
@@ -113,7 +111,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-014
 	public List<Circuit> findCircuitsBySeasonAPI(String season) {
 		List<Circuit> results;
 		List<Race> races;
@@ -128,7 +125,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-016
 	public Page<Race> findBySeasonAPI(String season, Pageable pageable) {
 		Page<Race> results;
 
@@ -137,7 +133,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-017
 	public Page<Race> findByCircuitAPI(String circuitName, Pageable pageable) {
 		Page<Race> results;
 		
@@ -146,7 +141,6 @@ public class RaceService {
 		return results;
 	}
 
-	// UC-018
 	public Page<Race> findRacesByDriverAPI(String driverFullname, Pageable pageable) {
 		Page<Race> results;
 		
@@ -155,7 +149,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-019
 	public Page<Race> findRacesByConstructorAPI(String constructorName, Pageable pageable) {
 		Page<Race> results;
 
@@ -164,7 +157,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-020
 	public Page<Race> findRacesByDriverAndSeasonAPI(String driverFullname, String season, Pageable pageable) {
 		Page<Race> results;
 
@@ -173,7 +165,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-021
 	public Page<Race> findRacesByConstructorAndSeasonAPI(String constructorName, String season, Pageable pageable) {
 		Page<Race> results;
 		
@@ -190,7 +181,6 @@ public class RaceService {
 		return results;
 	}
 	
-	// UC-022
 	public Page<Race> findRaceBySeasonAndEventAPI(String event, String season, Pageable pageable) {
 		Page<Race> results;
 

@@ -44,8 +44,7 @@ public class DriverStandingService {
 		super();
 	}
 	
-	
-	// UC-027
+	// Consultas de la API
 	public Page<DriverStanding> findBySeasonAPI(String season, Pageable pageable) {
 		Page<DriverStanding> results;
 		
@@ -54,7 +53,6 @@ public class DriverStandingService {
 		return results;
 	}
 	
-	// UC-028
 	public Page<DriverStanding> findByPositionAPI(String position, Pageable pageable) {
 		Page<DriverStanding> results;
 		
@@ -63,7 +61,6 @@ public class DriverStandingService {
 		return results;
 	}
 	
-	// UC-029
 	public Page<DriverStanding> findByDriverAPI(String driver, Pageable pageable) {
 		Page<DriverStanding> results;
 		

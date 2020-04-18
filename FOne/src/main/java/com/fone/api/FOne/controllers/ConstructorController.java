@@ -44,7 +44,7 @@ public class ConstructorController {
 		super();
 	}
 	
-	// UC-006
+	// UC-008
 	@GetMapping(value = "/list")
 	public Page<Constructor> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
 			   							@RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -70,7 +70,7 @@ public class ConstructorController {
 		return results;
 	}
 	
-	// UC-007
+	// UC-009
 	@GetMapping(value = "/list/country/{country}")
 	public Page<Constructor> findByCountryAPI(@PathVariable(required = true) String country,
 											  @RequestParam(defaultValue = "1", required = false) Integer offset,
@@ -99,9 +99,9 @@ public class ConstructorController {
 		return results;
 	}
 	
-	// UC-008
+	// UC-010
 	@GetMapping(value = "/list/season/{season}")
-	public Set<Constructor> findConstructorsBySeasonAPI(@PathVariable(required = true) String season) {
+	public Set<Constructor> findBySeasonAPI(@PathVariable(required = true) String season) {
 		Set<Constructor> results;
 
 		try {
@@ -119,9 +119,9 @@ public class ConstructorController {
 		return results;
 	}
 	
-	// UC-009
+	// UC-011
 	@GetMapping(value = "/list/driver/{driver}")
-	public Set<Constructor> findConstructorsByDriverAPI(@PathVariable(required = true) String driver) {
+	public Set<Constructor> findByDriverAPI(@PathVariable(required = true) String driver) {
 		Set<Constructor> results;
 		
 		try {
@@ -139,7 +139,7 @@ public class ConstructorController {
 		return results;
 	}
 	
-	// UC-010
+	// UC-012
 	@GetMapping(value = "/list/name/{name}")
 	public Page<Constructor> findByNameAPI(@PathVariable(required = true) String name,
 										   @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -166,7 +166,7 @@ public class ConstructorController {
 		return results;
 	}
 	
-	// UC-010
+	// UC-013
 	@GetMapping(value = "/display/{name}")
 	public Constructor findByNameAPI2(@PathVariable(required = true) String name) {
 		Constructor result;
@@ -187,7 +187,7 @@ public class ConstructorController {
 		return result;
 	}
 	
-	// UC-007 y UC-010
+	// UC-014
 	@GetMapping(value = "/list/country/{country}/name/{name}")
 	public Page<Constructor> findByNameAPI(@PathVariable(required = true) String name,
 										   @PathVariable(required = true) String country,

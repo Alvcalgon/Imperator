@@ -101,7 +101,7 @@ public class DriverController {
 
 	// UC-003
 	@GetMapping(value = "/list/season/{season}")
-	public Set<Driver> findDriversBySeasonAPI(@PathVariable(required = true) String season) {
+	public Set<Driver> findBySeasonAPI(@PathVariable(required = true) String season) {
 		Set<Driver> results;
 
 		try {
@@ -121,7 +121,7 @@ public class DriverController {
 
 	// UC-004
 	@GetMapping(value = "/list/constructor/{constructor}")
-	public Set<Driver> findDriversByConstructorAPI(@PathVariable(required = true) String constructor) {
+	public Set<Driver> findByConstructorAPI(@PathVariable(required = true) String constructor) {
 		Set<Driver> results;
 
 		try {
@@ -166,7 +166,7 @@ public class DriverController {
 		return results;
 	}
 
-	// UC-005
+	// UC-006
 	@GetMapping(value = "/display/{name}")
 	public Driver findByFullname2API(@PathVariable(required = true) String name) {
 		Driver result;
@@ -186,7 +186,7 @@ public class DriverController {
 		return result;
 	}
 	
-	// UC-005
+	// UC-007
 	@GetMapping(value = "/list/country/{country}/fullname/{fullname}")
 	public Page<Driver> findByParametersAPI(@PathVariable(required = true) String fullname,
 											@PathVariable(required = true) String country,

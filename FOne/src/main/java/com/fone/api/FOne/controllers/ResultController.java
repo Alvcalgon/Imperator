@@ -32,7 +32,7 @@ public class ResultController {
 		super();
 	}
 
-	// UC-023
+	// UC-034
 	@GetMapping(value = "/list/driver/{driver}/position/{position}")
 	public Page<Result> findResultsByPositionAndDriverAPI(@PathVariable(required = true) String driver,
 														  @PathVariable(required = true) String position,
@@ -58,7 +58,7 @@ public class ResultController {
 		return results;
 	}
 
-	// UC-024
+	// UC-035
 	@GetMapping(value = "/list/driver/{driver}/grid/{grid}")
 	public Page<Result> findResultsByGridAndDriverAPI(@PathVariable(required = true) String driver,
 													  @PathVariable(required = false) String grid,
@@ -84,7 +84,7 @@ public class ResultController {
 		return results;
 	}
 
-	// UC-025
+	// UC-036
 	@GetMapping(value = "/list/constructor/{constructor}/position/{position}")
 	public Page<Result> findResultsByPositionAndConstructorAPI(@PathVariable(required = true) String constructor,
 															   @PathVariable(required = true) String position,
@@ -109,7 +109,7 @@ public class ResultController {
 		return results;
 	}
 
-	// UC-026
+	// UC-037
 	@GetMapping(value = "/list/constructor/{constructor}/grid/{grid}")
 	public Page<Result> findResultsByGridAndConstructorAPI(@PathVariable(required = true) String constructor,
 														   @PathVariable(required = false) String grid,

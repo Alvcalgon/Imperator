@@ -43,7 +43,6 @@ public class ConstructorService {
 		return result;
 	}
 	
-	// UC-006
 	public Page<Constructor> findAllAPI(Pageable pageable) {
 		Page<Constructor> results;
 		
@@ -52,7 +51,6 @@ public class ConstructorService {
 		return results;
  	}
 	
-	// UC-007
 	public Page<Constructor> findByCountryAPI(String country, Pageable pageable) {
 		Page<Constructor> results;
 		
@@ -61,7 +59,6 @@ public class ConstructorService {
 		return results;
 	}
 	
-	// UC-010
 	public Page<Constructor> findByNameAPI(String name, Pageable pageable) {
 		Page<Constructor> result;
 		
@@ -70,7 +67,6 @@ public class ConstructorService {
 		return result;
 	}
 	
-	// UC-010
 	public Constructor findByNameAPI2(String name) {
 		Constructor result;
 		
@@ -79,7 +75,6 @@ public class ConstructorService {
 		return result;
 	}
 	
-	// UC-007 y UC-010
 	public Page<Constructor> findByParametersAPI(String name, String country, Pageable pageable) {
 		Page<Constructor> results;
 		

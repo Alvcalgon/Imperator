@@ -34,7 +34,7 @@ public class RaceController {
 		super();
 	}
 
-	// UC-016
+	// UC-025
 	@GetMapping(value = "/list/season/{season}")
 	public Page<Race> findBySeasonAPI(@PathVariable(required = true) String season,
 			   						  @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -61,7 +61,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-017
+	// UC-026
 	@GetMapping(value = "/list/circuit/{circuit}")
 	public Page<Race> findByCircuitAPI(@PathVariable(required = true) String circuit,
 									   @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -88,7 +88,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-018
+	// UC-027
 	@GetMapping(value = "/list/driver/{driver}")
 	public Page<Race> findByDriverAPI(@PathVariable(required = true) String driver,
 									  @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -115,7 +115,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-019
+	// UC-028
 	@GetMapping(value = "/list/constructor/{constructor}")
 	public Page<Race> findByConstructorAPI(@PathVariable(required = true) String constructor,
 										   @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -142,7 +142,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-020
+	// UC-029
 	@GetMapping(value = "/list/driver/{driver}/season/{season}")
 	public Page<Race> findByDriverAndSeasonAPI(@PathVariable(required = true) String driver,
 											   @PathVariable(required = true) String season,
@@ -170,7 +170,7 @@ public class RaceController {
 		return results;
 	}
 	
-	// UC-021
+	// UC-030
 	@GetMapping(value = "/list/constructor/{constructor}/season/{season}")
 	public Page<Race> findByConstructorAndSeasonAPI(@PathVariable(required = true) String constructor,
 													@PathVariable(required = true) String season,
@@ -198,7 +198,7 @@ public class RaceController {
 		return results;
 	}
 	
-	// UC-022
+	// UC-031
 	@GetMapping(value = "/list/event/{event}")
 	public Page<Race> findByEventAPI(@PathVariable(required = true) String event,
 									 @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -225,7 +225,7 @@ public class RaceController {
 		return results;
 	}
 	
-	// UC-022
+	// UC-032
 	@GetMapping(value = "/list/season/{season}/event/{event}")
 	public Page<Race> findBySeasonAndEventAPI(@PathVariable(required = true) String season,
 									  		  @PathVariable(required = true) String event,
@@ -253,6 +253,7 @@ public class RaceController {
 		return results;
 	}
 	
+	// UC-033
 	@GetMapping(value = "/display/season/{season}/event/{event}")
 	public Race findOneBySeasonAndEventAPI(@PathVariable(required = true) String season,
 									       @PathVariable(required = true) String event) {
