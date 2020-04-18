@@ -22,8 +22,12 @@ import com.fone.api.FOne.services.RaceService;
 import com.fone.api.FOne.services.ResultService;
 import com.fone.api.FOne.services.UtilityService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/constructor")
+@Api(tags = "Escudería")
 public class ConstructorController {
 
 	private static final Log log = LogFactory.getLog(ConstructorController.class);
@@ -46,6 +50,8 @@ public class ConstructorController {
 	
 	// UC-008
 	@GetMapping(value = "/list")
+	@ApiOperation(value = "Operación findAll",
+    			  notes = "Devuelve la lista completa de escuderías")
 	public Page<Constructor> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
 			   							@RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Constructor> results;
@@ -64,7 +70,7 @@ public class ConstructorController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve constructors list", e);
+			throw new ApiRequestException("No se pudo recuperar la lista completa de escuderías", e);
 		}
 		
 		return results;
@@ -72,6 +78,8 @@ public class ConstructorController {
 	
 	// UC-009
 	@GetMapping(value = "/list/country/{country}")
+	@ApiOperation(value = "Operación findByCountry",
+    			  notes = "Devuelve la lista de escuderías filtradas por país")
 	public Page<Constructor> findByCountryAPI(@PathVariable(required = true) String country,
 											  @RequestParam(defaultValue = "1", required = false) Integer offset,
 											  @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -93,7 +101,7 @@ public class ConstructorController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 		
-			throw new ApiRequestException("It cannot retrieve constructors list by country", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de escuderías por país", e);
 		}
 
 		return results;
@@ -101,6 +109,8 @@ public class ConstructorController {
 	
 	// UC-010
 	@GetMapping(value = "/list/season/{season}")
+	@ApiOperation(value = "Operación findBySeason",
+    	          notes = "Devuelve la lista de escuderías que participaron en cierta temporada")
 	public Set<Constructor> findBySeasonAPI(@PathVariable(required = true) String season) {
 		Set<Constructor> results;
 
@@ -113,7 +123,7 @@ public class ConstructorController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve constructors list by season", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de escuderías por temporada", e);
 		}
 
 		return results;
@@ -121,6 +131,8 @@ public class ConstructorController {
 	
 	// UC-011
 	@GetMapping(value = "/list/driver/{driver}")
+	@ApiOperation(value = "Operación findByDriver",
+    		      notes = "Devuelve la lista de escuderías en las que un piloto estuvo enrolado")
 	public Set<Constructor> findByDriverAPI(@PathVariable(required = true) String driver) {
 		Set<Constructor> results;
 		
@@ -133,7 +145,7 @@ public class ConstructorController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve constructors list by driver", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de escuderías por piloto", e);
 		}
 		
 		return results;
@@ -141,6 +153,9 @@ public class ConstructorController {
 	
 	// UC-012
 	@GetMapping(value = "/list/name/{name}")
+	@ApiOperation(value = "Operación findByName",
+    			 notes = "Devuelve la lista de escuderías cuyo nombre puede coincidir"
+    			 		+ " parcial o completamente con la keyword")
 	public Page<Constructor> findByNameAPI(@PathVariable(required = true) String name,
 										   @RequestParam(defaultValue = "0", required = false) Integer offset,
 										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -160,7 +175,7 @@ public class ConstructorController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve a constructor", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de escuderías por nombre", e);
 		}
 		
 		return results;
@@ -168,7 +183,9 @@ public class ConstructorController {
 	
 	// UC-013
 	@GetMapping(value = "/display/{name}")
-	public Constructor findByNameAPI2(@PathVariable(required = true) String name) {
+	@ApiOperation(value = "Operación findByName2",
+    			  notes = "Devuelve la escudería cuyo nombre coincide completamente con la keyword")
+	public Constructor findByName2API(@PathVariable(required = true) String name) {
 		Constructor result;
 
 		try {
@@ -181,7 +198,7 @@ public class ConstructorController {
 				log.info("Mensaje de error en ::findByNameAPI2: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve a constructor", e);
+			throw new ApiRequestException("No se pudo recuperar la escudería según el nombre", e);
 		}
 		
 		return result;
@@ -189,7 +206,9 @@ public class ConstructorController {
 	
 	// UC-014
 	@GetMapping(value = "/list/country/{country}/name/{name}")
-	public Page<Constructor> findByNameAPI(@PathVariable(required = true) String name,
+	@ApiOperation(value = "Operación findByAllParameters",
+    			  notes = "Devuelve la lista de escuderías filtradas por parámetros")
+	public Page<Constructor> findByAllParametersAPI(@PathVariable(required = true) String name,
 										   @PathVariable(required = true) String country,
 										   @RequestParam(defaultValue = "0", required = false) Integer offset,
 										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -209,7 +228,8 @@ public class ConstructorController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve a constructor", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de escuderías"
+					+ " según los parámetros", e);
 		}
 		
 		return results;

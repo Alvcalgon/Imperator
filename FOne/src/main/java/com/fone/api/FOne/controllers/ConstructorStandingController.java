@@ -18,8 +18,12 @@ import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.ConstructorStandingService;
 import com.fone.api.FOne.services.UtilityService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/constructor-standing")
+@Api(tags = "Clasificación general de escuderías")
 public class ConstructorStandingController {
 
 	private static final Log log = LogFactory.getLog(ConstructorStandingController.class);
@@ -36,6 +40,8 @@ public class ConstructorStandingController {
 
 	// UC-041
 	@GetMapping(value = "/list/season/{season}")
+	@ApiOperation(value = "Operación findBySeason",
+    			  notes = "Devuelve la clasificación general de escuderías de una cierta temporada")
 	public Page<ConstructorStanding> findBySeasonAPI(@PathVariable(required = true) String season,
 					@RequestParam(defaultValue = "0", required = false) Integer offset,
 					@RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -55,7 +61,8 @@ public class ConstructorStandingController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve constructors standing list by season", e);
+			throw new ApiRequestException("No se pudo recuperar la clasificación general de"
+					+ " escuderías para la temporada solicitada", e);
 		}
 
 		return results;
@@ -63,6 +70,9 @@ public class ConstructorStandingController {
 
 	// UC-042
 	@GetMapping(value = "/list/position/{position}")
+	@ApiOperation(value = "Operación findByPosition",
+	  			  notes = "Devuelve la clasificación general de las escuderías"
+	  			  		+ " que quedaron en una posición determinada al finalizar el campeonato")
 	public Page<ConstructorStanding> findByPositionAPI(@PathVariable(required = true) String position,
 													   @RequestParam(defaultValue = "0", required = false) Integer offset,
 													   @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -82,7 +92,8 @@ public class ConstructorStandingController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve constructors standing list by position", e);
+			throw new ApiRequestException("No se pudo recuperar la clasificación general"
+					+ " de escuderías para cierta posición", e);
 		}
 
 		return results;
@@ -90,6 +101,8 @@ public class ConstructorStandingController {
 
 	// UC-043
 	@GetMapping(value = "/list/constructor/{constructor}")
+	@ApiOperation(value = "Operación findByConstructor",
+	  notes = "Devuelve todas las clasificaciones registradas para cierta escudería")
 	public Page<ConstructorStanding> findByConstructorAPI(@PathVariable(required = true) String constructor,
 														  @RequestParam(defaultValue = "0", required = false) Integer offset,
 														  @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -109,7 +122,7 @@ public class ConstructorStandingController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve constructor standing list by constructor", e);
+			throw new ApiRequestException("No se pudo recuperar las clasificaciones para una determinada escudería", e);
 		}
 
 		return results;

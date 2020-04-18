@@ -22,8 +22,12 @@ import com.fone.api.FOne.services.RaceService;
 import com.fone.api.FOne.services.ResultService;
 import com.fone.api.FOne.services.UtilityService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/driver")
+@Api(tags = "Piloto")
 public class DriverController {
 
 	private static final Log log = LogFactory.getLog(DriverController.class);
@@ -47,6 +51,8 @@ public class DriverController {
 	
 	// UC-001
 	@GetMapping(value = "/list")
+	@ApiOperation(value = "Operación findAll",
+    		      notes = "Devuelve la lista completa de pilotos")
 	public Page<Driver> findAllAPI(@RequestParam(defaultValue = "0", required = false) Integer offset,
 								   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		
@@ -66,7 +72,7 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve drivers list", e);
+			throw new ApiRequestException("No se pudo recuperar la colección completa de pilotos", e);
 		}
 
 		return results;
@@ -74,6 +80,8 @@ public class DriverController {
 
 	// UC-002
 	@GetMapping(value = "/list/country/{country}")
+	@ApiOperation(value = "Operación findByCountry",
+    			  notes = "Devuelve la lista de pilotos filtrada por país")
 	public Page<Driver> findByCountryAPI(@PathVariable(required = true) String country,
 										 @RequestParam(defaultValue = "0", required = false) Integer offset,
 										 @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -93,7 +101,7 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve drivers list by country", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de pilotos por país", e);
 		}
 
 		return results;
@@ -101,6 +109,8 @@ public class DriverController {
 
 	// UC-003
 	@GetMapping(value = "/list/season/{season}")
+	@ApiOperation(value = "Operación findBySeason",
+    			  notes = "Devuelve la lista de pilotos por temporada")
 	public Set<Driver> findBySeasonAPI(@PathVariable(required = true) String season) {
 		Set<Driver> results;
 
@@ -113,7 +123,7 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve drivers list by season", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de pilotos por temporada", e);
 		}
 
 		return results;
@@ -121,6 +131,8 @@ public class DriverController {
 
 	// UC-004
 	@GetMapping(value = "/list/constructor/{constructor}")
+	@ApiOperation(value = "Operación findByConstructor",
+    			  notes = "Devuelve la lista de pilotos que estuvieron enrolados en una escudería concreta")
 	public Set<Driver> findByConstructorAPI(@PathVariable(required = true) String constructor) {
 		Set<Driver> results;
 
@@ -133,7 +145,7 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve drivers list by constructor", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de pilotos por escudería", e);
 		}
 
 		return results;
@@ -141,6 +153,9 @@ public class DriverController {
 
 	// UC-005
 	@GetMapping(value = "/list/fullname/{fullname}")
+	@ApiOperation(value = "Operación findByFullname",
+    			  notes = "Devuelve la lista de pilotos cuya keyword coincide parcial o"
+    			  		+ " completamente para el nombre completo de cada piloto")
 	public Page<Driver> findByFullnameAPI(@PathVariable(required = true) String fullname,
 										  @RequestParam(defaultValue = "0", required = false) Integer offset,
 			                              @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -160,7 +175,8 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve the request driver", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de pilotos"
+					+ " según el nombre completo", e);
 		}
 
 		return results;
@@ -168,6 +184,8 @@ public class DriverController {
 
 	// UC-006
 	@GetMapping(value = "/display/{name}")
+	@ApiOperation(value = "Operación findByFullname2",
+    			  notes = "Devuelve el piloto cuyo nombre completo coincide exactamente con la keyword")
 	public Driver findByFullname2API(@PathVariable(required = true) String name) {
 		Driver result;
 
@@ -180,7 +198,7 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve the request driver", e);
+			throw new ApiRequestException("No se pudo recuperar el piloto", e);
 		}
 
 		return result;
@@ -188,6 +206,8 @@ public class DriverController {
 	
 	// UC-007
 	@GetMapping(value = "/list/country/{country}/fullname/{fullname}")
+	@ApiOperation(value = "Operación findByParameters",
+    			  notes = "Devuelve la lista de pilotos filtrada por los paramátros nombre completo y país")
 	public Page<Driver> findByParametersAPI(@PathVariable(required = true) String fullname,
 											@PathVariable(required = true) String country,
 										    @RequestParam(defaultValue = "0", required = false) Integer offset,
@@ -208,7 +228,8 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve the request driver", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de pilotos"
+					+ " según los parámetros nombre completo y país", e);
 		}
 
 		return results;

@@ -18,8 +18,12 @@ import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.DriverStandingService;
 import com.fone.api.FOne.services.UtilityService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/driver-standing")
+@Api(tags = "Clasificación general de pilotos")
 public class DriverStandingController {
 
 	private static final Log log = LogFactory.getLog(DriverStandingController.class);
@@ -36,6 +40,8 @@ public class DriverStandingController {
 
 	// UC-038
 	@GetMapping(value = "/list/season/{season}")
+	@ApiOperation(value = "Operación findBySeason",
+    			  notes = "Devuelve la clasificación general de pilotos de una determinada temporada")
 	public Page<DriverStanding> findBySeasonAPI(@PathVariable(required = true) String season,
 							@RequestParam(defaultValue = "0", required = false) Integer offset,
 							@RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -55,7 +61,8 @@ public class DriverStandingController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve drivers standing list by season", e);
+			throw new ApiRequestException("No se pudo recuperar la clasificación general de"
+					+ " pilotos para la temporada solicitada", e);
 		}
 
 		return results;
@@ -63,6 +70,9 @@ public class DriverStandingController {
 
 	// UC-039
 	@GetMapping(value = "/list/position/{position}")
+	@ApiOperation(value = "Operación findByPosition",
+    			  notes = "Devuelve la clasificación general de aquellos pilotos que finalización"
+    			  		+ " el campeoanto en una cierta posición")
 	public Page<DriverStanding> findByPositionAPI(@PathVariable(required = true) String position,
 												  @RequestParam(defaultValue = "0", required = false) Integer offset,
 												  @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -81,7 +91,8 @@ public class DriverStandingController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve drivers standing list by position", e);
+			throw new ApiRequestException("No se pudo recuperar la clasificación general de"
+					+ " los pilotos según la posición", e);
 		}
 
 		return results;
@@ -89,6 +100,8 @@ public class DriverStandingController {
 
 	// UC-040
 	@GetMapping(value = "/list/driver/{driver}")
+	@ApiOperation(value = "Operación findByDriver",
+    			  notes = "Devuelve la clasificación general de un piloto a largo de toda su trayectoria")
 	public Page<DriverStanding> findByDriverAPI(@PathVariable(required = true) String driver,
 												@RequestParam(defaultValue = "0", required = false) Integer offset,
 												@RequestParam(defaultValue = "5", required = false) Integer limit) {
@@ -108,7 +121,8 @@ public class DriverStandingController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve drivers standing list by driver", e);
+			throw new ApiRequestException("No se pudo recuperar la clasificación general de un"
+					+ " piloto en cada uno de los campeonatos en los que parcipó", e);
 		}
 
 		return results;

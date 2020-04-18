@@ -16,8 +16,12 @@ import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.ResultService;
 import com.fone.api.FOne.services.UtilityService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/result")
+@Api(tags = "Resultado")
 public class ResultController {
 
 	private static final Log log = LogFactory.getLog(ResultController.class);
@@ -34,10 +38,13 @@ public class ResultController {
 
 	// UC-034
 	@GetMapping(value = "/list/driver/{driver}/position/{position}")
-	public Page<Result> findResultsByPositionAndDriverAPI(@PathVariable(required = true) String driver,
-														  @PathVariable(required = true) String position,
-														  @RequestParam(defaultValue = "0", required = false) Integer offset,
-														  @RequestParam(defaultValue = "10", required = false) Integer limit) {
+	@ApiOperation(value = "Operación findByPositionAndDriver",
+    			  notes = "Devuelve la lista de resultados en las que un piloto finalizó"
+    			  		+ " la carrera en una posición concreta")
+	public Page<Result> findByPositionAndDriverAPI(@PathVariable(required = true) String driver,
+												   @PathVariable(required = true) String position,
+												   @RequestParam(defaultValue = "0", required = false) Integer offset,
+												   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Result> results;
 		Pageable pageable;
 		
@@ -52,7 +59,8 @@ public class ResultController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve results list by position and driver", e);
+			throw new ApiRequestException("No se pudo recuperar los resultados"
+					+ " según el piloto y la posición", e);
 		}
 
 		return results;
@@ -60,10 +68,13 @@ public class ResultController {
 
 	// UC-035
 	@GetMapping(value = "/list/driver/{driver}/grid/{grid}")
-	public Page<Result> findResultsByGridAndDriverAPI(@PathVariable(required = true) String driver,
-													  @PathVariable(required = false) String grid,
-													  @RequestParam(defaultValue = "0", required = false) Integer offset,
-													  @RequestParam(defaultValue = "10", required = false) Integer limit) {
+	@ApiOperation(value = "Operación findByGridAndDriver",
+    			  notes = "Devuelve la lista de resultados en las que un piloto inició la"
+    			  		+ " carrera en una determinada posición")
+	public Page<Result> findByGridAndDriverAPI(@PathVariable(required = true) String driver,
+											   @PathVariable(required = true) String grid,
+											   @RequestParam(defaultValue = "0", required = false) Integer offset,
+											   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Result> results;
 		Pageable pageable;
 		
@@ -78,7 +89,8 @@ public class ResultController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve results list by driver and grid", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de resultados según"
+					+ " el piloto y la posición en la parrilla de salida", e);
 		}
 
 		return results;
@@ -86,10 +98,13 @@ public class ResultController {
 
 	// UC-036
 	@GetMapping(value = "/list/constructor/{constructor}/position/{position}")
-	public Page<Result> findResultsByPositionAndConstructorAPI(@PathVariable(required = true) String constructor,
-															   @PathVariable(required = true) String position,
-															   @RequestParam(defaultValue = "0", required = false) Integer offset,
-															   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+	@ApiOperation(value = "Operación findByPositionAndConstructor",
+    			 notes = "Devuelve la lista de resultados en las que el monoplaza de"
+    			 		+ " cierta escudería finalizó la carrera en una posición")
+	public Page<Result> findByPositionAndConstructorAPI(@PathVariable(required = true) String constructor,
+													    @PathVariable(required = true) String position,
+													    @RequestParam(defaultValue = "0", required = false) Integer offset,
+													    @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Result> results;
 		Pageable pageable;
 		
@@ -103,7 +118,8 @@ public class ResultController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve results list by position and constructor", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de resultados"
+					+ " para la escudería y posición seleccionada", e);
 		}
 
 		return results;
@@ -111,10 +127,13 @@ public class ResultController {
 
 	// UC-037
 	@GetMapping(value = "/list/constructor/{constructor}/grid/{grid}")
-	public Page<Result> findResultsByGridAndConstructorAPI(@PathVariable(required = true) String constructor,
-														   @PathVariable(required = false) String grid,
-														   @RequestParam(defaultValue = "0", required = false) Integer offset,
-														   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+	@ApiOperation(value = "Operación findByGridAndConstructor",
+    			  notes = "Devuelve la lista de resultados en las que el monoplaza de una cierta"
+    			  		+ " escudería comenzó la carrera en una cierta posición")
+	public Page<Result> findByGridAndConstructorAPI(@PathVariable(required = true) String constructor,
+													@PathVariable(required = true) String grid,
+													@RequestParam(defaultValue = "0", required = false) Integer offset,
+													@RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Result> results;
 		Pageable pageable;
 		
@@ -129,7 +148,8 @@ public class ResultController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("It cannot retrieve constructors list by grid and constructor", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de resultados para una"
+					+ " escudería y posición en la parrilla de salida", e);
 		}
 
 		return results;
