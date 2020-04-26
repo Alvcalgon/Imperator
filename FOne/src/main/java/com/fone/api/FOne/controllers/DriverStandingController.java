@@ -128,4 +128,46 @@ public class DriverStandingController {
 		return results;
 	}
 
+	@GetMapping(value = "/count/driver/{driver}")
+	@ApiOperation(value = "Operación findCountByDriver",
+    			  notes = "Devuelve el número de campeonatos en los que ha participado el piloto en toda su trayectoria")
+	public Integer findCountByDriverAPI(@PathVariable(required = true) String driver) {
+		Integer result;
+		
+		try {
+			result = this.driverStandingService.findCountByDriverAPI(driver);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("No se pudo recuperar el número de campeonatos para el piloto", e);
+		}
+		
+		return result;
+	}
+	
+	@GetMapping(value = "/count/driver/{driver}/position/{position}")
+	@ApiOperation(value = "Operación findCountByDriver",
+    			  notes = "Devuelve el número de campeonatos en los que el piloto finalizó en cierta posición")
+	public Integer findCountDriverAndPositionAPI(@PathVariable(required = true) String driver,
+												 @PathVariable(required = true) String position) {
+		Integer result;
+		
+		try {
+			result = this.driverStandingService.findCountDriverAndPositionAPI(driver, position);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("No se pudo recuperar el número de campeonatos en los que un piloto finalizó en cierta posición", e);
+		}
+		
+		return result;
+	}
 }

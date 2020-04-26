@@ -26,7 +26,6 @@ public class ConstructorStandingServiceTest {
 	
 	// Suite test -----------------------------
 
-	// Test de UC-030
 	@Test
 	public void positiveTest_findBySeason() {
 		Page<ConstructorStanding> standing;
@@ -41,7 +40,6 @@ public class ConstructorStandingServiceTest {
 		assertTrue(standing.hasContent());
 	}
 
-	// Test de UC-030
 	@Test
 	public void negativeTest_findBySeason() {
 		Page<ConstructorStanding> standing;
@@ -57,7 +55,6 @@ public class ConstructorStandingServiceTest {
 		assertTrue(!standing.hasContent());
 	}
 
-	// Test de UC-031
 	@Test
 	public void positiveTest_findByPosition() {
 		Page<ConstructorStanding> standing;
@@ -72,7 +69,6 @@ public class ConstructorStandingServiceTest {
 		assertTrue(standing.hasContent());
 	}
 
-	// Test de UC-031
 	@Test
 	public void negativeTest_findByPosition() {
 		Page<ConstructorStanding> standing;
@@ -87,7 +83,6 @@ public class ConstructorStandingServiceTest {
 		assertTrue(!standing.hasContent());
 	}
 
-	// Test de UC-032
 	@Test
 	public void positiveTestUno_findByConstructor() {
 		Page<ConstructorStanding> standing;
@@ -102,7 +97,6 @@ public class ConstructorStandingServiceTest {
 		assertTrue(standing.hasContent());
 	}
 
-	// Test de UC-032
 	@Test
 	public void positiveTestDos_findByConstructor() {
 		Page<ConstructorStanding> standing;
@@ -110,14 +104,13 @@ public class ConstructorStandingServiceTest {
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		constructor = "alfa romeo";
+		constructor = "Alfa Romeo";
 		standing = this.contructorStandingService.findByConstructorAPI(constructor, pageable);
 
 		assertNotNull(standing);
 		assertTrue(standing.hasContent());
 	}
 
-	// Test de UC-032
 	@Test
 	public void negativeTestUno_findByConstructor() {
 		Page<ConstructorStanding> standing;
@@ -132,4 +125,52 @@ public class ConstructorStandingServiceTest {
 		assertTrue(!standing.hasContent());
 	}
 
+	@Test
+	public void positiveTest_findCountByConstructorAPI() {
+		Integer result;
+		String constructor;
+		
+		constructor = "Ferrari";
+		result = this.contructorStandingService.findCountByConstructorAPI(constructor);
+		
+		assertTrue(result > 0);
+	}
+	
+	@Test
+	public void negativeTest_findCountByConstructorAPI() {
+		Integer result;
+		String constructor;
+		
+		constructor = "Ferrari mercadona";
+		result = this.contructorStandingService.findCountByConstructorAPI(constructor);
+		
+		assertTrue(result == 0);
+	}
+	
+	@Test
+	public void positiveTest_findCountByConstructorAndPositionAPI() {
+		Integer result;
+		String constructor;
+		String position;
+		
+		position = "1";
+		constructor = "Ferrari";
+		result = this.contructorStandingService.findCountByConstructorAndPositionAPI(constructor, position);
+		
+		assertTrue(result > 0);
+	}
+	
+	@Test
+	public void negativeTest_findCountByConstructorAndPositionAPI() {
+		Integer result;
+		String constructor;
+		String position;
+		
+		position = "49";
+		constructor = "Ferrari";
+		result = this.contructorStandingService.findCountByConstructorAndPositionAPI(constructor, position);
+		
+		assertTrue(result == 0);
+	}
+	
 }

@@ -17,6 +17,12 @@ public interface ConstructorStandingRepository extends MongoRepository<Construct
 	@Query("{position: ?0}")
 	Page<ConstructorStanding> findByPositionAPI(String position, Pageable pageable);
 	
-	@Query("{\"constructor.name\": {$regex: ?0, $options: 'i'}}")
+	@Query("{\"constructor.name\": ?0}")
 	Page<ConstructorStanding> findByConstructorAPI(String constructor, Pageable pageable);
+	
+	@Query(value = "{\"constructor.name\": ?0}", count = true)
+	Integer findCountByConstructorAPI(String constructor);
+	
+	@Query(value = "{\"constructor.name\": ?0, position: ?1}", count = true)
+	Integer findCountByConstructorAndPositionAPI(String constructor, String position);
 }

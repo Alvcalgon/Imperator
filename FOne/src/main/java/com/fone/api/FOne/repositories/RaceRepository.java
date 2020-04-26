@@ -47,6 +47,9 @@ public interface RaceRepository extends MongoRepository<Race, String> {
 	
 	@Query("{season: ?1, event: ?0}")
     Race findOneBySeasonAndEventAPI(String event, String season);
+
+	@Query(value = "{\"results.constructor.name\": ?0}", count = true)
+	Integer findCountByConstructorAPI(String constructor);		
 	
 	// Ambas ---------------------------
 	

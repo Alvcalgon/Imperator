@@ -27,7 +27,6 @@ public class ConstructorServiceTest extends AbstractTest {
 	
 	// Suite test -------------------
 
-	// Test de UC-006
 	@Test
 	public void test_findAll() {
 		Page<Constructor> all;
@@ -40,7 +39,7 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertTrue(all.hasContent());
 	}
 
-	// Test de UC-007
+	
 	@Test
 	public void positiveTestUno_findByCountry() {
 		Page<Constructor> constructors;
@@ -55,7 +54,7 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertTrue(constructors.hasContent());
 	}
 
-	// Test de UC-007
+	
 	@Test
 	public void positiveTestDos_findByCountry() {
 		Page<Constructor> constructors;
@@ -70,7 +69,7 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertTrue(constructors.hasContent());
 	}
 
-	// Test de UC-007
+	
 	@Test
 	public void positiveTestTres_findByCountry() {
 		Page<Constructor> constructors;
@@ -99,7 +98,7 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertNotNull(!constructors.hasContent());
 	}
 
-	// Test de UC-010
+	
 	@Test
 	public void positiveTestUno_findByName() {
 		Page<Constructor> constructors;
@@ -114,7 +113,7 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertTrue(constructors.hasContent());
 	}
 
-	// Test de UC-010
+	
 	@Test
 	public void positiveTestDos_findByName() {
 		Page<Constructor> constructors;
@@ -129,7 +128,7 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertTrue(constructors.hasContent());
 	}
 
-	// Test de UC-010
+	
 	@Test
 	public void positiveTestTres_findByName() {
 		Page<Constructor> constructors;
@@ -144,7 +143,7 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertTrue(constructors.hasContent());
 	}
 
-	// Test de UC-010
+	
 	@Test
 	public void negativeTest_findByName() {
 		Page<Constructor> constructors;
@@ -159,4 +158,61 @@ public class ConstructorServiceTest extends AbstractTest {
 		assertTrue(!constructors.hasContent());
 	}
 
+	@Test
+	public void positiveTest_findByNameAPI2() {
+		Constructor constructor;
+		String name;
+		
+		name = "Ferrari";
+		constructor = this.constructorService.findByNameAPI2(name);
+		
+		assertNotNull(constructor);
+		assertTrue(constructor.getName().equals(name));
+	}
+	
+	@Test
+	public void negativeTest_findByNameAPI2() {
+		Constructor constructor;
+		String name;
+		
+		name = "escuderia ferrari";
+		constructor = this.constructorService.findByNameAPI2(name);
+		
+		assertTrue(constructor == null);
+	}
+	
+	@Test
+	public void positiveTest_findByParametersAPI() {
+		Page<Constructor> constructors;
+		String name;
+		String country;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		name = "Ferrari";
+		country = "Italy";
+		
+		constructors = this.constructorService.findByParametersAPI(name, country, pageable);
+		
+		assertNotNull(constructors);
+		assertTrue(constructors.hasContent());
+	}
+	
+	
+	@Test
+	public void negativeTest_findByParametersAPI() {
+		Page<Constructor> constructors;
+		String name;
+		String country;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		name = "Ferrari";
+		country = "Spain";
+		
+		constructors = this.constructorService.findByParametersAPI(name, country, pageable);
+		
+		assertNotNull(constructors);
+		assertTrue(!constructors.hasContent());
+	}
 }

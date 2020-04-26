@@ -27,7 +27,6 @@ public class CircuitServiceTest extends AbstractTest {
 	
 	// Suite test ------------------------
 
-	// Test de UC-11
 	@Test
 	public void test_findAll() {
 		Page<Circuit> all;
@@ -40,7 +39,6 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(all.hasContent());
 	}
 
-	// Test de UC-012
 	@Test
 	public void positiveTest_findByType() {
 		Page<Circuit> circuits;
@@ -55,7 +53,6 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(circuits.hasContent());
 	}
 
-	// Test de UC-012
 	@Test
 	public void negativeTest_findByType() {
 		Page<Circuit> circuits;
@@ -70,7 +67,7 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(!circuits.hasContent());
 	}
 
-	// Test de UC-013: un usuario introduce un pais como localizacion
+	// Un usuario introduce un pais como localizacion
 	@Test
 	public void positiveTestUno_findByLocation() {
 		Page<Circuit> circuits;
@@ -85,7 +82,7 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(circuits.hasContent());
 	}
 
-	// Test de UC-013: un usuario introduce un pais como localizacion
+	// Un usuario introduce un pais como localizacion
 	@Test
 	public void positiveTestDos_findByLocation() {
 		Page<Circuit> circuits;
@@ -100,7 +97,7 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(circuits.hasContent());
 	}
 
-	// Test de UC-013: un usuario introduce una ciudad como localizacion
+	// Un usuario introduce una ciudad como localizacion
 	@Test
 	public void positiveTestTres_findByLocation() {
 		Page<Circuit> circuits;
@@ -115,7 +112,7 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(circuits.hasContent());
 	}
 
-	// Test de UC-013: un usuario introduce una ciudad como localizacion
+	// Un usuario introduce una ciudad como localizacion
 	@Test
 	public void positiveTestCuatro_findByLocation() {
 		Page<Circuit> circuits;
@@ -130,7 +127,7 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(circuits.hasContent());
 	}
 
-	// Test de UC-013: a la localizacion le falta un acento en 'Sao'
+	// A la localizacion le falta un acento en 'Sao'
 	@Test
 	public void negativeTestUno_findByLocation() {
 		Page<Circuit> circuits;
@@ -145,7 +142,7 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(!circuits.hasContent());
 	}
 
-	// Test de UC-013: un usuario introduce un pais como localizacion
+	// Un usuario introduce un pais como localizacion
 	@Test
 	public void negativeTestDos_findByLocation() {
 		Page<Circuit> circuits;
@@ -160,7 +157,6 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(!circuits.hasContent());
 	}
 
-	// Test de UC-015
 	@Test
 	public void positiveTestUno_findByNameAPI() {
 		Page<Circuit> circuits;
@@ -175,7 +171,6 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(circuits.hasContent());
 	}
 
-	// Test de UC-015
 	@Test
 	public void positiveTestDos_findByNameAPI() {
 		Page<Circuit> circuits;
@@ -190,7 +185,6 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(circuits.hasContent());
 	}
 
-	// Test de UC-015
 	@Test
 	public void negativeTest_findByNameAPI() {
 		Page<Circuit> circuits;
@@ -205,4 +199,96 @@ public class CircuitServiceTest extends AbstractTest {
 		assertTrue(!circuits.hasContent());
 	}
 
+	@Test
+	public void positiveTest_findByNameAPI2() {
+		Circuit circuit;
+		String name;
+		
+		name = "Albert Park Circuit";
+		circuit = this.circuitService.findByNameAPI2(name);
+		
+		assertNotNull(circuit);
+	}
+	
+	@Test
+	public void negativeTest_findByNameAPI2() {
+		Circuit circuit;
+		String name;
+		
+		name = "Albert Park";
+		circuit = this.circuitService.findByNameAPI2(name);
+		
+		assertTrue(circuit == null);
+	}
+	
+	@Test
+	public void positiveTest_findByLocationAndTypeAPI() {
+		Page<Circuit> circuits;
+		String type;
+		String location;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		type = "closed";
+		location = "spain";
+		
+		circuits = this.circuitService.findByLocationAndTypeAPI(location, type, pageable);
+		
+		assertNotNull(circuits);
+		assertTrue(circuits.hasContent());
+	}
+	
+	@Test
+	public void positiveTest_findByTypeAndNameAPI() {
+		Page<Circuit> circuits;
+		String type;
+		String name;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		type = "street";
+		name = "albert park";
+		
+		circuits = this.circuitService.findByTypeAndNameAPI(type, name, pageable);
+		
+		assertNotNull(circuits);
+		assertTrue(circuits.hasContent());
+	}
+	
+	@Test
+	public void positiveTest_findByLocationAndNameAPI() {
+		Page<Circuit> circuits;
+		String location;
+		String name;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		location = "australia";
+		name = "albert park";
+		
+		circuits = this.circuitService.findByLocationAndNameAPI(location, name, pageable);
+		
+		assertNotNull(circuits);
+		assertTrue(circuits.hasContent());
+	}
+	
+	@Test
+	public void positiveTest_findByAllParametersAPI() {
+		Page<Circuit> circuits;
+		String location;
+		String name;
+		String type;
+		Pageable pageable;
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		location = "australia";
+		name = "albert park";
+		type = "street";
+		
+		circuits = this.circuitService.findByAllParametersAPI(location, type, name, pageable);
+		
+		assertNotNull(circuits);
+		assertTrue(circuits.hasContent());
+	}
+	
 }

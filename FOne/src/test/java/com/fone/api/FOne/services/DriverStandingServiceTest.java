@@ -26,8 +26,7 @@ public class DriverStandingServiceTest extends AbstractTest {
 	private UtilityService utilityService;
 	
 	// Suite test -------------------------------
-
-	// Test de UC-027
+	
 	@Test
 	public void positiveTest_findBySeason() {
 		Page<DriverStanding> allSeason;
@@ -43,7 +42,6 @@ public class DriverStandingServiceTest extends AbstractTest {
 		assertTrue(allSeason.hasContent());
 	}
 
-	// Test de UC-027
 	@Test
 	public void negativeTest_findBySeason() {
 		Page<DriverStanding> allSeason;
@@ -58,7 +56,6 @@ public class DriverStandingServiceTest extends AbstractTest {
 		assertTrue(!allSeason.hasContent());
 	}
 
-	// Test de UC-028
 	@Test
 	public void positiveTest_findByPositionAndDriver() {
 		Page<DriverStanding> driversStanding;
@@ -73,7 +70,6 @@ public class DriverStandingServiceTest extends AbstractTest {
 		assertTrue(driversStanding.hasContent());
 	}
 
-	// Test de UC-028
 	@Test
 	public void negativeTest_findByPositionAndDriver() {
 		Page<DriverStanding> driversStanding;
@@ -88,7 +84,6 @@ public class DriverStandingServiceTest extends AbstractTest {
 		assertTrue(!driversStanding.hasContent());
 	}
 
-	// Test de UC-029
 	@Test
 	public void positiveTestUno_findByDriver() {
 		Page<DriverStanding> driversStanding;
@@ -103,7 +98,6 @@ public class DriverStandingServiceTest extends AbstractTest {
 		assertTrue(driversStanding.hasContent());
 	}
 
-	// Test de UC-029
 	@Test
 	public void positiveTestDos_findByDriver() {
 		Page<DriverStanding> driversStanding;
@@ -111,14 +105,13 @@ public class DriverStandingServiceTest extends AbstractTest {
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		driver = "pastor maldonado";
+		driver = "Pastor Maldonado";
 		driversStanding = this.driverStandingService.findByDriverAPI(driver, pageable);
 
 		assertNotNull(driversStanding);
 		assertTrue(driversStanding.hasContent());
 	}
 
-	// Test de UC-029
 	@Test
 	public void positiveTestTres_findByDriver() {
 		Page<DriverStanding> driversStanding;
@@ -126,14 +119,13 @@ public class DriverStandingServiceTest extends AbstractTest {
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		driver = "alonso";
+		driver = "Fernando Alonso";
 		driversStanding = this.driverStandingService.findByDriverAPI(driver, pageable);
 
 		assertNotNull(driversStanding);
 		assertTrue(driversStanding.hasContent());
 	}
 
-	// Test de UC-029
 	@Test
 	public void negativeTest_findByDriver() {
 		Page<DriverStanding> driversStanding;
@@ -148,4 +140,69 @@ public class DriverStandingServiceTest extends AbstractTest {
 		assertTrue(!driversStanding.hasContent());
 	}
 
+	@Test
+	public void positiveTest_findCountDriverAndPositionAPI() {
+		Integer count;
+		String driver;
+		String position;
+		
+		driver = "Fernando Alonso";
+		position = "1";
+		
+		count = this.driverStandingService.findCountDriverAndPositionAPI(driver, position);
+		
+		assertTrue(count == 2);
+	}
+	
+	
+	@Test
+	public void negativeTest_findCountDriverAndPositionAPI() {
+		Integer count;
+		String driver;
+		String position;
+		
+		driver = "Fernando Alonso";
+		position = "30";
+		
+		count = this.driverStandingService.findCountDriverAndPositionAPI(driver, position);
+		
+		assertTrue(count == 0);
+	}
+	
+	@Test
+	public void positiveTest_findCountDriverAPI() {
+		Integer count;
+		String driver;
+		
+		driver = "Fernando Alonso";
+		
+		count = this.driverStandingService.findCountByDriverAPI(driver);
+		
+		assertTrue(count > 0);
+	}
+	
+	
+	@Test
+	public void negativeTest_findCountDriverAPI() {
+		Integer count;
+		String driver;
+		
+		driver = "Leo Messi";
+		
+		count = this.driverStandingService.findCountByDriverAPI(driver);
+		
+		assertTrue(count == 0);
+	}
+	
+	@Test
+	public void positiveTest_findDriversTitlesByConstructorAPI() {
+		Integer count;
+		String constructor;
+		
+		constructor = "Ferrari";
+		count = this.driverStandingService.findDriversTitlesByConstructorAPI(constructor);
+		
+		assertTrue(count > 0);
+	}
+	
 }

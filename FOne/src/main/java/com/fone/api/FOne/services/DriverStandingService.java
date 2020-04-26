@@ -69,6 +69,30 @@ public class DriverStandingService {
 		return results;
 	}
 	
+	public Integer findCountByDriverAPI(String driver) {
+		Integer result;
+		
+		result = this.driverStandingRepository.findCountByDriverAPI(driver);
+		
+		return result;
+	}
+	
+	public Integer findCountDriverAndPositionAPI(String driver, String position) {
+		Integer result;
+		
+		result = this.driverStandingRepository.findCountDriverAndPositionAPI(driver, position);
+		
+		return result;
+	}
+	
+	public Integer findDriversTitlesByConstructorAPI(String constructor) {
+		Integer result;
+		
+		result = this.driverStandingRepository.findDriversTitlesByConstructorAPI(constructor);
+		
+		return result;
+	}
+	
 	public DriverStanding findOne(String driverStandingId) {
 		DriverStanding result;
 		

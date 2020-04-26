@@ -197,6 +197,14 @@ public class RaceService {
 		return result;
 	}
 	
+	public Integer findCountByConstructorAPI(String constructor) {
+		Integer result;
+		
+		result = this.raceRepository.findCountByConstructorAPI(constructor);
+		
+		return result;
+	}
+	
 	protected List<Race> findAll() {
 		List<Race> results;
 

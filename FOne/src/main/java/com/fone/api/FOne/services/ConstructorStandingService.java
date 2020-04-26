@@ -65,6 +65,24 @@ public class ConstructorStandingService {
 		return results;
 	}
 	
+	
+	public Integer findCountByConstructorAPI(String constructor) {
+		Integer result;
+		
+		result = this.constructorStandingRepository.findCountByConstructorAPI(constructor);
+		
+		return result;
+	}
+	
+	
+	public Integer findCountByConstructorAndPositionAPI(String constructor, String position) {
+		Integer result;
+		
+		result = this.constructorStandingRepository.findCountByConstructorAndPositionAPI(constructor, position);
+		
+		return result;
+	}
+	
 	public List<ConstructorStanding> findAll() {
 		List<ConstructorStanding> results;
 		

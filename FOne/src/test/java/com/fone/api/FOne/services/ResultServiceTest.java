@@ -30,7 +30,6 @@ public class ResultServiceTest extends AbstractTest {
 	
 	// Suite test --------------------------
 
-	// Test de UC-004
 	@Test
 	public void positiveTestUno_findDriversByConstructor() {
 		String constructor;
@@ -43,7 +42,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(drivers.size() > 0);
 	}
 
-	// Test de UC-004
 	@Test
 	public void positiveTestDos_findDriversByConstructor() {
 		String constructor;
@@ -56,7 +54,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.size() > 0);
 	}
 
-	// Test de UC-004
 	@Test
 	public void negativeTest_findDriversByConstructor() {
 		String constructor;
@@ -69,7 +66,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.size() == 0);
 	}
 
-	// Test de UC-009
 	@Test
 	public void positiveTestUno_findConstructorsByDriver() {
 		String driver;
@@ -82,7 +78,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.size() > 0);
 	}
 
-	// Test de UC-009
 	@Test
 	public void positiveTestDos_findConstructorsByDriver() {
 		String driver;
@@ -95,7 +90,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.size() > 0);
 	}
 
-	// Test de UC-009
 	@Test
 	public void positiveTestTres_findConstructorsByDriver() {
 		String driver;
@@ -108,7 +102,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.size() > 0);
 	}
 
-	// Test de UC-009
 	@Test
 	public void negativeTest_findConstructorsByDriver() {
 		String driver;
@@ -121,7 +114,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.size() == 0);
 	}
 
-	// Test de UC-023
 	@Test
 	public void positiveTestUno_findResultsByPositionAndDriver() {
 		Page<Result> results;
@@ -139,7 +131,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-023
 	@Test
 	public void positiveTestDos_findResultsByPositionAndDriver() {
 		Page<Result> results;
@@ -149,7 +140,7 @@ public class ResultServiceTest extends AbstractTest {
 
 		pageable = this.utilityService.getPageable(10, 0);
 		position = "14";
-		driver = "glock";
+		driver = "Timo Glock";
 
 		results = this.resultService.findResultsByPositionAndDriverAPI(driver, position, pageable);
 
@@ -157,7 +148,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-023
 	@Test
 	public void negativeTestUno_findResultsByPositionAndDriver() {
 		Page<Result> results;
@@ -175,7 +165,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
-	// Test de UC-023
 	@Test
 	public void negativeTestDos_findResultsByPositionAndDriver() {
 		Page<Result> results;
@@ -193,7 +182,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
-	// Test de UC-024
 	@Test
 	public void positiveTestUno_findResultsByGridAndDriver() {
 		Page<Result> results;
@@ -203,7 +191,7 @@ public class ResultServiceTest extends AbstractTest {
 
 		pageable = this.utilityService.getPageable(10, 0);
 		grid = "1";
-		driver = "vettel";
+		driver = "Sebastian Vettel";
 
 		results = this.resultService.findResultsByGridAndDriverAPI(driver, grid, pageable);
 
@@ -211,7 +199,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-024
 	@Test
 	public void positiveTestDos_findResultsByGridAndDriver() {
 		Page<Result> results;
@@ -229,7 +216,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-024
 	@Test
 	public void negativeTestUno_findResultsByGridAndDriver() {
 		Page<Result> results;
@@ -247,7 +233,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
-	// Test de UC-024
 	@Test
 	public void negativeTestDos_findResultsByGridAndDriver() {
 		Page<Result> results;
@@ -265,7 +250,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
-	// Test de UC-025
 	@Test
 	public void positiveTestUno_findResultsByPositionAndConstructor() {
 		Page<Result> results;
@@ -283,7 +267,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-025
 	@Test
 	public void positiveTestDos_findResultsByPositionAndConstructor() {
 		Page<Result> results;
@@ -293,7 +276,7 @@ public class ResultServiceTest extends AbstractTest {
 
 		pageable = this.utilityService.getPageable(10, 0);
 		position = "5";
-		constructor = "red bull";
+		constructor = "Red Bull";
 
 		results = this.resultService.findResultsByPositionAndConstructorAPI(constructor, position, pageable);
 
@@ -301,7 +284,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-025
 	@Test
 	public void negativeTestUno_findResultsByPositionAndConstructor() {
 		Page<Result> results;
@@ -319,7 +301,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
-	// Test de UC-025
 	@Test
 	public void negativeTestDos_findResultsByPositionAndConstructor() {
 		Page<Result> results;
@@ -337,7 +318,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
-	// Test de UC-026
 	@Test
 	public void positiveTestUno_findResultsByGridAndConstructor() {
 		Page<Result> results;
@@ -347,7 +327,7 @@ public class ResultServiceTest extends AbstractTest {
 
 		pageable = this.utilityService.getPageable(10, 0);
 		grid = "1";
-		constructor = "mcLaren";
+		constructor = "Brawn";
 
 		results = this.resultService.findResultsByGridAndConstructorAPI(constructor, grid, pageable);
 
@@ -355,7 +335,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-026
 	@Test
 	public void positiveTestDos_findResultsByGridAndConstructorAPI() {
 		Page<Result> results;
@@ -365,7 +344,7 @@ public class ResultServiceTest extends AbstractTest {
 
 		pageable = this.utilityService.getPageable(10, 0);
 		grid = "2";
-		constructor = "williams";
+		constructor = "Williams";
 
 		results = this.resultService.findResultsByGridAndConstructorAPI(constructor, grid, pageable);
 
@@ -373,7 +352,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(results.hasContent());
 	}
 
-	// Test de UC-026
 	@Test
 	public void negativeTestUno_findResultsByGridAndConstructor() {
 		Page<Result> results;
@@ -391,7 +369,6 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
-	// Test de UC-026
 	@Test
 	public void negativeTestDos_findResultsByGridAndConstructor() {
 		Page<Result> results;
@@ -409,4 +386,71 @@ public class ResultServiceTest extends AbstractTest {
 		assertTrue(!results.hasContent());
 	}
 
+	@Test
+	public void positiveTest_findCountByPositionAndDriver() {
+		Integer count;
+		String driver;
+		String position;
+		
+		driver = "Fernando Alonso";
+		position = "1";
+		
+		count = this.resultService.findCountByPositionAndDriverAPI(driver, position);
+		
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void positiveTest_findCountByGridAndDriver() {
+		Integer count;
+		String driver;
+		String grid;
+		
+		driver = "Fernando Alonso";
+		grid = "1";
+		
+		count = this.resultService.findCountByGridAndDriverAPI(driver, grid);
+		
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void positiveTest_findCountByPositionAndConstructor() {
+		Integer count;
+		String constructor;
+		String position;
+		
+		constructor = "Ferrari";
+		position = "1";
+		
+		count = this.resultService.findCountByPositionAndConstructorAPI(constructor, position);
+		
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void positiveTest_findCountByGridAndConstructor() {
+		Integer count;
+		String constructor;
+		String grid;
+		
+		constructor = "Ferrari";
+		grid = "1";
+		
+		count = this.resultService.findCountByGridAndConstructorAPI(constructor, grid);
+		
+		assertTrue(count > 0);
+	}
+	
+	@Test
+	public void positiveTest_findCountByDriverAPI() {
+		Integer count;
+		String driver;
+		
+		driver  = "Fernando Alonso";
+		count = this.resultService.findCountByDriverAPI(driver);
+		
+		assertTrue(count > 0);
+	}
+	
 }

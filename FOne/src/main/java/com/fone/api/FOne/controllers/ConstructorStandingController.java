@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fone.api.FOne.domain.ConstructorStanding;
 import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.ConstructorStandingService;
+import com.fone.api.FOne.services.DriverStandingService;
 import com.fone.api.FOne.services.UtilityService;
 
 import io.swagger.annotations.Api;
@@ -31,6 +32,9 @@ public class ConstructorStandingController {
 	@Autowired
 	private ConstructorStandingService constructorStandingService;
 
+	@Autowired
+	private DriverStandingService driverStandingService;
+	
 	@Autowired
 	private UtilityService utilityService;
 	
@@ -128,4 +132,68 @@ public class ConstructorStandingController {
 		return results;
 	}
 
+	@GetMapping(value = "/count/constructor/{constructor}")
+	@ApiOperation(value = "Operación findCountByConstructor",
+    			  notes = "Devuelve el número de campeonatos en los que la escudería ha participado")
+	public Integer findCountByConstructorAndPositionAPI(@PathVariable(required = true) String constructor) {
+		Integer result;
+		
+		try {
+			result = this.constructorStandingService.findCountByConstructorAPI(constructor);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("No se pudo recuperar el número de campeonatos en los que una escudería participó", e);
+		}
+		
+		return result;
+	}
+	
+	@GetMapping(value = "/count/constructor/{constructor}/position/{position}")
+	@ApiOperation(value = "Operación findCountByConstructorAndPosition",
+    			  notes = "Devuelve el número de campeonatos en los que la escudería finalizó en cierta posición")
+	public Integer findCountByConstructorAndPositionAPI(@PathVariable(required = true) String constructor,
+												 		@PathVariable(required = true) String position) {
+		Integer result;
+		
+		try {
+			result = this.constructorStandingService.findCountByConstructorAndPositionAPI(constructor, position);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("No se pudo recuperar el número de campeonatos en los que una escudería finalizó en cierta posición", e);
+		}
+		
+		return result;
+	}
+
+	@GetMapping(value = "/drivers-titles/{constructor}")
+	@ApiOperation(value = "Operación findDriversTitlesByConstructor",
+    			  notes = "Devuelve el número de titulos de pilotos conseguidos por la escudería")
+	public Integer findDriversTitlesByConstructorAPI(@PathVariable(required = true) String constructor) {
+		Integer result;
+		
+		try {
+			result = this.driverStandingService.findDriversTitlesByConstructorAPI(constructor);
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("No se pudo recuperar el número de títulos de pilotos para una escudería", e);
+		}
+		
+		return result;
+	}
+	
 }

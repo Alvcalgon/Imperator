@@ -82,44 +82,35 @@ public class DriverService {
 	
 	// Método principal para web scraping
 	public void loadDrivers() {
-		log.info("--------------- Cargando datos de los pilotos en la BD ----------------");
 		this.driverRepository.deleteAll();
-		
-		Document doc, subDoc;
-		Elements ls_tr, ls_td;
-		Element a, tbody;
-		String href;
-		Set<Driver> drivers;
-		Driver driver;
-		
-		drivers = new HashSet<Driver>();
+	
+		Set<Driver> drivers = new HashSet<Driver>();
 		
 		// Este documento contiene el enlace de cada piloto
-		doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-drivers/");
+		Document doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-drivers/");
 		
 		if (doc != null) {
 			try {	
-				tbody = doc.selectFirst("tbody");
+				Element tbody = doc.selectFirst("tbody");
 				
-				ls_tr = tbody.select("tr");		
+				Elements ls_tr = tbody.select("tr");		
 				for (Element tr: ls_tr) {
-					ls_td = tr.select("td");
+					Elements ls_td = tr.select("td");
 					
 					for (Element td: ls_td) {
-						a = td.selectFirst("a");
-						href = a.attr("href").trim();
+						Element a = td.selectFirst("a");
+						String href = a.attr("href").trim();
 						
 						// Este documento contiene la informacion del piloto
-						subDoc = this.utilityService.getDocument(href);
+						Document subDoc = this.utilityService.getDocument(href);
 						
-						driver = this.getDriver(subDoc);
+						Driver driver = this.getDriver(subDoc);
 						
 						if (driver != null) {
 							drivers.add(driver);
 						}
 					}	
 				}
-				
 			} catch (Exception e) {
 				log.info("Error inesperado: " + e.getMessage());
 			}
@@ -127,15 +118,12 @@ public class DriverService {
 			log.info("Numero de pilotos: " + drivers.size());
 			this.driverRepository.saveAll(drivers);
 		}
-		
 	}
 	
 	// Métodos auxiliares -----------------------------------------
 	private Driver getDriver(Document doc) {
-		Driver result;
 		Element div, tbody, tr, td, a;
-		String fullname, country, placeOfBirth, str_birthOfDate;
-		Date birthOfDate;
+		Driver result = null;
 		
 		try {
 			div = doc.selectFirst("div.column.half");
@@ -143,29 +131,29 @@ public class DriverService {
 			
 			tr = tbody.selectFirst("tr.msr_row1");
 			td = tr.child(1);
-			fullname = td.text().trim();
+			String fullname = td.text().trim();
 			
 			tr = tbody.selectFirst("tr.msr_row2");
 			td = tr.child(1);
 			a = td.child(1);
-			country = a.text().trim();
+			String country = a.text().trim();
 			
 			tr = tbody.selectFirst("tr.msr_row3");
 			td = tr.child(1);
-			placeOfBirth = td.text().trim();
+			String placeOfBirth = td.text().trim();
 			
 			tr = tbody.selectFirst("tr.msr_row4");
 			td = tr.child(1);
 			
-			str_birthOfDate = td.text();
-			birthOfDate = this.utilityService.getDate(str_birthOfDate);
+			String str_birthOfDate = td.text();
+			Date birthOfDate = this.utilityService.getDate(str_birthOfDate);
 			
-			result = (birthOfDate != null) ? new Driver(fullname, placeOfBirth, country, birthOfDate) : new Driver(fullname, placeOfBirth, country);
+			result = (birthOfDate != null)
+					? new Driver(fullname, placeOfBirth, country, birthOfDate)
+					: new Driver(fullname, placeOfBirth, country);
 			
 			log.info("Piloto: " + fullname);
 		} catch (Exception e) {
-			result = null;
-			
 			log.info("Error al recuperar el piloto: " + e.getMessage());
 		}
 		

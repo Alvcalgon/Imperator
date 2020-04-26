@@ -123,6 +123,47 @@ public class ResultService {
 		return results;
 	}
 	
+	public Integer findCountByPositionAndDriverAPI(String driverFullname, String position) {
+		Integer result;
+		
+		result = this.resultRepository.findCountByPositionAndDriverAPI(driverFullname, position);
+		
+		return result;
+	}
+	
+	public Integer findCountByGridAndDriverAPI(String driverFullname, String grid) {
+		Integer result;
+		
+		result = this.resultRepository.findCountByGridAndDriverAPI(driverFullname, grid);
+		
+		return result;
+	}
+	
+	public Integer findCountByPositionAndConstructorAPI(String constructorName, String position) {
+		Integer result;
+		
+		result = this.resultRepository.findCountByPositionAndConstructorAPI(constructorName,
+																			position);
+		
+		return result;
+	}
+	
+	public Integer findCountByGridAndConstructorAPI(String constructorName, String grid) {
+		Integer result;
+		
+		result = this.resultRepository.findCountByGridAndConstructorAPI(constructorName, grid);
+		
+		return result;
+	}
+	
+	public Integer findCountByDriverAPI(String driver) {
+		Integer result;
+		
+		result = this.resultRepository.findCountByDriverAPI(driver);
+		
+		return result;
+	}
+	
 	public Result findOne(String resultId) {
 		Result result;
 		

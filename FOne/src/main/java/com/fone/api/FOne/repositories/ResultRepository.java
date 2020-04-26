@@ -20,15 +20,30 @@ public interface ResultRepository extends MongoRepository<Result, String> {
 	@Query("{\"driver.fullname\": ?0}")
 	List<Result> findConstructorsByDriverAPI(String driverFullname);
 
-	@Query("{\"driver.fullname\": {$regex: ?0, $options: 'i'}, position: ?1}")
+	@Query("{\"driver.fullname\": ?0, position: ?1}")
 	Page<Result> findResultsByPositionAndDriverAPI(String driverFullname, String position, Pageable pageable);
 
-	@Query("{\"driver.fullname\": {$regex: ?0, $options: 'i'}, grid: ?1}")
+	@Query("{\"driver.fullname\": ?0, grid: ?1}")
 	Page<Result> findResultsByGridAndDriverAPI(String driverFullname, String grid, Pageable pageable);
 
-	@Query("{\"constructor.name\": {$regex: ?0, $options: 'i'}, position: ?1}")
+	@Query("{\"constructor.name\": ?0, position: ?1}")
 	Page<Result> findResultsByPositionAndConstructorAPI(String constructorName, String position, Pageable pageable);
 
-	@Query("{\"constructor.name\": {$regex: ?0, $options: 'i'}, grid: ?1}")
+	@Query("{\"constructor.name\": ?0, grid: ?1}")
 	Page<Result> findResultsByGridAndConstructorAPI(String constructorName, String grid, Pageable pageable);
+	
+	@Query(value = "{\"driver.fullname\": ?0, position: ?1}", count = true)
+	Integer findCountByPositionAndDriverAPI(String driverFullname, String position);
+	
+	@Query(value = "{\"driver.fullname\": ?0, grid: ?1}", count = true)
+	Integer findCountByGridAndDriverAPI(String driverFullname, String grid);
+	
+	@Query(value = "{\"constructor.name\": ?0, position: ?1}", count = true)
+	Integer findCountByPositionAndConstructorAPI(String constructorName, String position);
+
+	@Query(value = "{\"constructor.name\": ?0, grid: ?1}", count = true)
+	Integer findCountByGridAndConstructorAPI(String constructorName, String grid);
+
+	@Query(value = "{\"driver.fullname\": ?0}", count = true)
+	Integer findCountByDriverAPI(String driver);
 }
