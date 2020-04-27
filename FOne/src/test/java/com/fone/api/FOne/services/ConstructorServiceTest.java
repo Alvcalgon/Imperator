@@ -3,6 +3,8 @@ package com.fone.api.FOne.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,15 @@ public class ConstructorServiceTest extends AbstractTest {
 	
 	// Suite test -------------------
 
+	@Test
+	public void positiveTest_getLinks() {
+		List<String> urls;
+		
+		urls = this.constructorService.getLinks();
+		
+		assertTrue(urls.size() == 3);
+	}
+	
 	@Test
 	public void test_findAll() {
 		Page<Constructor> all;

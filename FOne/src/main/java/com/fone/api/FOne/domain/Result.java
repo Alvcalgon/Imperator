@@ -31,6 +31,8 @@ public class Result {
 	@Min(0)
 	private Integer points;
 	
+	private String status;
+	
 	@Valid
 	@NotNull
 	private Driver driver;
@@ -49,7 +51,7 @@ public class Result {
 
 
 	public Result(String position, String time, Integer laps, String grid, Integer points,
-			      Driver driver, Constructor constructor) {
+			      String status, Driver driver, Constructor constructor) {
 		super();
 		
 		this.resultId = new ObjectId().toString();
@@ -58,6 +60,7 @@ public class Result {
 		this.laps = laps;
 		this.grid = grid;
 		this.points = points;
+		this.status = status;
 		this.driver = driver;
 		this.constructor = constructor;
 	}
@@ -122,6 +125,16 @@ public class Result {
 
 	public void setPoints(Integer points) {
 		this.points = points;
+	}
+
+	
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 

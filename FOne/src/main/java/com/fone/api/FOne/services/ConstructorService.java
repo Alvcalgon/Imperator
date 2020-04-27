@@ -1,6 +1,8 @@
 package com.fone.api.FOne.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -100,115 +102,85 @@ public class ConstructorService {
 	}
 	
 	public void loadConstructors() {
-		log.info("------------- Cargando datos de los constructores en la BD -------------------");
 		this.constructorRepository.deleteAll();
 		
-		Document doc, subDoc;
-		Elements ls_tr, ls_td;
-		Element tbody, a;
-		String href;
+		Elements constructorTags;
+		Element constructorTable;
 		Set<Constructor> constructors;
 		Constructor constructor;
 		
 		constructors = new HashSet<Constructor>();
+		List<String> pages = this.getLinks();
 		
-		// Este documento contiene el enlace hacia cada constructor
-		doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-teams/");
-		
-		if (doc != null) {
-			try {	
-				tbody = doc.selectFirst("tbody");
-				
-				ls_tr = tbody.select("tr");
-				for (Element tr: ls_tr) {
-					ls_td = tr.select("td");
+		for (String page: pages) {
+			log.info("------------- Pagina: " + page + " -------------------------");
+			
+			Document doc = this.utilityService.getDocument(page);
+			
+			if (doc != null) {
+				try {	
+					constructorTable = doc.selectFirst("ConstructorTable");
 					
-					for (Element td: ls_td) {
-						a = td.selectFirst("a");
-						href = a.attr("href").trim();
+					constructorTags = constructorTable.select("Constructor");
+					
+					for (Element constructorTag: constructorTags) {
+						constructor = this.getConstructor(constructorTag);
 						
-						// Este documento contiene los datos de la escuderia
-						subDoc = this.utilityService.getDocument(href);
+						log.info("Constructor: " + constructor.getName());
 						
-						constructor = this.getConstructor(subDoc);
-						
-						if (constructor != null) {
-							constructors.add(constructor);
-						}
+						constructors.add(constructor);
 					}
 					
+				} catch (Exception e) {
+					log.info("ConstructorService::loadConstructors: Error inesperado: " + e.getMessage());
 				}
 				
-			} catch (Exception e) {
-				log.info("Error inesperado: " + e.getMessage());
+				log.info("Numero de escuderias: " + constructors.size());
+				this.constructorRepository.saveAll(constructors);
 			}
-			
-			log.info("Numero de escuderias: " + constructors.size());
-			this.constructorRepository.saveAll(constructors);
 		}
-		
 	}
 	
-	protected Constructor getConstructor(Document doc) {
+	protected Constructor getConstructor(Element constructorTag) {
 		Constructor result;
-		Elements p;
-		Element div, tbody, tr, td, a;
-		String name, country, principal;
+		Element nameTag, nacion;
+		String name, nacionality, info;
 		
-		try {
-			div = doc.selectFirst("div.column.half");
-			tbody = div.selectFirst("tbody");
-			
-			tr = tbody.selectFirst("tr.msr_row1");
-			td = tr.child(1);
-			name = td.text().trim();
-			
-			tr = tbody.selectFirst("tr.msr_row2");
-			td = tr.child(1);
-			a = td.child(1);
-			country = a.text().trim();
-			
-			div = doc.selectFirst("div.column.one_fourth");
-			
-			principal = "";
-			if (div.children() != null) {
-				if (div.children().size() > 0) {
-					p = div.select("p");
-					
-					if (p.hasText()) {
-						principal = this.getPrincipal(p.text());
-					}
-					
-				}
-			}
-			
-			result = (principal == "" || principal.isEmpty()) ? new Constructor(name, country) : new Constructor(name, country, principal);
-			
-			log.info("Nombre de la escuderia: " + name);
-		} catch (Exception e) {
-			result = null;
-			
-			log.info("Error al recuperar la escuderia: " + e.getMessage());
-		}
-				
+		nameTag = constructorTag.selectFirst("Name");
+		nacion = constructorTag.selectFirst("Nationality");
+		
+		name = nameTag.text();
+		nacionality = nacion.text();
+		info = constructorTag.attr("url").trim();
+		
+		result = new Constructor(name, nacionality, info);
+		
 		return result;
+	}
+	
+	protected List<String> getLinks() {
+		List<String> results;
+		String context;
+		String page;
+		
+		context = "http://ergast.com/api/f1/constructors?limit=70";		
+		results = new ArrayList<String>();
+		
+		for (int i=0; i<210; i=i+70) {
+			page = context + "&offset=" + i;
+			
+			log.info("Página: " + page);
+			
+			results.add(page);
+		}
+		
+		return results;
 	}
 	
 	protected Constructor findByName(String name) {
 		Constructor result;
 		
 		result = this.constructorRepository.findByName(name);
-		
-		return result;
-	}
-	
-	private String getPrincipal(String text) {
-		String result;
-		int index;
-		
-		index = text.indexOf(":");
-			
-		result = (index != -1) ? text.substring(index+1).trim(): "";
 		
 		return result;
 	}

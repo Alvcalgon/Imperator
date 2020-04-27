@@ -3,6 +3,8 @@ package com.fone.api.FOne.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,28 @@ public class DriverServiceTest extends AbstractTest {
 	
 	// Suite test -----------------------
 
+	@Test
+	public void positiveTest_getLinks() {
+		List<String> urls;
+		
+		urls = this.driverService.getLinks();
+		
+		assertTrue(urls.size() == 17);
+	}
+	
+	@Test
+	public void positiveTest_loadDrivers() {
+		Page<Driver> drivers;
+		Pageable pageable;
+		
+		this.driverService.loadDrivers();
+		
+		pageable = this.utilityService.getPageable(10, 0);
+		drivers = this.driverService.findAllAPI(pageable);
+		
+		assertTrue(drivers.hasContent());
+	}
+	
 	@Test
 	public void test_findAllAPI() {
 		Page<Driver> drivers;

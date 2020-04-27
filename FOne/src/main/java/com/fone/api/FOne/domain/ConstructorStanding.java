@@ -23,6 +23,8 @@ public class ConstructorStanding {
 	
 	private Integer points;
 	
+	private Integer wins;
+	
 	private Constructor constructor;
 	
 	
@@ -33,13 +35,15 @@ public class ConstructorStanding {
 		this.constructorStandingId = new ObjectId().toString();
 	}
 	
-	public ConstructorStanding(String season, String position, Integer points, Constructor constructor) {
+	public ConstructorStanding(String season, String position, Integer points, Integer wins,
+			                   Constructor constructor) {
 		super();
 		
 		this.constructorStandingId = new ObjectId().toString();
 		this.season = season;
 		this.position = position;
 		this.points = points;
+		this.wins = wins;
 		this.constructor = constructor;
 	}
 
@@ -76,6 +80,14 @@ public class ConstructorStanding {
 	public void setPoints(Integer points) {
 		this.points = points;
 	}
+	
+	public Integer getWins() {
+		return wins;
+	}
+
+	public void setWins(Integer wins) {
+		this.wins = wins;
+	}
 
 	public Constructor getConstructor() {
 		return constructor;
@@ -109,10 +121,11 @@ public class ConstructorStanding {
 		
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "ConstructorStanding [id=" + this.constructorStandingId + ", season=" + this.season + ", constructor=" + this.getConstructor() + "]"; 
+		return "ConstructorStanding [constructorStandingId=" + constructorStandingId + ", season=" + season
+				+ ", constructor=" + constructor + "]";
 	}
 	
 }

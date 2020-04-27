@@ -19,9 +19,11 @@ public class DriverStanding {
 	@NotBlank
 	private String season;
 	
-	private Integer points;
+	private Double points;
 	
 	private String position;
+	
+	private Integer wins;
 	
 	private Driver driver;
 	
@@ -34,13 +36,15 @@ public class DriverStanding {
 		this.driverStandingId = new ObjectId().toString();
 	}
 	
-	public DriverStanding(String season, Integer points, String position, Driver driver, Constructor constructor) {
+	public DriverStanding(String season, Double points, String position, Integer wins,
+			              Driver driver, Constructor constructor) {
 		super();
 		
 		this.driverStandingId = new ObjectId().toString();
 		this.season = season;
 		this.points = points;
 		this.position = position;
+		this.wins = wins;
 		this.driver = driver;
 		this.constructor = constructor;
 	}
@@ -65,11 +69,11 @@ public class DriverStanding {
 		this.season = season;
 	}
 
-	public Integer getPoints() {
+	public Double getPoints() {
 		return points;
 	}
 
-	public void setPoints(Integer points) {
+	public void setPoints(Double points) {
 		this.points = points;
 	}
 
@@ -79,6 +83,14 @@ public class DriverStanding {
 
 	public void setPosition(String position) {
 		this.position = position;
+	}
+	
+	public Integer getWins() {
+		return wins;
+	}
+
+	public void setWins(Integer wins) {
+		this.wins = wins;
 	}
 
 	public Driver getDriver() {
@@ -97,6 +109,7 @@ public class DriverStanding {
 		this.constructor = constructor;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		return this.driverStandingId.hashCode();
@@ -120,10 +133,10 @@ public class DriverStanding {
 		
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "DriverStanding [id=" + this.driverStandingId + ", season=" + this.season + ", driver=" + this.getDriver().getFullname() + ", constructor=" + this.getConstructor().getName() + "]";
+		return "DriverStanding [driverStandingId=" + driverStandingId + ", season="
+				+ season + ", driver=" + driver + "]";
 	}
-	
 }

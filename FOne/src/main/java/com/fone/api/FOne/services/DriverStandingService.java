@@ -131,97 +131,64 @@ public class DriverStandingService {
 	
 	// Metodo principal para web scraping ------------------------
 	public void loadDriverStandings() {
-		log.info("------------------ Cargando Drivers standing -----------------------");
+		this.driverStandingRepository.deleteAll();
 		
 		Map<String, String> seasons;
 		List<DriverStanding> driversStanding;
+		DriverStanding driverStanding;
+		Elements standingTags;
+		Element driverTag, constructorTag;
+		String position;
+		Integer wins;
+		Double points;
 		String url;
-		Document document;
-		
-		seasons = this.getSeasons(1950, 2018);
+		Driver driver;
+		Constructor constructor;
 		
 		driversStanding = new ArrayList<DriverStanding>();
+		seasons = this.getSeasons(1950, 2019);
+
 		for (String season: seasons.keySet()) {
 			url = seasons.get(season);
 			
-			document = this.utilityService.getDocument(url);
+			Document doc = this.utilityService.getDocument(url);
 			
-			if (document != null) {
-				driversStanding.addAll(this.getDriversStanding(document, season));
-				
-				log.info("Obtenido resumen de pilotos de la temporada " + season);
+			if (doc != null) {
+				try {
+					standingTags = doc.select("DriverStanding");
+					
+					for (Element standing: standingTags) {
+						position = standing.attr("positionText").trim();
+						points = Double.valueOf(standing.attr("points"));
+						wins = Integer.valueOf(standing.attr("wins"));
+						
+						driverTag = standing.selectFirst("Driver");
+						driver = this.driverService.getDriver(driverTag);
+						
+						constructorTag = standing.selectFirst("Constructor");
+						constructor = this.constructorService.getConstructor(constructorTag);
+						
+						driverStanding = new DriverStanding(season,
+															points,
+															position,
+															wins,
+															driver,
+															constructor);
+						
+						log.info("Driver standing: " + season + " - " + driver.getFullname());
+						
+						driversStanding.add(driverStanding);
+					}
+					
+				} catch (Exception e) {
+					log.error("DriverStandingService::loadDriverStandings: Error inesperado");
+				}
 			}
 			
 			this.driverStandingRepository.saveAll(driversStanding);
 		}
 	}
-	
-	protected List<DriverStanding> getDriversStanding(Document document, String season) {
-		List<DriverStanding> results;
-		Element div, table, tbody, td, a;
-		Elements ls_tr;
-		String position, driverName, aText, constructorName, points;
-		Driver driver;
-		Constructor constructor;
-		DriverStanding driverStanding;
-		
-		position = "0";
-		points = "-1";
-		driver = null;
-		constructor = null;
-		
-		results = new ArrayList<DriverStanding>();
-		try {
-			div = document.selectFirst("div.resultsarchive-content");
 			
-			table = div.selectFirst("table.resultsarchive-table");
-			
-			tbody = table.selectFirst("tbody");
-			
-			ls_tr = tbody.select("tr");
-		
-			for (Element tr: ls_tr) {
-				try {
-					td = tr.selectFirst("td.dark");
-					position = td.text().trim();
-					
-					a = tr.selectFirst("a.dark.bold.ArchiveLink");
-					aText = a.text().trim();
-					driverName = this.findDriverName(aText);
-					driver = this.driverService.findByFullname2(driverName);
-					
-					a = tr.selectFirst("a.grey.semi-bold.uppercase.ArchiveLink");
-					constructorName = a.text().trim();
-					constructor = this.constructorService.findByName(constructorName);
-					
-					td = tr.selectFirst("td.dark.bold");
-					points = td.text().trim();
-					
-					log.info("Driver standing + (" + season + "): " + position + " - " + points);
-				} catch (Exception ee) {
-					log.info("Datos parciales 1");
-					
-				}
-				
-				driverStanding = new DriverStanding(season,
-						Integer.valueOf(points),
-						position,
-						driver,
-						constructor);
-
-				results.add(driverStanding);
-			}
-		
-		} catch (Exception e) {
-			log.info("Datos parciales 2");
-			
-			driverStanding = new DriverStanding(season, Integer.valueOf(points), position, driver, constructor);
-			results.add(driverStanding);
-		}
-		
-		return results;
-	}
-	
 	private Map<String, String> getSeasons(int seasonStart, int seasonEnd) {
 		Map<String, String> results;
 		String link, str_season;
@@ -232,7 +199,7 @@ public class DriverStandingService {
 		season = seasonStart;
 		while (season <= seasonEnd) {
 			str_season = String.valueOf(season);
-			link = "https://www.formula1.com/en/results.html/" + str_season + "/drivers.html";
+			link = "http://ergast.com/api/f1/" + season + "/driverStandings?limit=120";
 			
 			results.put(str_season, link);
 			
@@ -241,22 +208,4 @@ public class DriverStandingService {
 	
 		return results;
 	}
-	
-	private String findDriverName(String driverName) {
-		String result;
-		String[] fields;
-		int n;
-		
-		fields = driverName.split(" ");
-		n = fields.length;
-		n--;
-		
-		result = "";
-		for (int i=0; i<n; i++) {
-			result = result + fields[i] + " ";
-		}
-		
-		return result.trim();
-	}
-	
 }

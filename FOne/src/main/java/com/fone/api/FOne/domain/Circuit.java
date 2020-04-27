@@ -20,11 +20,11 @@ public class Circuit {
 	@NotBlank
 	private String name;
 	
-	private String location;
+	private String locality;
 	
-	private String type;
+	private String country;
 	
-	private String lapDistance;
+	private String information;
 	
 	
 	// Constructores ------------------------------
@@ -34,21 +34,14 @@ public class Circuit {
 		this.circuitId = new ObjectId().toString();
 	}
 
-	public Circuit(String name) {
+	public Circuit(String name, String locality, String country, String information) {
 		super();
 		
 		this.circuitId = new ObjectId().toString();
 		this.name = name;
-	}
-
-	public Circuit(String name, String location, String type, String lapDistance) {
-		super();
-		
-		this.circuitId = new ObjectId().toString();
-		this.name = name;
-		this.location = location;
-		this.type = type;
-		this.lapDistance = lapDistance;
+		this.locality = locality;
+		this.country = country;
+		this.information = information;
 	}
 
 
@@ -58,52 +51,42 @@ public class Circuit {
 		return circuitId;
 	}
 
-
 	public void setCircuitId(String ciruitId) {
 		this.circuitId = ciruitId;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-	public String getLocation() {
-		return location;
+	public String getLocality() {
+		return locality;
 	}
 
-
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLocality(String locality) {
+		this.locality = locality;
 	}
 
-
-	public String getType() {
-		return type;
+	public String getCountry() {
+		return country;
 	}
 
-
-	public void setType(String type) {
-		this.type = type;
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
-
-	public String getLapDistance() {
-		return lapDistance;
+	public String getInformation() {
+		return information;
 	}
 
-
-	public void setLapDistance(String lapDistance) {
-		this.lapDistance = lapDistance;
+	public void setInformation(String information) {
+		this.information = information;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		return this.circuitId.hashCode();
@@ -127,10 +110,10 @@ public class Circuit {
 		
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Circuit [id=" + this.circuitId + ", name=" + this.name + "]";
+		return "Circuit [circuitId=" + circuitId + ", name=" + name + "]";
 	}
-	
+		
 }

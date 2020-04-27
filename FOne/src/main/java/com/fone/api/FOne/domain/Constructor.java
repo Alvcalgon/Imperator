@@ -19,9 +19,9 @@ public class Constructor {
 	@NotBlank
 	private String name;
 	
-	private String country;
+	private String nationality;
 	
-	private String principal;
+	private String information;
 	
 	// Constructores -----------------------------------------
 	public Constructor() {
@@ -30,21 +30,13 @@ public class Constructor {
 		this.constructorId = new ObjectId().toString();
 	}
 
-	public Constructor(String name, String country, String principal) {
+	public Constructor(String name, String nationality, String information) {
 		super();
 		
 		this.constructorId = new ObjectId().toString();
 		this.name = name;
-		this.country = country;
-		this.principal = principal;
-	}
-
-	public Constructor(String name, String country) {
-		super();
-		
-		this.constructorId = new ObjectId().toString();
-		this.name = name;
-		this.country = country;
+		this.nationality = nationality;
+		this.information = information;
 	}
 
 	
@@ -66,21 +58,22 @@ public class Constructor {
 		this.name = name;
 	}
 	
-	public String getCountry() {
-		return country;
+	public String getNationality() {
+		return nationality;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
 	}
 
-	public String getPrincipal() {
-		return principal;
+	public String getInformation() {
+		return information;
 	}
 
-	public void setPrincipal(String principal) {
-		this.principal = principal;
+	public void setInformation(String information) {
+		this.information = information;
 	}
+
 	
 	@Override
 	public int hashCode() {
@@ -105,10 +98,10 @@ public class Constructor {
 		
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Constructor [id=" + this.constructorId + ", name=" + this.name + "]";
+		return "Constructor [constructorId=" + constructorId + ", name=" + name + "]";
 	}
 	
 }

@@ -1,6 +1,5 @@
 package com.fone.api.FOne.domain;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,9 +24,11 @@ public class Race {
 	@NotBlank
 	private String season;
 	
-	private Date raceDate;
+	private String raceDate;
 	
 	private String event;
+	
+	private String information;
 	
 	@Valid
 	private Circuit circuit;
@@ -44,16 +45,7 @@ public class Race {
 		this.results = new HashSet<Result>();
 	}
 
-	public Race(String season, Date raceDate) {
-		super();
-		
-		this.raceId = new ObjectId().toString();
-		this.season = season;
-		this.raceDate = raceDate;
-		this.results = new HashSet<Result>();
-	}
-	
-	public Race(String season, Date raceDate, String event, Circuit circuit) {
+	public Race(String season, String raceDate, String event, String information, Circuit circuit) {
 		super();
 		
 		this.raceId = new ObjectId().toString();
@@ -61,9 +53,22 @@ public class Race {
 		this.raceDate = raceDate;
 		this.circuit = circuit;
 		this.event = event;
+		this.information = information;
 		this.results = new HashSet<Result>();
 	}
 	
+	public Race(String season, String raceDate, String event,
+				String information, Circuit circuit, Set<Result> results) {
+		super();
+		
+		this.raceId = new ObjectId().toString();
+		this.season = season;
+		this.raceDate = raceDate;
+		this.circuit = circuit;
+		this.event = event;
+		this.information = information;
+		this.results = new HashSet<Result>(results);
+	}
 	
 	// Getters y setters ----------------
 	@JsonIgnore
@@ -83,11 +88,11 @@ public class Race {
 		this.season = season;
 	}
 
-	public Date getRaceDate() {
+	public String getRaceDate() {
 		return raceDate;
 	}
 
-	public void setRaceDate(Date raceDate) {
+	public void setRaceDate(String raceDate) {
 		this.raceDate = raceDate;
 	}
 	
@@ -97,6 +102,14 @@ public class Race {
 
 	public void setEvent(String event) {
 		this.event = event;
+	}
+
+	public String getInformation() {
+		return information;
+	}
+
+	public void setInformation(String information) {
+		this.information = information;
 	}
 
 	public Circuit getCircuit() {
@@ -138,11 +151,10 @@ public class Race {
 		
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "[Race [id=" + this.raceId + ", season=" + this.season + ", event=" + this.event + "]";
+		return "Race [raceId=" + raceId + ", season=" + season + ", event=" + event + "]";
 	}
-	
 	
 }

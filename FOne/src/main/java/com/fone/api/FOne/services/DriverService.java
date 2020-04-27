@@ -1,7 +1,8 @@
 package com.fone.api.FOne.services;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -83,81 +84,79 @@ public class DriverService {
 	// Método principal para web scraping
 	public void loadDrivers() {
 		this.driverRepository.deleteAll();
-	
+		
+		Elements driverTags;
+		Element driverTable;
+		Driver driver;
+		
 		Set<Driver> drivers = new HashSet<Driver>();
+		List<String> pages = this.getLinks();
 		
-		// Este documento contiene el enlace de cada piloto
-		Document doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-drivers/");
-		
-		if (doc != null) {
-			try {	
-				Element tbody = doc.selectFirst("tbody");
-				
-				Elements ls_tr = tbody.select("tr");		
-				for (Element tr: ls_tr) {
-					Elements ls_td = tr.select("td");
+		for (String page: pages) {
+			log.info("------------- Pagina: " + page + " -------------------------");
+			
+			Document doc = this.utilityService.getDocument(page);
+			
+			if (doc != null) {
+				try {				
+					driverTable = doc.selectFirst("DriverTable");
 					
-					for (Element td: ls_td) {
-						Element a = td.selectFirst("a");
-						String href = a.attr("href").trim();
-						
-						// Este documento contiene la informacion del piloto
-						Document subDoc = this.utilityService.getDocument(href);
-						
-						Driver driver = this.getDriver(subDoc);
-						
-						if (driver != null) {
-							drivers.add(driver);
-						}
-					}	
+					driverTags = driverTable.select("Driver");
+					
+					for (Element driverTag: driverTags) {		
+						driver = this.getDriver(driverTag);
+						drivers.add(driver);
+					}
+					
+				} catch (Exception e) {
+					log.error("DriverService::loadDrivers: Error inesperado", e);
 				}
-			} catch (Exception e) {
-				log.info("Error inesperado: " + e.getMessage());
 			}
-		
-			log.info("Numero de pilotos: " + drivers.size());
-			this.driverRepository.saveAll(drivers);
 		}
+	
+		log.info("Numero de pilotos: " + drivers.size());
+		this.driverRepository.saveAll(drivers);
 	}
 	
-	// Métodos auxiliares -----------------------------------------
-	private Driver getDriver(Document doc) {
-		Element div, tbody, tr, td, a;
-		Driver result = null;
+
+	// Métodos auxiliares -----------------------------------------	
+	protected Driver getDriver(Element driverTag) {
+		Element givenName, familyName, dateOfBirth, nacion;
+		String fullname, nacionality, dateBirth, info;
+		Driver result;
 		
-		try {
-			div = doc.selectFirst("div.column.half");
-			tbody = div.selectFirst("tbody");
-			
-			tr = tbody.selectFirst("tr.msr_row1");
-			td = tr.child(1);
-			String fullname = td.text().trim();
-			
-			tr = tbody.selectFirst("tr.msr_row2");
-			td = tr.child(1);
-			a = td.child(1);
-			String country = a.text().trim();
-			
-			tr = tbody.selectFirst("tr.msr_row3");
-			td = tr.child(1);
-			String placeOfBirth = td.text().trim();
-			
-			tr = tbody.selectFirst("tr.msr_row4");
-			td = tr.child(1);
-			
-			String str_birthOfDate = td.text();
-			Date birthOfDate = this.utilityService.getDate(str_birthOfDate);
-			
-			result = (birthOfDate != null)
-					? new Driver(fullname, placeOfBirth, country, birthOfDate)
-					: new Driver(fullname, placeOfBirth, country);
-			
-			log.info("Piloto: " + fullname);
-		} catch (Exception e) {
-			log.info("Error al recuperar el piloto: " + e.getMessage());
-		}
+		givenName = driverTag.selectFirst("GivenName");
+		familyName = driverTag.selectFirst("FamilyName");
+		dateOfBirth = driverTag.selectFirst("DateOfBirth");
+		nacion = driverTag.selectFirst("Nationality");
+		
+		fullname = givenName.text() + " " + familyName.text();
+		dateBirth = dateOfBirth.text();
+		nacionality = nacion.text();
+		info = driverTag.attr("url").trim();
+	
+		result = new Driver(fullname, nacionality, dateBirth, info);
 		
 		return result;
+	}
+	
+	protected List<String> getLinks() {
+		List<String> results;
+		String context;
+		String page;
+		
+		context = "http://ergast.com/api/f1/drivers?limit=50";		
+		results = new ArrayList<String>();
+		
+		for (int i=0; i<850; i=i+50) {
+			page = context + "&offset=" + i;
+			
+			log.info("Página: " + page);
+			
+			results.add(page);
+		}
+		
+		return results;
 	}
 	
 }

@@ -112,88 +112,59 @@ public class ConstructorStandingService {
 	}
 	
 	public void loadConstructorStandings() {
-		log.info("---------------- Cargando Constructor standing ------------------");
+		//this.constructorStandingRepository.deleteAll();
 		
-		Map<String, String> seasons;
 		List<ConstructorStanding> constructorsStanding;
+		ConstructorStanding constructorStanding;
+		Map<String, String> seasons;
+		Elements standingTags;
+		Element constructorTag;
+		Constructor constructor;
 		String url;
-		Document document;
-		
-		seasons = this.getSeasons(1991, 2018);
+		String position;
+		Integer points, wins;
 		
 		constructorsStanding = new ArrayList<ConstructorStanding>();
+		seasons = this.getSeasons(2009, 2009);
+		
 		for (String season: seasons.keySet()) {
 			url = seasons.get(season);
 			
-			document = this.utilityService.getDocument(url);
+			Document doc = this.utilityService.getDocument(url);
 			
-			if (document != null) {
-				constructorsStanding.addAll(this.getConstructorStanding(document, season));
-			
-				log.info("Obtenido resumen de escuderías de la temporada " + season);
-			}
-			
-			this.constructorStandingRepository.saveAll(constructorsStanding);
-		}
-		
-	}
-	
-	protected List<ConstructorStanding> getConstructorStanding(Document document, String season) {
-		List<ConstructorStanding> results;
-		Element div, table, tbody, td, a;
-		Elements ls_tr;
-		String position, points, constructorName;
-		Constructor constructor;
-		ConstructorStanding constructorStanding;
-		
-		position = "0";
-		points = "-1";
-		constructor = null;
-		
-		results = new ArrayList<ConstructorStanding>();
-		try {
-			div = document.selectFirst("div.resultsarchive-content");
-			
-			table = div.selectFirst("table.resultsarchive-table");
-			
-			tbody = table.selectFirst("tbody");
-			
-			ls_tr = tbody.select("tr");
-
-			for (Element tr: ls_tr) {
+			if (doc != null) {
 				try {
-					td = tr.selectFirst("td.dark");
-					position = td.text().trim();
+					standingTags = doc.select("ConstructorStanding");
 					
-					a = tr.selectFirst("a.dark.bold.uppercase.ArchiveLink");
-					constructorName = a.text().trim();
-					constructor = this.constructorService.findByName(constructorName);
-					
-					if (constructor == null) {
-						log.info(" --- Escudería no obtenida ---");
+					for (Element standing: standingTags) {
+						position = standing.attr("positionText").trim();
+						
+						Double real_points = Double.valueOf(standing.attr("points"));
+						points = real_points.intValue();
+						
+						wins = Integer.valueOf(standing.attr("wins"));
+						
+						constructorTag = standing.selectFirst("Constructor");
+						constructor = this.constructorService.getConstructor(constructorTag);
+						
+						constructorStanding = new ConstructorStanding(season,
+																	  position,
+																	  points,
+																	  wins,
+																	  constructor);
+						
+						log.info("Constructor standing: " + season + " - " + constructor.getName());
+						
+						constructorsStanding.add(constructorStanding);
 					}
 					
-					td = tr.selectFirst("td.dark.bold");
-					points = td.text().trim();
-					
-					constructorStanding = new ConstructorStanding(season, position, Integer.valueOf(points), constructor);
-					results.add(constructorStanding);
-					
-					log.info("Constructor standing (" + season + "): " + position + " - " + points);
-				} catch (Exception ee) {
-					log.info("Datos parciales 1");
-					
-					constructorStanding = new ConstructorStanding(season, position, Integer.valueOf(points), constructor);
-					results.add(constructorStanding);
+				} catch (Exception e) {
+					log.error("ConstructorStandingService::loadConstructorStanding: error inesperado");
 				}
-				
 			}
-			
-		} catch (Exception e) {
-			log.info("Datos parciales 2");
 		}
 		
-		return results;	
+		this.constructorStandingRepository.saveAll(constructorsStanding);
 	}
 	
 	private Map<String, String> getSeasons(int seasonStart, int seasonEnd) {
@@ -206,7 +177,8 @@ public class ConstructorStandingService {
 		season = seasonStart;
 		while (season <= seasonEnd) {
 			str_season = String.valueOf(season);
-			link = "https://www.formula1.com/en/results.html/" + str_season + "/team.html";
+		
+			link = "http://ergast.com/api/f1/" + str_season + "/constructorStandings";
 			
 			results.put(str_season, link);
 			

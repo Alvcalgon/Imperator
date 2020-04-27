@@ -1,6 +1,8 @@
 package com.fone.api.FOne.services;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -122,89 +124,84 @@ public class CircuitService {
 	
 	// Metodo principal para el web scraping -----------------------------
 	public void loadCircuits() {
-		log.info("------------ Cargando datos de los circuitos en la BD ----------------");
 		this.circuitRepository.deleteAll();
 		
-		Document doc, subDoc;
-		Elements ls_tr, ls_td;
-		Element a, tbody, table;
-		String href, name;
+		Elements circuitTags;
+		Element circuitTable;
 		Set<Circuit> circuits;
 		Circuit circuit;
 		
 		circuits = new HashSet<Circuit>();
+		List<String> pages = this.getLinks();
 		
-		doc = this.utilityService.getDocument("https://www.f1-fansite.com/f1-circuits/");
-		
-		if (doc != null) {
-			try {
-				table = doc.selectFirst("table.motor-sport-results");
-				
-				tbody = table.selectFirst("tbody");
-				
-				ls_tr = tbody.select("tr");
-				for (Element tr: ls_tr) {
-					ls_td = tr.select("td");
+		for (String page: pages) {
+			log.info("------------- Pagina: " + page + " -------------------------");
+			
+			Document doc = this.utilityService.getDocument(page);
+			
+			if (doc != null) {
+				try {
+					circuitTable = doc.selectFirst("CircuitTable");
 					
-					for (Element td: ls_td) {
-						a = td.selectFirst("a");
-						
-						href = a.attr("href").trim();
-						name = a.text().trim();
-						
-						subDoc = this.utilityService.getDocument(href);
-						
-						circuit = this.getCircuit(subDoc, name);
-						
-						if (circuit != null) {
-							circuits.add(circuit);
-						}
+					circuitTags = circuitTable.select("Circuit");
+					
+					for (Element circuitTag: circuitTags) {
+						circuit = this.getCircuit(circuitTag);
+							
+						circuits.add(circuit);
 					}
+					
+				} catch (Exception e) {				
+					log.error("CircuitService::loadCircuits: Error inesperado: " + e.getMessage());
 				}
 				
-			} catch (Exception e) {				
-				log.info("Error inesperado: " + e.getMessage());
+				log.info("Numero de circuitos: " + circuits.size());
+				this.circuitRepository.saveAll(circuits);
 			}
-			
-			log.info("Numero de circuitos: " + circuits.size());
-			this.circuitRepository.saveAll(circuits);
 		}
-		
 	}
 	
-	protected Circuit getCircuit(Document doc, String name) {
-		Circuit result;
-		String location, type, lapDistance;
-		Element div, tbody, tr, td;
+	
+	protected Circuit getCircuit(Element circuitTag) {
+		Element nameTag, localityTag, countryTag, location;;
+		String name, locality, country, info;
+		Circuit circuit;
 		
-		try {
-			div = doc.selectFirst("div.column.three_eighth");
-			tbody = div.selectFirst("tbody");
-			
-			tr = tbody.child(1);
-			td = tr.child(1);
-			location = td.text().trim();
-			
-			tr = tbody.child(4);
-			td = tr.child(1);
-			type = td.text().trim();
-			
-			tr = tbody.child(5);
-			td = tr.child(1);
-			lapDistance = td.text().trim();
-			
-			result = new Circuit(name, location, type, lapDistance);
-			
-			log.info("Nombre del circuito: " + name);
-		} catch (Exception e) {
-			result = new Circuit(name);
-			
-			log.info("Error al recuperar todos los datos del circuito: " + e.getMessage());
-		}
+		nameTag = circuitTag.selectFirst("CircuitName");
 		
-		return result;
+		location = circuitTag.selectFirst("Location");
+		localityTag = location.selectFirst("Locality");
+		countryTag = location.selectFirst("Country");
+		
+		name = nameTag.text();
+		locality = localityTag.text();
+		country = countryTag.text();
+		info = circuitTag.attr("url").trim();
+		
+		circuit = new Circuit(name, locality, country, info);
+		
+		return circuit;
 	}
 	
+	protected List<String> getLinks() {
+		List<String> results;
+		String context;
+		String page;
+		
+		context = "http://ergast.com/api/f1/circuits?limit=50";		
+		results = new ArrayList<String>();
+		
+		for (int i=0; i<100; i=i+50) {
+			page = context + "&offset=" + i;
+			
+			log.info("Página: " + page);
+			
+			results.add(page);
+		}
+		
+		return results;
+	}
+
 	protected Circuit save(Circuit circuit) {
 		Circuit result;
 		

@@ -1,7 +1,6 @@
 package com.fone.api.FOne.services;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -215,164 +214,88 @@ public class RaceService {
 	
 	// Metodo principal para web scraping ------------------------------
 	public void loadRacesAndResults() {
-		log.info("Cargando las carreras y resultados en la BD");
-
+		//this.raceRepository.deleteAll();
+		//this.resultService.deleteAll();
+		
+		String raceDate, event, info;
 		Map<String, String> seasons;
-		Set<String> seasonKeys;
-		Document doc;
-
-		seasons = this.getAllSeasons();
-		seasonKeys = seasons.keySet();
-
-		if (!seasons.isEmpty()) {
-			for (String season : seasonKeys) {
-				log.info("Temporada por insertar: " + season);
-
-				doc = this.utilityService.getDocument(seasons.get(season));
-
-				if (doc != null) {
-					this.loadRacesBySeason(doc, season);
-				}
-
-				log.info("Temporada ya insertada: " + season);
-			}
-		}
-
-	}
-
-	// Metodos auxiliares
-	public void loadRacesBySeason(Document document, String season) {
-		Document doc;
-		Element table, tbody, td_href, td_raceDate, a;
-		Elements ls_tr;
-		Date raceDate;
-		String href, monthDay;
+		Set<Result> results;
+		Elements raceTags;
+		Element circuitTag, eventTag, dateTag;
+		Circuit circuit;
+		List<Race> races;
+		String url, round, urlToResults;
 		Race race;
-		Set<Race> races;
-
-		races = new HashSet<Race>();
-
-		try {
-			table = document.selectFirst("table.motor-sport-results.msr_season_summary.tablesorter");
-
-			tbody = table.selectFirst("tbody");
-
-			ls_tr = tbody.select("tr");
-			for (Element tr : ls_tr) {
+		
+		races = new ArrayList<Race>();
+		seasons = this.getSeasons(2009, 2019);
+		
+		for (String season: seasons.keySet()) {
+			url = seasons.get(season);
+			
+			Document doc = this.utilityService.getDocument(url);
+			
+			if (doc != null) {
 				try {
-					td_href = tr.selectFirst("td.msr_col1");
-					td_raceDate = tr.selectFirst("td.msr_col2");
-
-					monthDay = td_raceDate.text().trim();
-					raceDate = this.utilityService.getDateByParameters(season, monthDay);
-
-					a = td_href.selectFirst("a");
-
-					// Este enlace contiene los datos Race::results, Race::event y Race::circuit
-					href = a.attr("href").trim();
-					doc = this.utilityService.getDocument(href);
-
-					if (doc != null) {
-						race = this.getRace(doc, season, raceDate);
-
+					raceTags = doc.select("Race");
+					
+					for (Element raceTag: raceTags) {
+						info = raceTag.attr("url");
+						round = raceTag.attr("round");
+						
+						eventTag = raceTag.selectFirst("RaceName");
+						event = eventTag.text().trim();
+						
+						dateTag = raceTag.selectFirst("Date");
+						raceDate = dateTag.text().trim();
+						
+						circuitTag = raceTag.selectFirst("Circuit");
+						circuit = this.circuitService.getCircuit(circuitTag);
+						
+						urlToResults = "http://ergast.com/api/f1/" + season + "/"
+								+ round + "/" + "results";
+						
+						Document subDoc = this.utilityService.getDocument(urlToResults);
+						
+						results = this.resultService.loadResults(subDoc);
+						
+						race = new Race(season, raceDate, event, info, circuit, results);
+						
+						log.info(race.toString());
+						
 						races.add(race);
 					}
-
-				} catch (Exception ex) {
-					log.info("Error al recuperar la carrera");
+					
+				} catch (Exception e) {
+					log.error("RaceService::loadRaces: Error inesperado", e);
 				}
 			}
-
-		} catch (Exception e) {
-			log.info("Error inesperado recuperando las carreras de la temporada " + season);
 		}
-
+		
 		this.raceRepository.saveAll(races);
-
-		log.info("Carreras obtenidas: " + races.size());
 	}
 
-	private Race getRace(Document document, String season, Date raceDate) {
-		Race result;
-		Element div_parent, div_child, p, a_event, a_circuit;
-
-		Elements ls_a;
-		String event = "", circuitName;
-		Circuit circuit = null;
-		Set<Result> results;
-
-		try {
-			div_parent = document.selectFirst("div.post-content");
-			div_child = div_parent.selectFirst("div.entry.clearfix");
-
-			p = div_child.selectFirst("p");
-			ls_a = p.select("a");
-
-			if (ls_a.size() >= 2) {
-				a_event = ls_a.get(0);
-				a_circuit = ls_a.get(1);
-
-				event = a_event.text().trim();
-				circuitName = a_circuit.text().trim();
-
-				circuit = this.circuitService.findByName(circuitName);
-			}
-
-			result = new Race(season, raceDate, event, circuit);
-		} catch (Exception e) {
-			result = new Race(season, raceDate);
-
-			log.info("No se encontraron todos los datos de la carrera");
-		}
-
-		log.info("Carrera: " + result.getRaceId() + " " + season);
-
-		results = this.resultService.loadResultsByRace(document);
-		result.setResults(results);
-
-		return result;
-	}
-
-	private Map<String, String> getAllSeasons() {
+	private Map<String, String> getSeasons(int seasonStart, int seasonEnd) {
 		Map<String, String> results;
-		Document document;
-		Elements ls_tr, ls_td;
-		Element table, tbody, a;
-		String href, season;
-
+		String link, str_season;
+		int season;
+		
 		results = new HashMap<String, String>();
-
-		document = this.utilityService.getDocument("https://www.f1-fansite.com/f1-results/");
-		if (document != null) {
-			try {
-				table = document.selectFirst("table.motor-sport-results.msr_seasons");
-
-				tbody = table.selectFirst("tbody");
-
-				ls_tr = tbody.select("tr");
-				for (Element tr : ls_tr) {
-					ls_td = tr.select("td");
-
-					for (Element td : ls_td) {
-						a = td.selectFirst("a");
-
-						href = a.attr("href").trim();
-						season = a.text().trim();
-
-						results.put(season, href);
-					}
-				}
-
-			} catch (Exception e) {
-				log.info("Error inesperado al recuperar las temporadas: " + e.getMessage());
-			}
-		}
-
-		log.info("Numero de temporadas: " + results.size());
-
+		
+		season = seasonStart;
+		while (season <= seasonEnd) {
+			str_season = String.valueOf(season);
+	
+			link = "http://ergast.com/api/f1/" + season;
+			
+			results.put(str_season, link);
+			
+			season++;
+		}	
+	
 		return results;
 	}
-
+	
 	public Race save(Race race) {
 		Race result;
 		

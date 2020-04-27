@@ -202,85 +202,69 @@ public class ResultService {
 		this.resultRepository.deleteAll();
 	}
 	
-	public Set<Result> loadResultsByRace(Document document) {
-		Element div, table, tbody, th, td, a;
-		Elements ls_tr, ls_a;
-		String position, time, str_laps, grid, str_points, driverFullname, constructorName;
-		Integer laps, points;
-		Driver driver;
+	
+	public Set<Result> loadResults(Document doc) {
+		Element driverTag, constructorTag, gridTag, statusTag, timeTag, lapsTag;
+		String position, time, grid, status;
 		Constructor constructor;
-		Result result;
 		Set<Result> results;
+		Elements resultTags;
+		Integer points, laps;
+		Result result;
+		Driver driver;
 		
 		results = new HashSet<Result>();
 		
-		try {
-			div = document.selectFirst("div#msr_result");
-			
-			table = div.selectFirst("table.motor-sport-results.msr_result");
-			
-			tbody = table.selectFirst("tbody");
-			
-			ls_tr = tbody.select("tr");
-			for (Element tr: ls_tr) {
-				try {
-					th = tr.selectFirst("th.msr_col1");
-					position = th.text().trim();
+		if (doc != null) {
+			try {
+				resultTags = doc.select("Result");
+				
+				for (Element resultTag: resultTags) {
+					position = resultTag.attr("positionText").trim();
 					
-					td = tr.selectFirst("td.msr_col5");
-					time = td.text().trim();
+					Double real_points = Double.valueOf(resultTag.attr("points"));
+					points = real_points.intValue();
 					
-					td = tr.selectFirst("td.msr_col6");
-					str_laps = td.text().trim();
-					laps = Integer.valueOf(str_laps);
+					driverTag = resultTag.selectFirst("Driver");
+					driver = this.driverService.getDriver(driverTag);
 					
-					td = tr.selectFirst("td.msr_col8");
-					grid = td.text().trim();
+					constructorTag = resultTag.selectFirst("Constructor");
+					constructor = this.constructorService.getConstructor(constructorTag);
 					
-					td = tr.selectFirst("td.msr_col9");
-					str_points = td.text().trim();
-					points = Integer.valueOf(str_points);
+					gridTag = resultTag.selectFirst("Grid");
+					grid = gridTag.text();
 					
-					td = tr.selectFirst("td.msr_col3");
-					ls_a = td.select("a");
+					lapsTag = resultTag.selectFirst("Laps");
+					laps = Integer.getInteger(lapsTag.text());
 					
-					a = (ls_a.size() == 2) ? ls_a.get(1) : null;
-					if (a != null) {
-						driverFullname = a.text().trim();
-						
-						driver = this.driverService.findByFullname2(driverFullname);
-					} else {
-						driver = null;
-					}
+					statusTag = resultTag.selectFirst("Status");
+					status = statusTag.text();
 					
-					td = tr.selectFirst("td.msr_col4");
-					ls_a = td.select("a");
+					timeTag = resultTag.selectFirst("Time");
+					time = (timeTag != null) ? timeTag.text() : "";
 					
-					a = (ls_a.size() == 2) ? ls_a.get(1) : null;
-					if (a != null) {
-						constructorName = a.text().trim();
-						constructor = this.constructorService.findByName(constructorName);
-					} else {
-						constructor = null;
-					}
-					
-					result = new Result(position, time, laps, grid, points, driver, constructor);	
+					result = new Result(position,
+										time,
+										laps,
+										grid,
+										points,
+										status,
+										driver,
+										constructor); 
+										
 					results.add(result);
-					
-					log.info("Resultado: " + result.getResultId());
-				} catch (Exception ex) {
-					log.info("Error al obtener un resultado de una carrera");
 				}
 				
+			} catch (Exception e) {
+				log.error("ResultService::loadResults: Error inesperado", e);
 			}
-			
-		} catch (Exception e) {
-			log.info("No se pudieron obtener los resultados de la carrera");
-		}
 		
-		this.resultRepository.saveAll(results);
+			log.info("Resultados persistidos: " + results.size());
+			
+			this.resultRepository.saveAll(results);
+		}
 		
 		return results;
 	}
-	
+
 }

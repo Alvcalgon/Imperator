@@ -192,17 +192,18 @@ public class UtilityService {
 			try {
 				// Añadimos este tiempo de retraso para que el sistema web no interprete
 				// de que somos un robot
-				log.info("Retraso agregado");
+				log.info("UtilityService::getDocument: Retraso agregado");
 				
-				TimeUnit.SECONDS.sleep(5);
+				TimeUnit.SECONDS.sleep(4);
 			} catch (InterruptedException e) {
-				log.info("Error con el retraso agregado");
+				log.info("UtilityService::getDocument: Error con el retraso agregado");
 			}
 			
 		} catch (IOException e) {
 			result = null;
 			
-			log.info("Error al recuperar la pagina web: " + e.getMessage());
+			log.info("UtilityService::getDocument: Error al recuperar la pagina web: "
+					+ e.getMessage());
 		}
 		
 		return result;

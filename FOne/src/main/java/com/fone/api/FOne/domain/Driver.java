@@ -1,9 +1,6 @@
 package com.fone.api.FOne.domain;
 
-import java.util.Date;
-
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -21,14 +18,12 @@ public class Driver {
 	
 	@NotBlank
 	private String fullname;
+		
+	private String nacionality;
 	
-	private String placeOfBirth;
+	private String dateOfBirth;	
 	
-	private String country;
-	
-	@Past
-	private Date dateOfBirth;	
-	
+	private String information;
 	
 	// Constructores -------------------------
 	public Driver() {
@@ -37,23 +32,14 @@ public class Driver {
 		this.driverId = new ObjectId().toString();
 	}
 	
-	public Driver(String fullname, String placeOfBirth, String country) {
+	public Driver(String fullname, String nacionality, String dateOfBirth, String information) {
 		super();
 		
 		this.driverId = new ObjectId().toString();
 		this.fullname = fullname;
-		this.placeOfBirth = placeOfBirth;
-		this.country = country;
-	}
-	
-	public Driver(String fullname, String placeOfBirth, String country, Date dateOfBirth) {
-		super();
-		
-		this.driverId = new ObjectId().toString();
-		this.fullname = fullname;
-		this.placeOfBirth = placeOfBirth;
-		this.country = country;
+		this.nacionality = nacionality;
 		this.dateOfBirth = dateOfBirth;
+		this.information = information;
 	}
 	
 	
@@ -75,30 +61,30 @@ public class Driver {
 		this.fullname = fullname;
 	}
 	
-	public String getPlaceOfBirth() {
-		return placeOfBirth;
+	public String getNacionality() {
+		return nacionality;
 	}
 
-	public void setPlaceOfBirth(String placeOfBirth) {
-		this.placeOfBirth = placeOfBirth;
-	}
-	
-	public String getCountry() {
-		return country;
+	public void setNacionality(String nacionality) {
+		this.nacionality = nacionality;
 	}
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public Date getDateOfBirth() {
+	public String getDateOfBirth() {
 		return dateOfBirth;
 	}
 	
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(String dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
+	public String getInformation() {
+		return information;
+	}
+
+	public void setInformation(String information) {
+		this.information = information;
+	}
+
 	
 	@Override
 	public int hashCode() {
@@ -123,10 +109,10 @@ public class Driver {
 		
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Driver [id=" + this.driverId + ", fullname=" + this.fullname + ", country=" + this.country + "]";
+		return "Driver [driverId=" + driverId + ", fullname=" + fullname + "]";
 	}
 	
 }
