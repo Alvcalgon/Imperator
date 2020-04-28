@@ -85,7 +85,7 @@ public class ConstructorStandingController {
 		Pageable pageable;
 		
 		try {
-			sort = Sort.by(Direction.ASC, "season");
+			sort = Sort.by(Direction.DESC, "season");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.constructorStandingService.findByPositionAPI(position, pageable);
@@ -115,7 +115,7 @@ public class ConstructorStandingController {
 		Pageable pageable;
 		
 		try {
-			sort = Sort.by(Direction.ASC, "season");
+			sort = Sort.by(Direction.DESC, "season");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.constructorStandingService.findByConstructorAPI(constructor, pageable);

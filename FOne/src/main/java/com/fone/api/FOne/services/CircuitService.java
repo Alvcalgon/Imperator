@@ -51,15 +51,7 @@ public class CircuitService {
 		
 		return result;
 	}
-	
-	public Page<Circuit> findByTypeAPI(String type, Pageable pageable) {
-		Page<Circuit> results;
 		
-		results = this.circuitRepository.findByTypeAPI(type, pageable);
-		
-		return results;
-	}
-	
 	public Page<Circuit> findByLocationAPI(String location, Pageable pageable) {
 		Page<Circuit> results;
 		
@@ -84,40 +76,10 @@ public class CircuitService {
 		return result;
 	}
 	
-	public Page<Circuit> findByLocationAndTypeAPI(String location,
-											   String type,
-											   Pageable pageable) {
+	public Page<Circuit> findByAllParametersAPI(String location, String name, Pageable pageable) {
 		Page<Circuit> results;
 		
-		results = this.circuitRepository.findByLocationAndTypeAPI(location,
-															   type,
-															   pageable);
-		return results;
-	}
-	
-	public Page<Circuit> findByTypeAndNameAPI(String type,
-											  String name,
-											  Pageable pageable) {
-		Page<Circuit> results;
-		
-		results = this.circuitRepository.findByTypeAndNameAPI(type,
-															  name,
-															  pageable);
-		return results;
-	}
-	
-	public Page<Circuit> findByLocationAndNameAPI(String location, String name, Pageable pageable) {
-		Page<Circuit> results;
-		
-		results = this.circuitRepository.findByLocationAndNameAPI(location, name, pageable);
-		
-		return results;
-	}
-	
-	public Page<Circuit> findByAllParametersAPI(String location, String type, String name, Pageable pageable) {
-		Page<Circuit> results;
-		
-		results = this.circuitRepository.findByAllParametersAPI(location, type, name, pageable);
+		results = this.circuitRepository.findByAllParametersAPI(location, name, pageable);
 		
 		return results;
 	}

@@ -44,7 +44,7 @@ public class RaceController {
     			  notes = "Devuelve la lista de carreras en una temporada")
 	public Page<Race> findBySeasonAPI(@PathVariable(required = true) String season,
 			   						  @RequestParam(defaultValue = "0", required = false) Integer offset,
-			   						  @RequestParam(defaultValue = "5", required = false) Integer limit) {
+			   						  @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Race> results;
 		Pageable pageable;
 		Sort sort;
@@ -164,7 +164,7 @@ public class RaceController {
 	public Page<Race> findByDriverAndSeasonAPI(@PathVariable(required = true) String driver,
 											   @PathVariable(required = true) String season,
 											   @RequestParam(defaultValue = "0", required = false) Integer offset,
-											   @RequestParam(defaultValue = "5", required = false) Integer limit) {
+											   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Race> results;
 		Sort sort;
 		Pageable pageable;
@@ -195,7 +195,7 @@ public class RaceController {
 	public Page<Race> findByConstructorAndSeasonAPI(@PathVariable(required = true) String constructor,
 													@PathVariable(required = true) String season,
 													@RequestParam(defaultValue = "0", required = false) Integer offset,
-													@RequestParam(defaultValue = "5", required = false) Integer limit) {
+													@RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Race> results;
 		Sort sort;
 		Pageable pageable;

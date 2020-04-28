@@ -17,11 +17,11 @@ public interface DriverRepository extends MongoRepository<Driver, String>  {
 	@Query("{fullname: {$regex: ?0, $options: 'i'}}")
 	Page<Driver> findByFullnameAPI(String fullname, Pageable pageable);
 	
-	@Query(value = "{country: {$regex: ?0, $options: 'i'}}")
-	Page<Driver> findByCountryAPI(String country, Pageable pageable);
+	@Query(value = "{nacionality: {$regex: ?0, $options: 'i'}}")
+	Page<Driver> findByNacionalityAPI(String nacionality, Pageable pageable);
 
-	@Query(value = "{country: {$regex: ?1, $options: 'i'}, fullname: {$regex: ?0, $options: 'i'}}")
-	Page<Driver> findByParametersAPI(String fullname, String country, Pageable pageable);
+	@Query(value = "{nacionality: {$regex: ?1, $options: 'i'}, fullname: {$regex: ?0, $options: 'i'}}")
+	Page<Driver> findByParametersAPI(String fullname, String nacionality, Pageable pageable);
 	
 	// Ambas -------------------------------------------------------
 	@Query("{fullname: ?0}")

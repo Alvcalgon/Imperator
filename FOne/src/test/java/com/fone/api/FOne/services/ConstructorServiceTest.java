@@ -52,14 +52,14 @@ public class ConstructorServiceTest extends AbstractTest {
 
 	
 	@Test
-	public void positiveTestUno_findByCountry() {
+	public void positiveTestUno_findByNationality() {
 		Page<Constructor> constructors;
-		String country;
+		String nationality;
 		Pageable pageable;
 		
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "Italy";
-		constructors = this.constructorService.findByCountryAPI(country, pageable);
+		nationality = "Italian";
+		constructors = this.constructorService.findByNationalityAPI(nationality, pageable);
 
 		assertNotNull(constructors);
 		assertTrue(constructors.hasContent());
@@ -67,14 +67,14 @@ public class ConstructorServiceTest extends AbstractTest {
 
 	
 	@Test
-	public void positiveTestDos_findByCountry() {
+	public void positiveTestDos_findByNationality() {
 		Page<Constructor> constructors;
-		String country;
+		String nationality;
 		Pageable pageable;
 		
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "ITALY";
-		constructors = this.constructorService.findByCountryAPI(country, pageable);
+		nationality = "british";
+		constructors = this.constructorService.findByNationalityAPI(nationality, pageable);
 
 		assertNotNull(constructors);
 		assertTrue(constructors.hasContent());
@@ -82,28 +82,28 @@ public class ConstructorServiceTest extends AbstractTest {
 
 	
 	@Test
-	public void positiveTestTres_findByCountry() {
+	public void positiveTestTres_findByNationality() {
 		Page<Constructor> constructors;
-		String country;
+		String nationality;
 		Pageable pageable;
 		
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "ItAlY";
-		constructors = this.constructorService.findByCountryAPI(country, pageable);
+		nationality = "FRenCh";
+		constructors = this.constructorService.findByNationalityAPI(nationality, pageable);
 
 		assertNotNull(constructors);
 		assertTrue(constructors.hasContent());
 	}
 
 	@Test
-	public void negativeTest_findByCountry() {
+	public void negativeTest_findByNationality() {
 		Page<Constructor> constructors;
-		String country;
+		String nationality;
 		Pageable pageable;
 		
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "Pais erroneo";
-		constructors = this.constructorService.findByCountryAPI(country, pageable);
+		nationality = "Nacionalidad erronea";
+		constructors = this.constructorService.findByNationalityAPI(nationality, pageable);
 
 		assertNotNull(constructors);
 		assertNotNull(!constructors.hasContent());
@@ -196,14 +196,14 @@ public class ConstructorServiceTest extends AbstractTest {
 	public void positiveTest_findByParametersAPI() {
 		Page<Constructor> constructors;
 		String name;
-		String country;
+		String nationality;
 		Pageable pageable;
 		
 		pageable = this.utilityService.getPageable(10, 0);
 		name = "Ferrari";
-		country = "Italy";
+		nationality = "Italian";
 		
-		constructors = this.constructorService.findByParametersAPI(name, country, pageable);
+		constructors = this.constructorService.findByParametersAPI(name, nationality, pageable);
 		
 		assertNotNull(constructors);
 		assertTrue(constructors.hasContent());
@@ -214,14 +214,14 @@ public class ConstructorServiceTest extends AbstractTest {
 	public void negativeTest_findByParametersAPI() {
 		Page<Constructor> constructors;
 		String name;
-		String country;
+		String nationality;
 		Pageable pageable;
 		
 		pageable = this.utilityService.getPageable(10, 0);
 		name = "Ferrari";
-		country = "Spain";
+		nationality = "Spanish";
 		
-		constructors = this.constructorService.findByParametersAPI(name, country, pageable);
+		constructors = this.constructorService.findByParametersAPI(name, nationality, pageable);
 		
 		assertNotNull(constructors);
 		assertTrue(!constructors.hasContent());

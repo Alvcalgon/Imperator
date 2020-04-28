@@ -50,8 +50,8 @@ public class RaceServiceTest extends AbstractTest {
 		Set<Driver> drivers;
 		String season;
 
-		// No existen datos de la temporada 2019
-		season = "2019";
+		// No existen datos de la temporada 2020
+		season = "2020";
 		drivers = this.raceService.findDriversBySeasonAPI(season);
 
 		assertNotNull(drivers);
@@ -77,7 +77,7 @@ public class RaceServiceTest extends AbstractTest {
 		Set<Constructor> constructors;
 		String season;
 
-		season = "2019";
+		season = "2020";
 		constructors = this.raceService.findConstructorsBySeasonAPI(season);
 
 		assertNotNull(constructors);
@@ -194,7 +194,7 @@ public class RaceServiceTest extends AbstractTest {
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		driver = "Carlos Sainz Jr.";
+		driver = "Carlos Sainz";
 		races = this.raceService.findRacesByDriverAPI(driver, pageable);
 
 		assertNotNull(races);
@@ -406,7 +406,7 @@ public class RaceServiceTest extends AbstractTest {
 		pageable = this.utilityService.getPageable(5, 0);
 
 		season = "1980";
-		event = "us west";
+		event = "United States";
 
 		race = this.raceService.findRaceBySeasonAndEventAPI(event, season, pageable);
 

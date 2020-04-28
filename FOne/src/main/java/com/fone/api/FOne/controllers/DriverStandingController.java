@@ -81,7 +81,7 @@ public class DriverStandingController {
 		Pageable pageable;
 		
 		try {	
-			sort = Sort.by(Direction.ASC, "season");
+			sort = Sort.by(Direction.DESC, "season");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			results = this.driverStandingService.findByPositionAPI(position, pageable);
 		} catch (Exception e) {
@@ -110,7 +110,7 @@ public class DriverStandingController {
 		Pageable pageable;
 		
 		try {
-			sort = Sort.by(Direction.ASC, "season");
+			sort = Sort.by(Direction.DESC, "season");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.driverStandingService.findByDriverAPI(driver, pageable);

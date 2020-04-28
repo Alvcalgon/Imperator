@@ -13,16 +13,15 @@ public interface ConstructorRepository extends MongoRepository<Constructor, Stri
 
 	// Consultas usadas en el sistema internamente
 	
-	
 	// Consultas usadas por la API
-	@Query("{country: {$regex: ?0, $options: 'i'}}")
-	Page<Constructor> findByCountryAPI(String country, Pageable pageable);
+	@Query("{nationality: {$regex: ?0, $options: 'i'}}")
+	Page<Constructor> findByNationalityAPI(String nationality, Pageable pageable);
 	
 	@Query("{name: {$regex: ?0, $options: 'i'}}")
 	Page<Constructor> findByNameAPI(String name, Pageable pageable);
 	
-	@Query(value = "{country: {$regex: ?1, $options: 'i'}, name: {$regex: ?0, $options: 'i'}}")
-	Page<Constructor> findByParametersAPI(String name, String country, Pageable pageable);
+	@Query(value = "{nationality: {$regex: ?1, $options: 'i'}, name: {$regex: ?0, $options: 'i'}}")
+	Page<Constructor> findByParametersAPI(String name, String nationality, Pageable pageable);
 	
 	// Ambas
 	@Query("{name: ?0}")

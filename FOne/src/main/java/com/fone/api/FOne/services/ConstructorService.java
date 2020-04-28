@@ -53,10 +53,10 @@ public class ConstructorService {
 		return results;
  	}
 	
-	public Page<Constructor> findByCountryAPI(String country, Pageable pageable) {
+	public Page<Constructor> findByNationalityAPI(String nationality, Pageable pageable) {
 		Page<Constructor> results;
 		
-		results = this.constructorRepository.findByCountryAPI(country, pageable);
+		results = this.constructorRepository.findByNationalityAPI(nationality, pageable);
 		
 		return results;
 	}
@@ -77,10 +77,10 @@ public class ConstructorService {
 		return result;
 	}
 	
-	public Page<Constructor> findByParametersAPI(String name, String country, Pageable pageable) {
+	public Page<Constructor> findByParametersAPI(String name, String nationality, Pageable pageable) {
 		Page<Constructor> results;
 		
-		results = this.constructorRepository.findByParametersAPI(name, country, pageable);
+		results = this.constructorRepository.findByParametersAPI(name, nationality, pageable);
 		
 		return results;
 	}

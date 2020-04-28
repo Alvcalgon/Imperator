@@ -72,35 +72,6 @@ public class CircuitController {
 		return results;
 	}
 	
-	// UC-016
-	@GetMapping(value = "/list/type/{type}")
-	@ApiOperation(value = "Operación findByType",
-	              notes = "Devuelve la lista de circuitos fitrada por su tipo (closed o street)")
-	public Page<Circuit> findByType(@PathVariable(required = true) String type,
-									@RequestParam(defaultValue = "0", required = false) Integer offset,
-									@RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Circuit> results;
-		Pageable pageable;
-		Sort sort;
-		
-		try {
-			sort = Sort.by(Direction.ASC, "name");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
-			
-			results = this.circuitService.findByTypeAPI(type, pageable);
-		} catch (Exception e) {
-			if (log.isDebugEnabled()) {
-				log.debug("Mensaje de error: " + e.getMessage(), e);
-			} else {
-				log.info("Mensaje de error: " + e.getMessage());
-			}
-			
-			throw new ApiRequestException("No se pudo recuperar la lista de circuitos por tipo", e);
-		}
-		
-		return results;
-	}
-	
 	// UC-017
 	@GetMapping(value = "/list/location/{location}")
 	@ApiOperation(value = "Operación findByLocation",
@@ -208,106 +179,13 @@ public class CircuitController {
 		
 		return result;
 	}
-	
-	// UC-021
-	@GetMapping(value = "/list/location/{location}/type/{type}")
-	@ApiOperation(value = "Operación findByLocationAndType",
-	              notes = "Devuelve la lista de circuitos filtradas por tipo y localización")
-	public Page<Circuit> findByLocationAndTypeAPI(@PathVariable(required = true) String location,
-								   @PathVariable(required = true) String type,
-							       @RequestParam(defaultValue = "0", required = false) Integer offset,
-							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Circuit> results;
-		Pageable pageable;
-		Sort sort;
 		
-		try {
-			sort = Sort.by(Direction.ASC, "name");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
-			
-			results = this.circuitService.findByLocationAndTypeAPI(location, type, pageable);
-		} catch (Exception e) {
-			if (log.isDebugEnabled()) {
-				log.debug("Mensaje de error: " + e.getMessage(), e);
-			} else {
-				log.info("Mensaje de error: " + e.getMessage());
-			}
-			
-			throw new ApiRequestException("No se pudo recuperar la lista de"
-					+ " circuitos por tipo y localización", e);
-		}
-		
-		return results;
-	}
-	
-	// UC-022
-	@GetMapping(value = "/list/type/{type}/name/{name}")
-	@ApiOperation(value = "Operación findByTypeAndName",
-	              notes = "Devuelve la lista de circuitos filtrada por tipo y nombre")
-	public Page<Circuit> findByTypeAndNameAPI(@PathVariable(required = true) String type,
-								   @PathVariable(required = true) String name,
-							       @RequestParam(defaultValue = "0", required = false) Integer offset,
-							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Circuit> results;
-		Pageable pageable;
-		Sort sort;
-		
-		try {
-			sort = Sort.by(Direction.ASC, "name");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
-			
-			results = this.circuitService.findByTypeAndNameAPI(type, name, pageable);
-		} catch (Exception e) {
-			if (log.isDebugEnabled()) {
-				log.debug("Mensaje de error: " + e.getMessage(), e);
-			} else {
-				log.info("Mensaje de error: " + e.getMessage());
-			}
-			
-			throw new ApiRequestException("No se pudo recuperar la lista de circuitos"
-					+ " por tipo y nombre", e);
-		}
-		
-		return results;
-	}
-	
-	// UC-023
-	@GetMapping(value = "/list/location/{location}/name/{name}")
-	@ApiOperation(value = "Operación findByLocationAndName",
-				  notes = "Devuelve la lista de circuitos filtrada por localización y nombre")
-	public Page<Circuit> findByLocationAndNameAPI(@PathVariable(required = true) String location,
-								   @PathVariable(required = true) String name,
-							       @RequestParam(defaultValue = "0", required = false) Integer offset,
-							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Circuit> results;
-		Pageable pageable;
-		Sort sort;
-		
-		try {
-			sort = Sort.by(Direction.ASC, "name");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
-			
-			results = this.circuitService.findByLocationAndNameAPI(location, name, pageable);
-		} catch (Exception e) {
-			if (log.isDebugEnabled()) {
-				log.debug("Mensaje de error: " + e.getMessage(), e);
-			} else {
-				log.info("Mensaje de error: " + e.getMessage());
-			}
-			
-			throw new ApiRequestException("No se pudo recuperar la lista de circuitos"
-					+ " por localización y nombre", e);
-		}
-		
-		return results;
-	}
 	
 	// UC-024
-	@GetMapping(value = "/list/location/{location}/type/{type}/name/{name}")
+	@GetMapping(value = "/list/location/{location}/name/{name}")
 	@ApiOperation(value = "Operación findByAllParameters",
 	              notes = "Devuelve la lista de circuitos filtradas por todo los parámetros posibles")
 	public Page<Circuit> findByAllParametersAPI(@PathVariable(required = true) String location,
-								   @PathVariable(required = true) String type,
 								   @PathVariable(required = true) String name,
 							       @RequestParam(defaultValue = "0", required = false) Integer offset,
 							       @RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -319,7 +197,7 @@ public class CircuitController {
 			sort = Sort.by(Direction.ASC, "name");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.circuitService.findByAllParametersAPI(location, type, name, pageable);
+			results = this.circuitService.findByAllParametersAPI(location, name, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);

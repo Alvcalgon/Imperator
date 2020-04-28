@@ -3,8 +3,6 @@ package com.fone.api.FOne.services;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.List;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,29 +27,6 @@ public class DriverServiceTest extends AbstractTest {
 	private UtilityService utilityService;
 	
 	// Suite test -----------------------
-
-	@Test
-	public void positiveTest_getLinks() {
-		List<String> urls;
-		
-		urls = this.driverService.getLinks();
-		
-		assertTrue(urls.size() == 17);
-	}
-	
-	@Test
-	public void positiveTest_loadDrivers() {
-		Page<Driver> drivers;
-		Pageable pageable;
-		
-		this.driverService.loadDrivers();
-		
-		pageable = this.utilityService.getPageable(10, 0);
-		drivers = this.driverService.findAllAPI(pageable);
-		
-		assertTrue(drivers.hasContent());
-	}
-	
 	@Test
 	public void test_findAllAPI() {
 		Page<Driver> drivers;
@@ -61,17 +36,6 @@ public class DriverServiceTest extends AbstractTest {
 		drivers = this.driverService.findAllAPI(pageable);
 
 		assertTrue(drivers.hasContent());
-	}
-
-	@Test
-	public void test_findOneAPI() {
-		Driver driver;
-		String id;
-
-		id = "5dc696a0f6e188527b2baabf";
-		driver = this.driverService.findOneAPI(id);
-
-		assertNotNull(driver);
 	}
 
 	@Test
@@ -172,14 +136,14 @@ public class DriverServiceTest extends AbstractTest {
 	}
 	
 	@Test
-	public void positiveTestUno_findByCountryAPI() {
+	public void positiveTestUno_findByNacionalityAPI() {
 		Page<Driver> drivers;
 		String country;
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "Spain";
-		drivers = this.driverService.findByCountryAPI(country, pageable);
+		country = "Spanish";
+		drivers = this.driverService.findByNacionalityAPI(country, pageable);
 
 		assertNotNull(drivers);
 		assertTrue(drivers.hasContent());
@@ -187,14 +151,14 @@ public class DriverServiceTest extends AbstractTest {
 
 	
 	@Test
-	public void positiveTestDos_findByCountryAPI() {
+	public void positiveTestDos_findByNacionalityAPI() {
 		Page<Driver> drivers;
 		String country;
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "spain";
-		drivers = this.driverService.findByCountryAPI(country, pageable);
+		country = "Brazilian";
+		drivers = this.driverService.findByNacionalityAPI(country, pageable);
 
 		assertNotNull(drivers);
 		assertTrue(drivers.hasContent());
@@ -202,14 +166,14 @@ public class DriverServiceTest extends AbstractTest {
 
 	
 	@Test
-	public void positiveTestTres_findByCountryAPI() {
+	public void positiveTestTres_findByNacionalityAPI() {
 		Page<Driver> drivers;
 		String country;
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "SpAiN";
-		drivers = this.driverService.findByCountryAPI(country, pageable);
+		country = "German";
+		drivers = this.driverService.findByNacionalityAPI(country, pageable);
 
 		assertNotNull(drivers);
 		assertTrue(drivers.hasContent());
@@ -217,14 +181,14 @@ public class DriverServiceTest extends AbstractTest {
 
 	
 	@Test
-	public void negativeTest_findByCountryAPI() {
+	public void negativeTest_findByNacionalityAPI() {
 		Page<Driver> drivers;
 		String country;
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		country = "Nombre completo erroneo";
-		drivers = this.driverService.findByCountryAPI(country, pageable);
+		country = "Nacionalidad erroneo";
+		drivers = this.driverService.findByNacionalityAPI(country, pageable);
 
 		assertNotNull(drivers);
 		assertTrue(!drivers.hasContent());
@@ -238,7 +202,7 @@ public class DriverServiceTest extends AbstractTest {
 		Pageable pageable;
 		
 		fullname = "alonso";
-		country = "spain";
+		country = "spanish";
 		pageable = this.utilityService.getPageable(10, 0);
 		
 		drivers = this.driverService.findByParametersAPI(fullname, country, pageable);

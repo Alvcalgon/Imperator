@@ -61,7 +61,7 @@ public class DriverController {
 		Sort sort;
 		
 		try {
-			sort = Sort.by(Direction.ASC, "dateOfBirth");
+			sort = Sort.by(Direction.DESC, "dateOfBirth");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.driverService.findAllAPI(pageable);
@@ -79,10 +79,10 @@ public class DriverController {
 	}
 
 	// UC-002
-	@GetMapping(value = "/list/country/{country}")
-	@ApiOperation(value = "Operación findByCountry",
-    			  notes = "Devuelve la lista de pilotos filtrada por país")
-	public Page<Driver> findByCountryAPI(@PathVariable(required = true) String country,
+	@GetMapping(value = "/list/nacionality/{nacionality}")
+	@ApiOperation(value = "Operación findByNacionality",
+    			  notes = "Devuelve la lista de pilotos filtrada por nacionalidad")
+	public Page<Driver> findByNacionalityAPI(@PathVariable(required = true) String nacionality,
 										 @RequestParam(defaultValue = "0", required = false) Integer offset,
 										 @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Driver> results;
@@ -90,10 +90,10 @@ public class DriverController {
 		Sort sort;
 		
 		try {
-			sort = Sort.by(Direction.ASC, "dateOfBirth");
+			sort = Sort.by(Direction.DESC, "dateOfBirth");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.driverService.findByCountryAPI(country, pageable);
+			results = this.driverService.findByNacionalityAPI(nacionality, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -164,7 +164,7 @@ public class DriverController {
 		Sort sort;
 	
 		try {
-			sort = Sort.by(Direction.ASC, "dateOfBirth");
+			sort = Sort.by(Direction.DESC, "dateOfBirth");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.driverService.findByFullnameAPI(fullname, pageable);
@@ -205,11 +205,11 @@ public class DriverController {
 	}
 	
 	// UC-007
-	@GetMapping(value = "/list/country/{country}/fullname/{fullname}")
+	@GetMapping(value = "/list/nacionality/{nacionality}/fullname/{fullname}")
 	@ApiOperation(value = "Operación findByParameters",
     			  notes = "Devuelve la lista de pilotos filtrada por los paramátros nombre completo y país")
 	public Page<Driver> findByParametersAPI(@PathVariable(required = true) String fullname,
-											@PathVariable(required = true) String country,
+											@PathVariable(required = true) String nacionality,
 										    @RequestParam(defaultValue = "0", required = false) Integer offset,
 			                                @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Driver> results;
@@ -217,10 +217,10 @@ public class DriverController {
 		Sort sort;
 	
 		try {
-			sort = Sort.by(Direction.ASC, "dateOfBirth");
+			sort = Sort.by(Direction.DESC, "dateOfBirth");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.driverService.findByParametersAPI(fullname, country, pageable);
+			results = this.driverService.findByParametersAPI(fullname, nacionality, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);

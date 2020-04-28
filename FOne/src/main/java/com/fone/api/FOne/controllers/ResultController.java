@@ -278,27 +278,27 @@ public class ResultController {
 		return result;
 	}
 	
-//	@GetMapping(value = "/count/constructor/{constructor}")
-//	@ApiOperation(value = "Operación findCountByConstructor",
-//	              notes = "Devuelve el número de carreras en las que ha participado una escudería")
-//	public Integer findCountByConstructorAPI(@PathVariable(required = true) String constructor) {
-//		Integer result;
-//
-//		try {
-//			
-//			result = this.raceService.findCountByConstructorAPI(constructor);
-//		
-//		} catch (Exception e) {
-//			if (log.isDebugEnabled()) {
-//				log.debug("Mensaje de error: " + e.getMessage(), e);
-//			} else {
-//				log.info("Mensaje de error: " + e.getMessage());
-//			}
-//
-//			throw new ApiRequestException("No se pudo recuperar el número de carreras en las que ha participado una escudería", e);
-//		}
-//
-//		return result;
-//	}
+	@GetMapping(value = "/count/constructor/{constructor}")
+	@ApiOperation(value = "Operación findCountByConstructor",
+	              notes = "Devuelve el número de carreras en las que ha participado una escudería")
+	public Integer findCountByConstructorAPI(@PathVariable(required = true) String constructor) {
+		Integer result;
+
+		try {
+			
+			result = this.raceService.findCountByConstructorAPI(constructor);
+		
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+
+			throw new ApiRequestException("No se pudo recuperar el número de carreras en las que ha participado una escudería", e);
+		}
+
+		return result;
+	}
 	
 }

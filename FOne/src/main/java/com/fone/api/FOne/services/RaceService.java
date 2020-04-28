@@ -214,8 +214,8 @@ public class RaceService {
 	
 	// Metodo principal para web scraping ------------------------------
 	public void loadRacesAndResults() {
-		//this.raceRepository.deleteAll();
-		//this.resultService.deleteAll();
+		this.raceRepository.deleteAll();
+		this.resultService.deleteAll();
 		
 		String raceDate, event, info;
 		Map<String, String> seasons;

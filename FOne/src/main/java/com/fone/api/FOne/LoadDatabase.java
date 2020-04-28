@@ -18,7 +18,7 @@ public class LoadDatabase implements CommandLineRunner {
 
 	private static final Log log = LogFactory.getLog(LoadDatabase.class);
 
-	private static final boolean MODE = Boolean.TRUE;
+	private static final boolean MODE = Boolean.FALSE;
 	
 	@Autowired
 	private DriverService driverService;
@@ -42,12 +42,12 @@ public class LoadDatabase implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		if (MODE) {
-			//this.driverService.loadDrivers();
-			//this.constructorService.loadConstructors();
-			//this.circuitService.loadCircuits();
+			this.driverService.loadDrivers();
+			this.constructorService.loadConstructors();
+			this.circuitService.loadCircuits();
 			this.raceService.loadRacesAndResults();
-			//this.driverStandingService.loadDriverStandings();
-			//this.constructorStandingService.loadConstructorStandings();
+			this.driverStandingService.loadDriverStandings();
+			this.constructorStandingService.loadConstructorStandings();
 			
 			log.info("BD poblada exitosamente");
 		} else {

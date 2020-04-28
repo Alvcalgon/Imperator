@@ -49,10 +49,10 @@ public class DriverService {
 		return resultados;
 	}
 	
-	public Page<Driver> findByCountryAPI(String country, Pageable pageable) {
+	public Page<Driver> findByNacionalityAPI(String nacionality, Pageable pageable) {
 		Page<Driver> results;
 		
-		results = this.driverRepository.findByCountryAPI(country, pageable);
+		results = this.driverRepository.findByNacionalityAPI(nacionality, pageable);
 		
 		return results;
 	}
@@ -65,10 +65,10 @@ public class DriverService {
 		return results;
 	}
 	
-	public Page<Driver> findByParametersAPI(String fullname, String country, Pageable pageable) {
+	public Page<Driver> findByParametersAPI(String fullname, String nacionality, Pageable pageable) {
 		Page<Driver> results;
 		
-		results = this.driverRepository.findByParametersAPI(fullname, country, pageable);
+		results = this.driverRepository.findByParametersAPI(fullname, nacionality, pageable);
 		
 		return results;
 	}

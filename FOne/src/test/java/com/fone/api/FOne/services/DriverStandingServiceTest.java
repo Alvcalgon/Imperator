@@ -77,7 +77,7 @@ public class DriverStandingServiceTest extends AbstractTest {
 		Pageable pageable;
 
 		pageable = this.utilityService.getPageable(10, 0);
-		position = "50";
+		position = "150";
 		driversStanding = this.driverStandingService.findByPositionAPI(position, pageable);
 
 		assertNotNull(driversStanding);

@@ -38,35 +38,7 @@ public class CircuitServiceTest extends AbstractTest {
 		assertNotNull(all);
 		assertTrue(all.hasContent());
 	}
-
-	@Test
-	public void positiveTest_findByType() {
-		Page<Circuit> circuits;
-		String type;
-		Pageable pageable;
-		
-		pageable = this.utilityService.getPageable(10, 0);
-		type = "Street Circuit";
-		circuits = this.circuitService.findByTypeAPI(type, pageable);
-
-		assertNotNull(circuits);
-		assertTrue(circuits.hasContent());
-	}
-
-	@Test
-	public void negativeTest_findByType() {
-		Page<Circuit> circuits;
-		String type;
-		Pageable pageable;
-		
-		pageable = this.utilityService.getPageable(10, 0);
-		type = "Tipo erroneo";
-		circuits = this.circuitService.findByTypeAPI(type, pageable);
-
-		assertNotNull(circuits);
-		assertTrue(!circuits.hasContent());
-	}
-
+	
 	// Un usuario introduce un pais como localizacion
 	@Test
 	public void positiveTestUno_findByLocation() {
@@ -178,7 +150,7 @@ public class CircuitServiceTest extends AbstractTest {
 		Pageable pageable;
 		
 		pageable = this.utilityService.getPageable(10, 0);
-		name = "zeltweg airfield";
+		name = "zeltweg";
 		circuits = this.circuitService.findByNameAPI(name, pageable);
 
 		assertNotNull(circuits);
@@ -215,80 +187,10 @@ public class CircuitServiceTest extends AbstractTest {
 		Circuit circuit;
 		String name;
 		
-		name = "Albert Park";
+		name = "desconocido";
 		circuit = this.circuitService.findByNameAPI2(name);
 		
 		assertTrue(circuit == null);
-	}
-	
-	@Test
-	public void positiveTest_findByLocationAndTypeAPI() {
-		Page<Circuit> circuits;
-		String type;
-		String location;
-		Pageable pageable;
-		
-		pageable = this.utilityService.getPageable(10, 0);
-		type = "closed";
-		location = "spain";
-		
-		circuits = this.circuitService.findByLocationAndTypeAPI(location, type, pageable);
-		
-		assertNotNull(circuits);
-		assertTrue(circuits.hasContent());
-	}
-	
-	@Test
-	public void positiveTest_findByTypeAndNameAPI() {
-		Page<Circuit> circuits;
-		String type;
-		String name;
-		Pageable pageable;
-		
-		pageable = this.utilityService.getPageable(10, 0);
-		type = "street";
-		name = "albert park";
-		
-		circuits = this.circuitService.findByTypeAndNameAPI(type, name, pageable);
-		
-		assertNotNull(circuits);
-		assertTrue(circuits.hasContent());
-	}
-	
-	@Test
-	public void positiveTest_findByLocationAndNameAPI() {
-		Page<Circuit> circuits;
-		String location;
-		String name;
-		Pageable pageable;
-		
-		pageable = this.utilityService.getPageable(10, 0);
-		location = "australia";
-		name = "albert park";
-		
-		circuits = this.circuitService.findByLocationAndNameAPI(location, name, pageable);
-		
-		assertNotNull(circuits);
-		assertTrue(circuits.hasContent());
-	}
-	
-	@Test
-	public void positiveTest_findByAllParametersAPI() {
-		Page<Circuit> circuits;
-		String location;
-		String name;
-		String type;
-		Pageable pageable;
-		
-		pageable = this.utilityService.getPageable(10, 0);
-		location = "australia";
-		name = "albert park";
-		type = "street";
-		
-		circuits = this.circuitService.findByAllParametersAPI(location, type, name, pageable);
-		
-		assertNotNull(circuits);
-		assertTrue(circuits.hasContent());
 	}
 	
 }

@@ -77,10 +77,10 @@ public class ConstructorController {
 	}
 	
 	// UC-009
-	@GetMapping(value = "/list/country/{country}")
-	@ApiOperation(value = "Operación findByCountry",
-    			  notes = "Devuelve la lista de escuderías filtradas por país")
-	public Page<Constructor> findByCountryAPI(@PathVariable(required = true) String country,
+	@GetMapping(value = "/list/nationality/{nationality}")
+	@ApiOperation(value = "Operación findByNationality",
+    			  notes = "Devuelve la lista de escuderías filtradas por nacionalidad")
+	public Page<Constructor> findByNationalityAPI(@PathVariable(required = true) String nationality,
 											  @RequestParam(defaultValue = "1", required = false) Integer offset,
 											  @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Constructor> results;
@@ -91,7 +91,7 @@ public class ConstructorController {
 			sort = Sort.by(Direction.ASC, "name");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.constructorService.findByCountryAPI(country, pageable);
+			results = this.constructorService.findByNationalityAPI(nationality, pageable);
 		} catch (Exception e) {			
 			results = this.findAllAPI(offset, limit);
 			
@@ -101,7 +101,8 @@ public class ConstructorController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 		
-			throw new ApiRequestException("No se pudo recuperar la lista de escuderías por país", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de escuderías por"
+					+ " nacionalidad", e);
 		}
 
 		return results;
@@ -205,11 +206,11 @@ public class ConstructorController {
 	}
 	
 	// UC-014
-	@GetMapping(value = "/list/country/{country}/name/{name}")
+	@GetMapping(value = "/list/nationality/{nationality}/name/{name}")
 	@ApiOperation(value = "Operación findByAllParameters",
     			  notes = "Devuelve la lista de escuderías filtradas por parámetros")
 	public Page<Constructor> findByAllParametersAPI(@PathVariable(required = true) String name,
-										   @PathVariable(required = true) String country,
+										   @PathVariable(required = true) String nationality,
 										   @RequestParam(defaultValue = "0", required = false) Integer offset,
 										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Constructor> results;
@@ -220,7 +221,7 @@ public class ConstructorController {
 			sort = Sort.by(Direction.ASC, "name");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.constructorService.findByParametersAPI(name, country, pageable);
+			results = this.constructorService.findByParametersAPI(name, nationality, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -234,5 +235,7 @@ public class ConstructorController {
 		
 		return results;
 	}
+	
+	
 	
 }
