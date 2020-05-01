@@ -235,7 +235,7 @@ public class ResultService {
 					grid = gridTag.text();
 					
 					lapsTag = resultTag.selectFirst("Laps");
-					laps = Integer.getInteger(lapsTag.text());
+					laps = Integer.valueOf(lapsTag.text());
 					
 					statusTag = resultTag.selectFirst("Status");
 					status = statusTag.text();

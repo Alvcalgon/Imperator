@@ -34,7 +34,7 @@ public class Race {
 	private Circuit circuit;
 	
 	@NotNull
-	Set<Result> results;
+	private Set<Result> results;
 	
 	
 	// Constructores -----------------------

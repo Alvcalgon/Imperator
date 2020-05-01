@@ -228,7 +228,7 @@ public class RaceService {
 		Race race;
 		
 		races = new ArrayList<Race>();
-		seasons = this.getSeasons(2009, 2019);
+		seasons = this.getSeasons(1950, 2019);
 		
 		for (String season: seasons.keySet()) {
 			url = seasons.get(season);

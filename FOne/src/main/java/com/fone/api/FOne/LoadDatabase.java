@@ -53,8 +53,6 @@ public class LoadDatabase implements CommandLineRunner {
 		} else {
 			log.info("BD poblada previamente");
 		}
-
-
+		
 	}
-
 }

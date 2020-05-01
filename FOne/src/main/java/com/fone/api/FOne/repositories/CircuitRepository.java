@@ -21,7 +21,7 @@ public interface CircuitRepository extends MongoRepository<Circuit, String> {
 	@Query("{name: {$regex: ?0, $options: 'i'}}")
 	Page<Circuit> findByNameAPI(String name, Pageable pageable);
 	
-	@Query("{$and: [{$or: [{locality: {$regex: ?0, $options: 'i'}},{locality: {$regex: ?0, $options: 'i'}}]}, {name: {$regex: ?1, $options: 'i'}}]}")
+	@Query("{$and: [{$or: [{locality: {$regex: ?0, $options: 'i'}},{country: {$regex: ?0, $options: 'i'}}]}, {name: {$regex: ?1, $options: 'i'}}]}")
 	Page<Circuit> findByAllParametersAPI(String location, String name, Pageable pageable);
 	
 	// Global
