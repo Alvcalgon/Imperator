@@ -72,7 +72,7 @@ public class CircuitController {
 		return results;
 	}
 	
-	// UC-017
+	// UC-016
 	@GetMapping(value = "/list/location/{location}")
 	@ApiOperation(value = "Operación findByLocation",
 	              notes = "Devuelve la lista de circuitos filtrada por localización")
@@ -101,7 +101,7 @@ public class CircuitController {
 		return results;
 	}
 	
-	// UC-018
+	// UC-017
 	@GetMapping(value = "/list/season/{season}")
 	@ApiOperation(value = "Operación findBySeason",
 	       notes = "Devuelve la lista de circuitos en las que tuvo lugar una carrera para cierta temporada")
@@ -125,7 +125,7 @@ public class CircuitController {
 	}
 	
 	
-	// UC-019
+	// UC-018
 	@GetMapping(value = "/list/name/{name}")
 	@ApiOperation(value = "Operación findByName",
 	              notes = "Devuelve la lista de circuitos cuya keyword coincide parcial o"
@@ -156,7 +156,7 @@ public class CircuitController {
 		return results;
 	}
 	
-	// UC-020
+	// UC-019
 	@GetMapping(value = "/display/{name}")
 	@ApiOperation(value = "Operación findByName2",
 	              notes = "Devuelve el circuito cuyo nombre coincide exactamente con el nombre"
@@ -181,7 +181,7 @@ public class CircuitController {
 	}
 		
 	
-	// UC-024
+	// UC-020
 	@GetMapping(value = "/list/location/{location}/name/{name}")
 	@ApiOperation(value = "Operación findByAllParameters",
 	              notes = "Devuelve la lista de circuitos filtradas por todo los parámetros posibles")

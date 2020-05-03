@@ -40,17 +40,17 @@ public class ResultController {
 		super();
 	}
 
-	// UC-034
+	// UC-030
 	@GetMapping(value = "/list/driver/{driver}/position/{position}")
 	@ApiOperation(value = "Operación findByPositionAndDriver", notes = "Devuelve la lista de resultados en las que un piloto finalizó"
 			+ " la carrera en una posición concreta")
 	public Page<Result> findByPositionAndDriverAPI(@PathVariable(required = true) String driver,
-			@PathVariable(required = true) String position,
-			@RequestParam(defaultValue = "0", required = false) Integer offset,
-			@RequestParam(defaultValue = "10", required = false) Integer limit) {
+												   @PathVariable(required = true) String position,
+												   @RequestParam(defaultValue = "0", required = false) Integer offset,
+												   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Result> results;
 		Pageable pageable;
-
+		
 		try {
 			pageable = this.utilityService.getPageable(limit, offset);
 
@@ -68,7 +68,7 @@ public class ResultController {
 		return results;
 	}
 
-	// UC-035
+	// UC-031
 	@GetMapping(value = "/list/driver/{driver}/grid/{grid}")
 	@ApiOperation(value = "Operación findByGridAndDriver", notes = "Devuelve la lista de resultados en las que un piloto inició la"
 			+ " carrera en una determinada posición")
@@ -97,14 +97,14 @@ public class ResultController {
 		return results;
 	}
 
-	// UC-036
+	// UC-032
 	@GetMapping(value = "/list/constructor/{constructor}/position/{position}")
 	@ApiOperation(value = "Operación findByPositionAndConstructor", notes = "Devuelve la lista de resultados en las que el monoplaza de"
 			+ " cierta escudería finalizó la carrera en una posición")
 	public Page<Result> findByPositionAndConstructorAPI(@PathVariable(required = true) String constructor,
-			@PathVariable(required = true) String position,
-			@RequestParam(defaultValue = "0", required = false) Integer offset,
-			@RequestParam(defaultValue = "10", required = false) Integer limit) {
+														@PathVariable(required = true) String position,
+														@RequestParam(defaultValue = "0", required = false) Integer offset,
+														@RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Result> results;
 		Pageable pageable;
 
@@ -125,7 +125,7 @@ public class ResultController {
 		return results;
 	}
 
-	// UC-037
+	// UC-033
 	@GetMapping(value = "/list/constructor/{constructor}/grid/{grid}")
 	@ApiOperation(value = "Operación findByGridAndConstructor", notes = "Devuelve la lista de resultados en las que el monoplaza de una cierta"
 			+ " escudería comenzó la carrera en una cierta posición")
@@ -154,7 +154,7 @@ public class ResultController {
 		return results;
 	}
 
-	
+	// UC-034
 	@GetMapping(value = "/count/driver/{driver}/position/{position}")
 	@ApiOperation(value = "Operación findCountByPositionAndDriver",
 	              notes = "Devuelve el número de veces en las que un piloto finalizó una carrera"
@@ -180,6 +180,7 @@ public class ResultController {
 		return result;
 	}
 
+	// UC-035 
 	@GetMapping(value = "/count/driver/{driver}/grid/{grid}")
 	@ApiOperation(value = "Operación findCountByGridAndDriver",
 	              notes = "Devuelve el número de veces en las que un piloto inició una carrera"
@@ -205,6 +206,7 @@ public class ResultController {
 		return result;
 	}
 	
+	// UC-036
 	@GetMapping(value = "/count/constructor/{constructor}/position/{position}")
 	@ApiOperation(value = "Operación findCountByPositionAndConstructor",
 	              notes = "Devuelve el número de veces en las que una escudería terminó una carrera"
@@ -230,6 +232,7 @@ public class ResultController {
 		return result;
 	}
 	
+	// UC-037
 	@GetMapping(value = "/count/constructor/{constructor}/grid/{grid}")
 	@ApiOperation(value = "Operación findCountByGridAndConstructor",
 	              notes = "Devuelve el número de veces en las que una escudería inició una carrera"
@@ -255,6 +258,7 @@ public class ResultController {
 		return result;
 	}
 	
+	// UC-038
 	@GetMapping(value = "/count/driver/{driver}")
 	@ApiOperation(value = "Operación findCountByDriver",
 	              notes = "Devuelve el número de carreras en las que ha participado un piloto")
@@ -278,6 +282,7 @@ public class ResultController {
 		return result;
 	}
 	
+	// UC-039
 	@GetMapping(value = "/count/constructor/{constructor}")
 	@ApiOperation(value = "Operación findCountByConstructor",
 	              notes = "Devuelve el número de carreras en las que ha participado una escudería")

@@ -81,7 +81,7 @@ public class ConstructorController {
 	@ApiOperation(value = "Operación findByNationality",
     			  notes = "Devuelve la lista de escuderías filtradas por nacionalidad")
 	public Page<Constructor> findByNationalityAPI(@PathVariable(required = true) String nationality,
-											  @RequestParam(defaultValue = "1", required = false) Integer offset,
+											  @RequestParam(defaultValue = "0", required = false) Integer offset,
 											  @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Constructor> results;
 		Sort sort;
@@ -210,9 +210,9 @@ public class ConstructorController {
 	@ApiOperation(value = "Operación findByAllParameters",
     			  notes = "Devuelve la lista de escuderías filtradas por parámetros")
 	public Page<Constructor> findByAllParametersAPI(@PathVariable(required = true) String name,
-										   @PathVariable(required = true) String nationality,
-										   @RequestParam(defaultValue = "0", required = false) Integer offset,
-										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
+										   			@PathVariable(required = true) String nationality,
+										   			@RequestParam(defaultValue = "0", required = false) Integer offset,
+										   			@RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Constructor> results;
 		Pageable pageable;
 		Sort sort;
@@ -235,7 +235,5 @@ public class ConstructorController {
 		
 		return results;
 	}
-	
-	
 	
 }

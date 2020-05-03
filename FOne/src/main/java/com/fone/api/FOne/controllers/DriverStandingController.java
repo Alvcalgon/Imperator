@@ -38,7 +38,7 @@ public class DriverStandingController {
 		super();
 	}
 
-	// UC-038
+	// UC-040
 	@GetMapping(value = "/list/season/{season}")
 	@ApiOperation(value = "Operación findBySeason",
     			  notes = "Devuelve la clasificación general de pilotos de una determinada temporada")
@@ -68,7 +68,7 @@ public class DriverStandingController {
 		return results;
 	}
 
-	// UC-039
+	// UC-041
 	@GetMapping(value = "/list/position/{position}")
 	@ApiOperation(value = "Operación findByPosition",
     			  notes = "Devuelve la clasificación general de aquellos pilotos que finalización"
@@ -98,7 +98,7 @@ public class DriverStandingController {
 		return results;
 	}
 
-	// UC-040
+	// UC-042
 	@GetMapping(value = "/list/driver/{driver}")
 	@ApiOperation(value = "Operación findByDriver",
     			  notes = "Devuelve la clasificación general de un piloto a largo de toda su trayectoria")
@@ -128,6 +128,7 @@ public class DriverStandingController {
 		return results;
 	}
 
+	// UC-043
 	@GetMapping(value = "/count/driver/{driver}")
 	@ApiOperation(value = "Operación findCountByDriver",
     			  notes = "Devuelve el número de campeonatos en los que ha participado el piloto en toda su trayectoria")
@@ -149,6 +150,7 @@ public class DriverStandingController {
 		return result;
 	}
 	
+	// UC-044
 	@GetMapping(value = "/count/driver/{driver}/position/{position}")
 	@ApiOperation(value = "Operación findCountByDriver",
     			  notes = "Devuelve el número de campeonatos en los que el piloto finalizó en cierta posición")

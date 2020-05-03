@@ -42,7 +42,7 @@ public class ConstructorStandingController {
 		super();
 	}
 
-	// UC-041
+	// UC-045
 	@GetMapping(value = "/list/season/{season}")
 	@ApiOperation(value = "Operación findBySeason",
     			  notes = "Devuelve la clasificación general de escuderías de una cierta temporada")
@@ -72,7 +72,7 @@ public class ConstructorStandingController {
 		return results;
 	}
 
-	// UC-042
+	// UC-046
 	@GetMapping(value = "/list/position/{position}")
 	@ApiOperation(value = "Operación findByPosition",
 	  			  notes = "Devuelve la clasificación general de las escuderías"
@@ -103,7 +103,7 @@ public class ConstructorStandingController {
 		return results;
 	}
 
-	// UC-043
+	// UC-047
 	@GetMapping(value = "/list/constructor/{constructor}")
 	@ApiOperation(value = "Operación findByConstructor",
 	  notes = "Devuelve todas las clasificaciones registradas para cierta escudería")
@@ -132,6 +132,7 @@ public class ConstructorStandingController {
 		return results;
 	}
 
+	// UC-048
 	@GetMapping(value = "/count/constructor/{constructor}")
 	@ApiOperation(value = "Operación findCountByConstructor",
     			  notes = "Devuelve el número de campeonatos en los que la escudería ha participado")
@@ -153,6 +154,7 @@ public class ConstructorStandingController {
 		return result;
 	}
 	
+	// UC-049
 	@GetMapping(value = "/count/constructor/{constructor}/position/{position}")
 	@ApiOperation(value = "Operación findCountByConstructorAndPosition",
     			  notes = "Devuelve el número de campeonatos en los que la escudería finalizó en cierta posición")
@@ -175,6 +177,7 @@ public class ConstructorStandingController {
 		return result;
 	}
 
+	// UC-050
 	@GetMapping(value = "/drivers-titles/{constructor}")
 	@ApiOperation(value = "Operación findDriversTitlesByConstructor",
     			  notes = "Devuelve el número de titulos de pilotos conseguidos por la escudería")

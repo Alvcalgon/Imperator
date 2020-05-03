@@ -38,7 +38,7 @@ public class RaceController {
 		super();
 	}
 
-	// UC-025
+	// UC-021
 	@GetMapping(value = "/list/season/{season}")
 	@ApiOperation(value = "Operación findBySeason",
     			  notes = "Devuelve la lista de carreras en una temporada")
@@ -68,7 +68,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-026
+	// UC-022
 	@GetMapping(value = "/list/circuit/{circuit}")
 	@ApiOperation(value = "Operación findByCircuit",
     			  notes = "Devuelve la lista de carreras disputadas en un cierto circuito")
@@ -98,7 +98,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-027
+	// UC-023
 	@GetMapping(value = "/list/driver/{driver}")
 	@ApiOperation(value = "Operación findByDriver",
     			  notes = "Devuelve la lista de carreras en las que participó un cierto piloto")
@@ -128,7 +128,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-028
+	// UC-024
 	@GetMapping(value = "/list/constructor/{constructor}")
 	@ApiOperation(value = "Operación findByConstructor",
     			  notes = "Devuelve la lista carreras en las que estuvo involucrado una escudería")
@@ -157,7 +157,7 @@ public class RaceController {
 		return results;
 	}
 
-	// UC-029
+	// UC-025
 	@GetMapping(value = "/list/driver/{driver}/season/{season}")
 	@ApiOperation(value = "Operación findByDriverAndSeason",
     			  notes = "Devuelve la lista de carreras para un cierto piloto y temporada")
@@ -188,7 +188,7 @@ public class RaceController {
 		return results;
 	}
 	
-	// UC-030
+	// UC-026
 	@GetMapping(value = "/list/constructor/{constructor}/season/{season}")
 	@ApiOperation(value = "Operación findConstructorAndSeason",
     			  notes = "Devuelve la lista de carreras para una escudería y temporada concreta")
@@ -219,7 +219,7 @@ public class RaceController {
 		return results;
 	}
 	
-	// UC-031
+	// UC-027
 	@GetMapping(value = "/list/event/{event}")
 	@ApiOperation(value = "Operación findByEvent",
     			  notes = "Devuelve la lista de carreras según el evento seleccionado")
@@ -249,11 +249,11 @@ public class RaceController {
 		return results;
 	}
 	
-	// UC-032
+	// UC-028
 	@GetMapping(value = "/list/season/{season}/event/{event}")
 	@ApiOperation(value = "Operación findBySeasonAndEvent",
     			  notes = "Devuelve la lista de carreras para cierto evento y campeonato")
-	public Page<Race> findBySeasonAndEventAPI(@PathVariable(required = true) String season,
+	public Page<Race> findByEventAndSeasonAPI(@PathVariable(required = true) String season,
 									  		  @PathVariable(required = true) String event,
 									  		  @RequestParam(defaultValue = "0", required = false) Integer offset,
 					   						  @RequestParam(defaultValue = "5", required = false) Integer limit) {
@@ -280,7 +280,7 @@ public class RaceController {
 		return results;
 	}
 	
-	// UC-033
+	// UC-029
 	@GetMapping(value = "/display/season/{season}/event/{event}")
 	@ApiOperation(value = "Operación findOneBySeasonAndEvent",
     			  notes = "Devuelve una carrera en particular")

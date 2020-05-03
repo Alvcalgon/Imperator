@@ -83,8 +83,8 @@ public class DriverController {
 	@ApiOperation(value = "Operación findByNationality",
     			  notes = "Devuelve la lista de pilotos filtrada por nacionalidad")
 	public Page<Driver> findByNacionalityAPI(@PathVariable(required = true) String nationality,
-										 @RequestParam(defaultValue = "0", required = false) Integer offset,
-										 @RequestParam(defaultValue = "10", required = false) Integer limit) {
+										 	@RequestParam(defaultValue = "0", required = false) Integer offset,
+										 	@RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Driver> results;
 		Pageable pageable;
 		Sort sort;
@@ -101,7 +101,7 @@ public class DriverController {
 				log.info("Mensaje de error: " + e.getMessage());
 			}
 			
-			throw new ApiRequestException("No se pudo recuperar la lista de pilotos por país", e);
+			throw new ApiRequestException("No se pudo recuperar la lista de pilotos por nacionalidad", e);
 		}
 
 		return results;
