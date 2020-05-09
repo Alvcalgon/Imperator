@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +27,9 @@ public class DriverStanding {
 	private Integer wins;
 	
 	private Driver driver;
+	
+	@Transient
+	private String driverFullname;
 	
 	private Constructor constructor;
 	
@@ -101,6 +105,15 @@ public class DriverStanding {
 		this.driver = driver;
 	}
 	
+	@JsonIgnore
+	public String getDriverFullname() {
+		return driver.getFullname();
+	}
+
+	public void setDriverFullname(String driverFullname) {
+		this.driverFullname = driverFullname;
+	}
+
 	public Constructor getConstructor() {
 		return constructor;
 	}

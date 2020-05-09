@@ -19,7 +19,10 @@ public interface DriverStandingRepository extends MongoRepository<DriverStanding
 	
 	@Query("{\"driver.fullname\": ?0}")
 	Page<DriverStanding> findByDriverAPI(String driver, Pageable pageable);
-
+	
+	@Query(value = "{position: '1'}")
+	Page<DriverStanding> findByWinners(Pageable pageable);
+	
 	@Query(value = "{\"driver.fullname\": ?0}", count = true)
 	Integer findCountByDriverAPI(String driver);
 	

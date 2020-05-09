@@ -1,5 +1,12 @@
 package com.fone.api.FOne.services;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.limit;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +20,17 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fone.api.FOne.domain.Constructor;
 import com.fone.api.FOne.domain.ConstructorStanding;
+import com.fone.api.FOne.domain.ConstructorTitle;
 import com.fone.api.FOne.repositories.ConstructorStandingRepository;
 
 @Service
@@ -35,6 +48,8 @@ public class ConstructorStandingService {
 	@Autowired
 	private UtilityService utilityService;
 	
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	public ConstructorStandingService() {
 		super();
@@ -81,6 +96,20 @@ public class ConstructorStandingService {
 		result = this.constructorStandingRepository.findCountByConstructorAndPositionAPI(constructor, position);
 		
 		return result;
+	}
+	
+	public List<ConstructorTitle> findConstructorsTitle() {
+		Aggregation aggregation = newAggregation(match(Criteria.where("position").is("1")),
+												 group("constructor.name").count().as("titles"),
+				                                 project("titles").and("constructorName").previousOperation(),
+				                                 sort(Direction.DESC, "titles"),
+				                                 limit(10));
+		
+		AggregationResults<ConstructorTitle> results = this.mongoTemplate.aggregate(aggregation, "ConstructorStanding", ConstructorTitle.class);
+		
+		List<ConstructorTitle> constructorsTitle = results.getMappedResults();
+		
+		return constructorsTitle;
 	}
 	
 	public List<ConstructorStanding> findAll() {

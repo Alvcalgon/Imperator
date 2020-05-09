@@ -1,5 +1,12 @@
 package com.fone.api.FOne.services;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.limit;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +20,18 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fone.api.FOne.domain.Constructor;
 import com.fone.api.FOne.domain.Driver;
 import com.fone.api.FOne.domain.DriverStanding;
+import com.fone.api.FOne.domain.DriverTitle;
 import com.fone.api.FOne.repositories.DriverStandingRepository;
 
 @Service
@@ -39,6 +52,8 @@ public class DriverStandingService {
 	@Autowired
 	private UtilityService utilityService;
 	
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	public DriverStandingService() {
 		super();
@@ -67,6 +82,20 @@ public class DriverStandingService {
 		results = this.driverStandingRepository.findByDriverAPI(driver, pageable);
 		
 		return results;
+	}
+		
+	public List<DriverTitle> findDriversTitle() {
+		Aggregation aggregation = newAggregation(match(Criteria.where("position").is("1")),
+												 group("driver.fullname").count().as("titles"),
+				                                 project("titles").and("driverFullname").previousOperation(),
+				                                 sort(Direction.DESC, "titles"),
+				                                 limit(10));
+		
+		AggregationResults<DriverTitle> results = this.mongoTemplate.aggregate(aggregation, "DriverStanding", DriverTitle.class);
+		
+		List<DriverTitle> driversTitle = results.getMappedResults();
+		
+		return driversTitle;
 	}
 	
 	public Integer findCountByDriverAPI(String driver) {

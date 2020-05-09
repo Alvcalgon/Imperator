@@ -1,5 +1,7 @@
 package com.fone.api.FOne.controllers;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fone.api.FOne.domain.DriverVictory;
 import com.fone.api.FOne.domain.Result;
 import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.RaceService;
@@ -304,6 +307,29 @@ public class ResultController {
 		}
 
 		return result;
+	}
+	
+	@GetMapping(value = "/list/victories")
+	@ApiOperation(value = "Operación findDriversVictories()",
+    			  notes = "Devuelve aquellos pilotos con más victorias en gran premios")
+	public List<DriverVictory> findDriversVictories() {
+		List<DriverVictory> results;
+		
+		try {
+
+			results = this.resultService.findDriversVictories();
+		
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("No se pudo recuperar los ganadores", e);
+		}
+
+		return results;
 	}
 	
 }

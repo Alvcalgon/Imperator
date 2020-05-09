@@ -1,5 +1,12 @@
 package com.fone.api.FOne.services;
 
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.group;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.limit;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.match;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
+import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,11 +22,17 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fone.api.FOne.domain.Constructor;
 import com.fone.api.FOne.domain.Driver;
+import com.fone.api.FOne.domain.DriverVictory;
 import com.fone.api.FOne.domain.Result;
 import com.fone.api.FOne.repositories.ResultRepository;
 
@@ -38,6 +51,8 @@ public class ResultService {
 	@Autowired
 	private ConstructorService constructorService;
 	
+	@Autowired
+	private MongoTemplate mongoTemplate;
 	
 	public ResultService() {
 		super();
@@ -163,6 +178,20 @@ public class ResultService {
 		
 		return result;
 	}
+	
+	public List<DriverVictory> findDriversVictories() {
+		Aggregation aggregation = newAggregation(match(Criteria.where("position").is("1")),
+												 group("driver.fullname").count().as("victories"),
+				                                 project("victories").and("driverFullname").previousOperation(),
+				                                 sort(Direction.DESC, "victories"),
+				                                 limit(10));
+		
+		AggregationResults<DriverVictory> results = this.mongoTemplate.aggregate(aggregation, "Result", DriverVictory.class);
+		
+		List<DriverVictory> driversVictory = results.getMappedResults();
+		
+		return driversVictory;
+	} 
 	
 	public Result findOne(String resultId) {
 		Result result;

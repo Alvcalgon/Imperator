@@ -33,6 +33,8 @@ public class Result {
 	
 	private String status;
 	
+	private String driverFullname;
+	
 	@Valid
 	@NotNull
 	private Driver driver;
@@ -135,6 +137,15 @@ public class Result {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@JsonIgnore
+	public String getDriverFullname() {
+		return driver.getFullname();
+	}
+
+	public void setDriverFullname(String driverFullname) {
+		this.driverFullname = driverFullname;
 	}
 
 

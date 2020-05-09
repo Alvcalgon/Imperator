@@ -88,26 +88,33 @@ public class Driver {
 	
 	@Override
 	public int hashCode() {
-		return this.driverId.hashCode();
-	}
-	
-	@Override
-	public boolean equals(Object other) {
-		boolean result;
-		
-		if (this == other) {
-			result = true;
-		} else if (other == null) {
-			result = false;
-		} else if (other instanceof String) {
-			result = (this.getDriverId() == (String) other);
-		} else if (!this.getClass().isInstance(other)) {
-			result = false;
-		} else {
-			result = (this.getDriverId() == ((Driver) other).getDriverId());
-		}
-		
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fullname == null) ? 0 : fullname.hashCode());
+		result = prime * result + ((information == null) ? 0 : information.hashCode());
 		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Driver other = (Driver) obj;
+		if (fullname == null) {
+			if (other.fullname != null)
+				return false;
+		} else if (!fullname.equals(other.fullname))
+			return false;
+		if (information == null) {
+			if (other.information != null)
+				return false;
+		} else if (!information.equals(other.information))
+			return false;
+		return true;
 	}
 
 	@Override

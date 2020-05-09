@@ -1,5 +1,7 @@
 package com.fone.api.FOne.controllers;
 
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fone.api.FOne.domain.ConstructorStanding;
+import com.fone.api.FOne.domain.ConstructorTitle;
 import com.fone.api.FOne.exception.ApiRequestException;
 import com.fone.api.FOne.services.ConstructorStandingService;
 import com.fone.api.FOne.services.DriverStandingService;
@@ -197,6 +200,29 @@ public class ConstructorStandingController {
 		}
 		
 		return result;
+	}
+	
+	@GetMapping(value = "/list/winners")
+	@ApiOperation(value = "Operación findConstructorsTitle()",
+    			  notes = "Devuelve aquellas escuderías con más titulos")
+	public List<ConstructorTitle> findConstructorsTitle() {
+		List<ConstructorTitle> results;
+		
+		try {
+
+			results = this.constructorStandingService.findConstructorsTitle();
+		
+		} catch (Exception e) {
+			if (log.isDebugEnabled()) {
+				log.debug("Mensaje de error: " + e.getMessage(), e);
+			} else {
+				log.info("Mensaje de error: " + e.getMessage());
+			}
+			
+			throw new ApiRequestException("No se pudo recuperar los ganadores", e);
+		}
+
+		return results;
 	}
 	
 }
