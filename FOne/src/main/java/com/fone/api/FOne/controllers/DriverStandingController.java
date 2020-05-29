@@ -107,7 +107,7 @@ public class DriverStandingController {
     			  notes = "Devuelve la clasificación general de un piloto a largo de toda su trayectoria")
 	public Page<DriverStanding> findByDriverAPI(@PathVariable(required = true) String driver,
 												@RequestParam(defaultValue = "0", required = false) Integer offset,
-												@RequestParam(defaultValue = "5", required = false) Integer limit) {
+												@RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<DriverStanding> results;
 		Sort sort;
 		Pageable pageable;
@@ -176,6 +176,7 @@ public class DriverStandingController {
 		return result;
 	}
 	
+	// UC-051
 	@GetMapping(value = "/list/winners")
 	@ApiOperation(value = "Operación findDriversTitle()",
     			  notes = "Devuelve aquellos pilotos con más titulos")

@@ -225,7 +225,7 @@ public class RaceController {
     			  notes = "Devuelve la lista de carreras según el evento seleccionado")
 	public Page<Race> findByEventAPI(@PathVariable(required = true) String event,
 									 @RequestParam(defaultValue = "0", required = false) Integer offset,
-					   				 @RequestParam(defaultValue = "5", required = false) Integer limit) {
+					   				 @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Race> results;
 		Pageable pageable;
 		Sort sort;
@@ -256,7 +256,7 @@ public class RaceController {
 	public Page<Race> findByEventAndSeasonAPI(@PathVariable(required = true) String season,
 									  		  @PathVariable(required = true) String event,
 									  		  @RequestParam(defaultValue = "0", required = false) Integer offset,
-					   						  @RequestParam(defaultValue = "5", required = false) Integer limit) {
+					   						  @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Race> results;
 		Pageable pageable;
 		Sort sort;

@@ -139,7 +139,7 @@ public class ConstructorStandingController {
 	@GetMapping(value = "/count/constructor/{constructor}")
 	@ApiOperation(value = "Operación findCountByConstructor",
     			  notes = "Devuelve el número de campeonatos en los que la escudería ha participado")
-	public Integer findCountByConstructorAndPositionAPI(@PathVariable(required = true) String constructor) {
+	public Integer findCountByConstructorAPI(@PathVariable(required = true) String constructor) {
 		Integer result;
 		
 		try {
@@ -202,6 +202,7 @@ public class ConstructorStandingController {
 		return result;
 	}
 	
+	// UC-052
 	@GetMapping(value = "/list/winners")
 	@ApiOperation(value = "Operación findConstructorsTitle()",
     			  notes = "Devuelve aquellas escuderías con más titulos")
