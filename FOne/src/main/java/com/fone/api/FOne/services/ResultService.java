@@ -61,16 +61,13 @@ public class ResultService {
 	
 	// Consultas que aparecen en la API ------------------
 	public Set<Driver> findDriversByConstructorAPI(String constructorName) {
-		List<Result> results;
-		Set<Driver> drivers;
-		Map<String, Driver> mapa; 
-		Driver driver;
+		Set<Driver> drivers = new HashSet<Driver>();
 		
-		results = this.resultRepository.findDriversByConstructorAPI(constructorName);
+		List<Result> results = this.resultRepository.findDriversByConstructorAPI(constructorName);
 		
-		mapa = new HashMap<String, Driver>();
+		Map<String, Driver> mapa = new HashMap<String, Driver>();
 		for (Result r: results) {
-			driver = r.getDriver();
+			Driver driver = r.getDriver();
 			
 			if (driver != null) {
 				mapa.put(driver.getFullname(), driver);
@@ -78,27 +75,23 @@ public class ResultService {
 			
 		}
 		
-		drivers = new HashSet<Driver>(mapa.values());
+		drivers.addAll(mapa.values());
 		
 		return drivers;
 	}
 	
 	public Set<Constructor> findConstructorsByDriverAPI(String driverFullname) {
-		Set<Constructor> constructors;
-		List<Result> results;
-		Map<String, Constructor> mapa;
-		Constructor constructor;
+		Set<Constructor> constructors = new HashSet<Constructor>();
 		
-		results = this.resultRepository.findConstructorsByDriverAPI(driverFullname);
+		List<Result> results = this.resultRepository.findConstructorsByDriverAPI(driverFullname);
 		
-		mapa = new HashMap<String, Constructor>();
+		Map<String, Constructor> mapa = new HashMap<String, Constructor>();
 		for (Result r: results) {
-			constructor = r.getConstructor();
+			Constructor constructor = r.getConstructor();
 			
 			if (constructor != null) {
 				mapa.put(constructor.getName(), constructor);
 			}
-			
 		}
 		
 		constructors = new HashSet<Constructor>(mapa.values());
@@ -233,59 +226,44 @@ public class ResultService {
 	
 	
 	public Set<Result> loadResults(Document doc) {
-		Element driverTag, constructorTag, gridTag, statusTag, timeTag, lapsTag;
-		String position, time, grid, status;
-		Constructor constructor;
-		Set<Result> results;
-		Elements resultTags;
-		Integer points, laps;
-		Result result;
-		Driver driver;
-		
-		results = new HashSet<Result>();
+		Set<Result>	results = new HashSet<Result>();
 		
 		if (doc != null) {
 			try {
-				resultTags = doc.select("Result");
+				Elements resultTags = doc.select("Result");
 				
 				for (Element resultTag: resultTags) {
-					position = resultTag.attr("positionText").trim();
+					String position = resultTag.attr("positionText").trim();
 					
 					Double real_points = Double.valueOf(resultTag.attr("points"));
-					points = real_points.intValue();
+					Integer points = real_points.intValue();
 					
-					driverTag = resultTag.selectFirst("Driver");
-					driver = this.driverService.getDriver(driverTag);
+					Element driverTag = resultTag.selectFirst("Driver");
+					Driver driver = this.driverService.getDriver(driverTag);
 					
-					constructorTag = resultTag.selectFirst("Constructor");
-					constructor = this.constructorService.getConstructor(constructorTag);
+					Element constructorTag = resultTag.selectFirst("Constructor");
+					Constructor constructor = this.constructorService.getConstructor(constructorTag);
 					
-					gridTag = resultTag.selectFirst("Grid");
-					grid = gridTag.text();
+					Element gridTag = resultTag.selectFirst("Grid");
+					String grid = gridTag.text();
 					
-					lapsTag = resultTag.selectFirst("Laps");
-					laps = Integer.valueOf(lapsTag.text());
+					Element lapsTag = resultTag.selectFirst("Laps");
+					Integer laps = Integer.valueOf(lapsTag.text());
 					
-					statusTag = resultTag.selectFirst("Status");
-					status = statusTag.text();
+					Element statusTag = resultTag.selectFirst("Status");
+					String status = statusTag.text();
 					
-					timeTag = resultTag.selectFirst("Time");
-					time = (timeTag != null) ? timeTag.text() : "";
+					Element timeTag = resultTag.selectFirst("Time");
+					String time = (timeTag != null) ? timeTag.text() : "";
 					
-					result = new Result(position,
-										time,
-										laps,
-										grid,
-										points,
-										status,
-										driver,
-										constructor); 
+					Result result = new Result(position, time, laps, grid,
+											   points, status, driver, constructor); 
 										
 					results.add(result);
 				}
 				
 			} catch (Exception e) {
-				log.error("ResultService::loadResults: Error inesperado", e);
+				log.error("Error inesperado en result", e);
 			}
 		
 			log.info("Resultados persistidos: " + results.size());

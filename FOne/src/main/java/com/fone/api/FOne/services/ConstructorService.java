@@ -104,13 +104,8 @@ public class ConstructorService {
 	
 	public void loadConstructors() {
 		this.constructorRepository.deleteAll();
-		
-		Elements constructorTags;
-		Element constructorTable;
-		Set<Constructor> constructors;
-		Constructor constructor;
-		
-		constructors = new HashSet<Constructor>();
+
+		Set<Constructor> constructors = new HashSet<Constructor>();
 		List<String> pages = this.getLinks();
 		
 		for (String page: pages) {
@@ -120,12 +115,12 @@ public class ConstructorService {
 			
 			if (doc != null) {
 				try {	
-					constructorTable = doc.selectFirst("ConstructorTable");
+					Element constructorTable = doc.selectFirst("ConstructorTable");
 					
-					constructorTags = constructorTable.select("Constructor");
+					Elements constructorTags = constructorTable.select("Constructor");
 					
 					for (Element constructorTag: constructorTags) {
-						constructor = this.getConstructor(constructorTag);
+						Constructor constructor = this.getConstructor(constructorTag);
 						
 						log.info("Constructor: " + constructor.getName());
 						
@@ -133,7 +128,7 @@ public class ConstructorService {
 					}
 					
 				} catch (Exception e) {
-					log.info("ConstructorService::loadConstructors: Error inesperado: " + e.getMessage());
+					log.info("Error inesperado en constructor: " + e.getMessage());
 				}
 				
 				log.info("Numero de escuderias: " + constructors.size());
@@ -142,33 +137,25 @@ public class ConstructorService {
 		}
 	}
 	
-	protected Constructor getConstructor(Element constructorTag) {
-		Constructor result;
-		Element nameTag, nacion;
-		String name, nacionality, info;
+	protected Constructor getConstructor(Element constructorTag) {	
+		Element nameTag = constructorTag.selectFirst("Name");
+		Element nacion = constructorTag.selectFirst("Nationality");
 		
-		nameTag = constructorTag.selectFirst("Name");
-		nacion = constructorTag.selectFirst("Nationality");
+		String name = nameTag.text();
+		String nacionality = nacion.text();
+		String info = constructorTag.attr("url").trim();
 		
-		name = nameTag.text();
-		nacionality = nacion.text();
-		info = constructorTag.attr("url").trim();
-		
-		result = new Constructor(name, nacionality, info);
+		Constructor result = new Constructor(name, nacionality, info);
 		
 		return result;
 	}
 	
 	protected List<String> getLinks() {
-		List<String> results;
-		String context;
-		String page;
-		
-		context = "http://ergast.com/api/f1/constructors?limit=70";		
-		results = new ArrayList<String>();
+		String context = "http://ergast.com/api/f1/constructors?limit=70";		
+		List<String> results = new ArrayList<String>();
 		
 		for (int i=0; i<210; i=i+70) {
-			page = context + "&offset=" + i;
+			String page = context + "&offset=" + i;
 			
 			log.info("Página: " + page);
 			

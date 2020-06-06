@@ -87,13 +87,8 @@ public class CircuitService {
 	// Metodo principal para el web scraping -----------------------------
 	public void loadCircuits() {
 		this.circuitRepository.deleteAll();
-		
-		Elements circuitTags;
-		Element circuitTable;
-		Set<Circuit> circuits;
-		Circuit circuit;
-		
-		circuits = new HashSet<Circuit>();
+			
+		Set<Circuit> circuits = new HashSet<Circuit>();
 		List<String> pages = this.getLinks();
 		
 		for (String page: pages) {
@@ -103,18 +98,18 @@ public class CircuitService {
 			
 			if (doc != null) {
 				try {
-					circuitTable = doc.selectFirst("CircuitTable");
+					Element circuitTable = doc.selectFirst("CircuitTable");
 					
-					circuitTags = circuitTable.select("Circuit");
+					Elements circuitTags = circuitTable.select("Circuit");
 					
 					for (Element circuitTag: circuitTags) {
-						circuit = this.getCircuit(circuitTag);
+						Circuit circuit = this.getCircuit(circuitTag);
 							
 						circuits.add(circuit);
 					}
 					
 				} catch (Exception e) {				
-					log.error("CircuitService::loadCircuits: Error inesperado: " + e.getMessage());
+					log.error("Error inesperado en circuit: " + e.getMessage());
 				}
 				
 				log.info("Numero de circuitos: " + circuits.size());
@@ -123,38 +118,28 @@ public class CircuitService {
 		}
 	}
 	
-	
 	protected Circuit getCircuit(Element circuitTag) {
-		Element nameTag, localityTag, countryTag, location;;
-		String name, locality, country, info;
-		Circuit circuit;
+		Element nameTag = circuitTag.selectFirst("CircuitName");
+		Element location = circuitTag.selectFirst("Location");
+		Element localityTag = location.selectFirst("Locality");
+		Element countryTag = location.selectFirst("Country");
 		
-		nameTag = circuitTag.selectFirst("CircuitName");
+		String name = nameTag.text();
+		String locality = localityTag.text();
+		String country = countryTag.text();
+		String info = circuitTag.attr("url").trim();
 		
-		location = circuitTag.selectFirst("Location");
-		localityTag = location.selectFirst("Locality");
-		countryTag = location.selectFirst("Country");
-		
-		name = nameTag.text();
-		locality = localityTag.text();
-		country = countryTag.text();
-		info = circuitTag.attr("url").trim();
-		
-		circuit = new Circuit(name, locality, country, info);
+		Circuit circuit = new Circuit(name, locality, country, info);
 		
 		return circuit;
 	}
 	
 	protected List<String> getLinks() {
-		List<String> results;
-		String context;
-		String page;
-		
-		context = "http://ergast.com/api/f1/circuits?limit=50";		
-		results = new ArrayList<String>();
+		String context = "http://ergast.com/api/f1/circuits?limit=50";		
+		List<String> results = new ArrayList<String>();
 		
 		for (int i=0; i<100; i=i+50) {
-			page = context + "&offset=" + i;
+			String page = context + "&offset=" + i;
 			
 			log.info("Página: " + page);
 			

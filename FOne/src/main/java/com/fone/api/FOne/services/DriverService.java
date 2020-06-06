@@ -85,10 +85,6 @@ public class DriverService {
 	public void loadDrivers() {
 		this.driverRepository.deleteAll();
 		
-		Elements driverTags;
-		Element driverTable;
-		Driver driver;
-		
 		Set<Driver> drivers = new HashSet<Driver>();
 		List<String> pages = this.getLinks();
 		
@@ -99,17 +95,17 @@ public class DriverService {
 			
 			if (doc != null) {
 				try {				
-					driverTable = doc.selectFirst("DriverTable");
+					Element driverTable = doc.selectFirst("DriverTable");
 					
-					driverTags = driverTable.select("Driver");
+					Elements driverTags = driverTable.select("Driver");
 					
 					for (Element driverTag: driverTags) {		
-						driver = this.getDriver(driverTag);
+						Driver driver = this.getDriver(driverTag);
 						drivers.add(driver);
 					}
 					
 				} catch (Exception e) {
-					log.error("DriverService::loadDrivers: Error inesperado", e);
+					log.error("Error inesperado en driver", e);
 				}
 			}
 		}
@@ -121,35 +117,27 @@ public class DriverService {
 
 	// Métodos auxiliares -----------------------------------------	
 	protected Driver getDriver(Element driverTag) {
-		Element givenName, familyName, dateOfBirth, nacion;
-		String fullname, nacionality, dateBirth, info;
-		Driver result;
+		Element givenName = driverTag.selectFirst("GivenName");
+		Element familyName = driverTag.selectFirst("FamilyName");
+		Element dateOfBirth = driverTag.selectFirst("DateOfBirth");
+		Element nacion = driverTag.selectFirst("Nationality");
 		
-		givenName = driverTag.selectFirst("GivenName");
-		familyName = driverTag.selectFirst("FamilyName");
-		dateOfBirth = driverTag.selectFirst("DateOfBirth");
-		nacion = driverTag.selectFirst("Nationality");
-		
-		fullname = givenName.text() + " " + familyName.text();
-		dateBirth = dateOfBirth.text();
-		nacionality = nacion.text();
-		info = driverTag.attr("url").trim();
+		String fullname = givenName.text() + " " + familyName.text();
+		String dateBirth = dateOfBirth.text();
+		String nacionality = nacion.text();
+		String info = driverTag.attr("url").trim();
 	
-		result = new Driver(fullname, nacionality, dateBirth, info);
+		Driver result = new Driver(fullname, nacionality, dateBirth, info);
 		
 		return result;
 	}
 	
 	protected List<String> getLinks() {
-		List<String> results;
-		String context;
-		String page;
-		
-		context = "http://ergast.com/api/f1/drivers?limit=50";		
-		results = new ArrayList<String>();
+		String context = "http://ergast.com/api/f1/drivers?limit=50";		
+		List<String> results = new ArrayList<String>();
 		
 		for (int i=0; i<850; i=i+50) {
-			page = context + "&offset=" + i;
+			String page = context + "&offset=" + i;
 			
 			log.info("Página: " + page);
 			

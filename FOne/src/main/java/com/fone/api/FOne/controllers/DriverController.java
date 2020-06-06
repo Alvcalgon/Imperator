@@ -1,5 +1,6 @@
 package com.fone.api.FOne.controllers;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -57,12 +58,10 @@ public class DriverController {
 								   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		
 		Page<Driver> results = null;
-		Pageable pageable;
-		Sort sort;
-		
+		 
 		try {
-			sort = Sort.by(Direction.DESC, "dateOfBirth");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
+			Sort sort = Sort.by(Direction.DESC, "dateOfBirth");
+			Pageable pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.driverService.findAllAPI(pageable);
 		} catch (Exception e) {
@@ -85,13 +84,11 @@ public class DriverController {
 	public Page<Driver> findByNacionalityAPI(@PathVariable(required = true) String nationality,
 										 	@RequestParam(defaultValue = "0", required = false) Integer offset,
 										 	@RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Driver> results;
-		Pageable pageable;
-		Sort sort;
+		Page<Driver> results = null;
 		
 		try {
-			sort = Sort.by(Direction.DESC, "dateOfBirth");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
+			Sort sort = Sort.by(Direction.DESC, "dateOfBirth");
+			Pageable pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.driverService.findByNacionalityAPI(nationality, pageable);
 		} catch (Exception e) {
@@ -112,7 +109,7 @@ public class DriverController {
 	@ApiOperation(value = "Operación findBySeason",
     			  notes = "Devuelve la lista de pilotos por temporada")
 	public Set<Driver> findBySeasonAPI(@PathVariable(required = true) String season) {
-		Set<Driver> results;
+		Set<Driver> results = new HashSet<Driver>();
 
 		try {
 			results = this.raceService.findDriversBySeasonAPI(season);
@@ -130,14 +127,14 @@ public class DriverController {
 	}
 
 	// UC-004
-	@GetMapping(value = "/list/constructor/{constructor}")
+	@GetMapping(value = "/list/constructor/{escuderia}")
 	@ApiOperation(value = "Operación findByConstructor",
     			  notes = "Devuelve la lista de pilotos que estuvieron enrolados en una escudería concreta")
-	public Set<Driver> findByConstructorAPI(@PathVariable(required = true) String constructor) {
-		Set<Driver> results;
+	public Set<Driver> findByConstructorAPI(@PathVariable(required = true) String escuderia) {
+		Set<Driver> results = new HashSet<Driver>();
 
 		try {
-			results = this.resultService.findDriversByConstructorAPI(constructor);
+			results = this.resultService.findDriversByConstructorAPI(escuderia);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -160,12 +157,10 @@ public class DriverController {
 										  @RequestParam(defaultValue = "0", required = false) Integer offset,
 			                              @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Driver> results;
-		Pageable pageable;
-		Sort sort;
-	
+
 		try {
-			sort = Sort.by(Direction.DESC, "dateOfBirth");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
+			Sort sort = Sort.by(Direction.DESC, "dateOfBirth");
+			Pageable pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.driverService.findByFullnameAPI(fullname, pageable);
 		} catch (Exception e) {
@@ -212,13 +207,11 @@ public class DriverController {
 											@PathVariable(required = true) String nationality,
 										    @RequestParam(defaultValue = "0", required = false) Integer offset,
 			                                @RequestParam(defaultValue = "10", required = false) Integer limit) {
-		Page<Driver> results;
-		Pageable pageable;
-		Sort sort;
-	
+		Page<Driver> results = null;
+		
 		try {
-			sort = Sort.by(Direction.DESC, "dateOfBirth");
-			pageable = this.utilityService.getPageable(limit, offset, sort);
+			Sort sort = Sort.by(Direction.DESC, "dateOfBirth");
+			Pageable pageable = this.utilityService.getPageable(limit, offset, sort);
 			
 			results = this.driverService.findByParametersAPI(fullname, nationality, pageable);
 		} catch (Exception e) {

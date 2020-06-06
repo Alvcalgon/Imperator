@@ -40,7 +40,7 @@ public class SwaggerConfiguration {
 	
 	private ApiInfo getApiInfo() {
 		return new ApiInfo("API REST - FOne",
-				           "Se trata de una api que permite realizar consultas de datos de la Fórmula 1 desde 1950 hasta 2018", "1.0.0",
+				           "Se trata de una api que permite realizar consultas de datos de la Fórmula 1 desde 1950 hasta 2019", "1.0.0",
 				           "La API ha sido desarrollada por fines meramente académicos",
 				           new Contact("alvcalgon", "", "alvcalgon@alum.us.es"),
 				           "API desarrollada por alvcalgon como parte del TFG",

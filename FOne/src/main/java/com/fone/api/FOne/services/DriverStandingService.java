@@ -131,23 +131,18 @@ public class DriverStandingService {
 	}
 	
 	public void saveDriver(String driverStandingId, String driverId) {
-		Driver c;
-		DriverStanding ds;
+		Driver c = this.driverService.findOneAPI(driverId);
 		
-		c = this.driverService.findOneAPI(driverId);
-		ds = this.findOne(driverStandingId);
-		
+		DriverStanding ds = this.findOne(driverStandingId);
 		ds.setDriver(c);
 		
 		this.driverStandingRepository.save(ds);
 	}
 	
-	public void saveConstructor(String driverStandingId, String constructorId) {
-		Constructor c;
-		DriverStanding ds;
+	public void saveConstructor(String driverStandingId, String constructorId) {		
+		Constructor c = this.constructorService.findOne(constructorId);
 		
-		c = this.constructorService.findOne(constructorId);
-		ds = this.findOne(driverStandingId);
+		DriverStanding ds = this.findOne(driverStandingId);
 		
 		ds.setConstructor(c);
 		
@@ -161,48 +156,33 @@ public class DriverStandingService {
 	// Metodo principal para web scraping ------------------------
 	public void loadDriverStandings() {
 		this.driverStandingRepository.deleteAll();
-		
-		Map<String, String> seasons;
-		List<DriverStanding> driversStanding;
-		DriverStanding driverStanding;
-		Elements standingTags;
-		Element driverTag, constructorTag;
-		String position;
-		Integer wins;
-		Double points;
-		String url;
-		Driver driver;
-		Constructor constructor;
-		
-		driversStanding = new ArrayList<DriverStanding>();
-		seasons = this.getSeasons(1950, 2019);
 
+		List<DriverStanding> driversStanding = new ArrayList<DriverStanding>();
+		
+		Map<String, String> seasons = this.getSeasons(1950, 2019);
 		for (String season: seasons.keySet()) {
-			url = seasons.get(season);
+			String url = seasons.get(season);
 			
 			Document doc = this.utilityService.getDocument(url);
 			
 			if (doc != null) {
 				try {
-					standingTags = doc.select("DriverStanding");
+					Elements standingTags = doc.select("DriverStanding");
 					
 					for (Element standing: standingTags) {
-						position = standing.attr("positionText").trim();
-						points = Double.valueOf(standing.attr("points"));
-						wins = Integer.valueOf(standing.attr("wins"));
+						String position = standing.attr("positionText").trim();
+						Double points = Double.valueOf(standing.attr("points"));
+						Integer wins = Integer.valueOf(standing.attr("wins"));
 						
-						driverTag = standing.selectFirst("Driver");
-						driver = this.driverService.getDriver(driverTag);
+						Element driverTag = standing.selectFirst("Driver");
+						Driver driver = this.driverService.getDriver(driverTag);
 						
-						constructorTag = standing.selectFirst("Constructor");
-						constructor = this.constructorService.getConstructor(constructorTag);
+						Element constructorTag = standing.selectFirst("Constructor");
+						Constructor constructor = this.constructorService.getConstructor(constructorTag);
 						
-						driverStanding = new DriverStanding(season,
-															points,
-															position,
-															wins,
-															driver,
-															constructor);
+						DriverStanding driverStanding = new DriverStanding(season, points,
+																		   position, wins,
+																		   driver, constructor);
 						
 						log.info("Driver standing: " + season + " - " + driver.getFullname());
 						
@@ -210,7 +190,7 @@ public class DriverStandingService {
 					}
 					
 				} catch (Exception e) {
-					log.error("DriverStandingService::loadDriverStandings: Error inesperado");
+					log.error("Error inesperado en driver standing");
 				}
 			}
 			
@@ -219,16 +199,12 @@ public class DriverStandingService {
 	}
 			
 	private Map<String, String> getSeasons(int seasonStart, int seasonEnd) {
-		Map<String, String> results;
-		String link, str_season;
-		int season;
+		Map<String, String> results = new HashMap<String, String>();
 		
-		results = new HashMap<String, String>();
-		
-		season = seasonStart;
+		int season = seasonStart;
 		while (season <= seasonEnd) {
-			str_season = String.valueOf(season);
-			link = "http://ergast.com/api/f1/" + season + "/driverStandings?limit=120";
+			String str_season = String.valueOf(season);
+			String link = "http://ergast.com/api/f1/" + season + "/driverStandings?limit=120";
 			
 			results.put(str_season, link);
 			

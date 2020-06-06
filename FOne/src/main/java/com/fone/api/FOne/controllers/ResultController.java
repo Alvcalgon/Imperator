@@ -101,10 +101,10 @@ public class ResultController {
 	}
 
 	// UC-032
-	@GetMapping(value = "/list/constructor/{constructor}/position/{position}")
+	@GetMapping(value = "/list/constructor/{escuderia}/position/{position}")
 	@ApiOperation(value = "Operación findByPositionAndConstructor", notes = "Devuelve la lista de resultados en las que el monoplaza de"
 			+ " cierta escudería finalizó la carrera en una posición")
-	public Page<Result> findByPositionAndConstructorAPI(@PathVariable(required = true) String constructor,
+	public Page<Result> findByPositionAndConstructorAPI(@PathVariable(required = true) String escuderia,
 														@PathVariable(required = true) String position,
 														@RequestParam(defaultValue = "0", required = false) Integer offset,
 														@RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -113,7 +113,7 @@ public class ResultController {
 
 		try {
 			pageable = this.utilityService.getPageable(limit, offset);
-			results = this.resultService.findResultsByPositionAndConstructorAPI(constructor, position, pageable);
+			results = this.resultService.findResultsByPositionAndConstructorAPI(escuderia, position, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -129,10 +129,10 @@ public class ResultController {
 	}
 
 	// UC-033
-	@GetMapping(value = "/list/constructor/{constructor}/grid/{grid}")
+	@GetMapping(value = "/list/constructor/{escuderia}/grid/{grid}")
 	@ApiOperation(value = "Operación findByGridAndConstructor", notes = "Devuelve la lista de resultados en las que el monoplaza de una cierta"
 			+ " escudería comenzó la carrera en una cierta posición")
-	public Page<Result> findByGridAndConstructorAPI(@PathVariable(required = true) String constructor,
+	public Page<Result> findByGridAndConstructorAPI(@PathVariable(required = true) String escuderia,
 			@PathVariable(required = true) String grid,
 			@RequestParam(defaultValue = "0", required = false) Integer offset,
 			@RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -142,7 +142,7 @@ public class ResultController {
 		try {
 			pageable = this.utilityService.getPageable(limit, offset);
 
-			results = this.resultService.findResultsByGridAndConstructorAPI(constructor, grid, pageable);
+			results = this.resultService.findResultsByGridAndConstructorAPI(escuderia, grid, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -210,17 +210,17 @@ public class ResultController {
 	}
 	
 	// UC-036
-	@GetMapping(value = "/count/constructor/{constructor}/position/{position}")
+	@GetMapping(value = "/count/constructor/{escuderia}/position/{position}")
 	@ApiOperation(value = "Operación findCountByPositionAndConstructor",
 	              notes = "Devuelve el número de veces en las que una escudería terminó una carrera"
 	              		+ " en una posición determinada")
-	public Integer findCountByPositionAndConstructorAPI(@PathVariable(required = true) String constructor,
+	public Integer findCountByPositionAndConstructorAPI(@PathVariable(required = true) String escuderia,
 											            @PathVariable(required = true) String position) {
 		Integer result;
 
 		try {
 			
-			result = this.resultService.findCountByPositionAndConstructorAPI(constructor, position);
+			result = this.resultService.findCountByPositionAndConstructorAPI(escuderia, position);
 		
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
@@ -236,17 +236,17 @@ public class ResultController {
 	}
 	
 	// UC-037
-	@GetMapping(value = "/count/constructor/{constructor}/grid/{grid}")
+	@GetMapping(value = "/count/constructor/{escuderia}/grid/{grid}")
 	@ApiOperation(value = "Operación findCountByGridAndConstructor",
 	              notes = "Devuelve el número de veces en las que una escudería inició una carrera"
 	              		+ " en una posición determinada")
-	public Integer findCountByGridAndConstructorAPI(@PathVariable(required = true) String constructor,
+	public Integer findCountByGridAndConstructorAPI(@PathVariable(required = true) String escuderia,
 											        @PathVariable(required = true) String grid) {
 		Integer result;
 
 		try {
 			
-			result = this.resultService.findCountByGridAndConstructorAPI(constructor, grid);
+			result = this.resultService.findCountByGridAndConstructorAPI(escuderia, grid);
 		
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
@@ -286,15 +286,15 @@ public class ResultController {
 	}
 	
 	// UC-039
-	@GetMapping(value = "/count/constructor/{constructor}")
+	@GetMapping(value = "/count/constructor/{escuderia}")
 	@ApiOperation(value = "Operación findCountByConstructor",
 	              notes = "Devuelve el número de carreras en las que ha participado una escudería")
-	public Integer findCountByConstructorAPI(@PathVariable(required = true) String constructor) {
+	public Integer findCountByConstructorAPI(@PathVariable(required = true) String escuderia) {
 		Integer result;
 
 		try {
 			
-			result = this.raceService.findCountByConstructorAPI(constructor);
+			result = this.raceService.findCountByConstructorAPI(escuderia);
 		
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {

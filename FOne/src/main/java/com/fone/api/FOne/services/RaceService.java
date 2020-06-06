@@ -43,8 +43,6 @@ public class RaceService {
 	@Autowired
 	private UtilityService utilityService;
 
-//	@Autowired
-//	private MongoTemplate mongoTemplate;
 
 	public RaceService() {
 		super();
@@ -60,18 +58,14 @@ public class RaceService {
 	}
 
 	public Set<Driver> findDriversBySeasonAPI(String season) {
-		Map<String, Driver> mapa;
-		Set<Driver> results;
-		List<Race> races;
-		Driver driver;
+		Set<Driver> results = new HashSet<Driver>();
 		
+		List<Race> races = this.findBySeason(season);
 		
-		races = this.findBySeason(season);
-		
-		mapa = new HashMap<String, Driver>();
+		Map<String, Driver> mapa = new HashMap<String, Driver>();
 		for (Race r: races) {
 			for (Result res: r.getResults()) {
-				driver = res.getDriver();
+				Driver driver = res.getDriver();
 				
 				if (driver != null) {
 					mapa.put(driver.getFullname(), driver);
@@ -80,23 +74,20 @@ public class RaceService {
 			}
 		}
 		
-		results = new HashSet<Driver>(mapa.values());
+		 results.addAll(mapa.values());
 		
 		return results;
 	}
 	
 	public Set<Constructor> findConstructorsBySeasonAPI(String season) {
-		Map<String, Constructor> mapa;
-		Set<Constructor> results;
-		List<Race> races;
-		Constructor constructor;
+		Set<Constructor> results = new HashSet<Constructor>();
 		
-		races = this.findBySeason(season);
+		List<Race> races = this.findBySeason(season);
 		
-		mapa = new HashMap<String, Constructor>();
+		Map<String, Constructor> mapa = new HashMap<String, Constructor>();
 		for (Race r: races) {
 			for (Result res: r.getResults()) {
-				constructor = res.getConstructor();
+				Constructor constructor = res.getConstructor();
 				
 				if (constructor != null) {
 					mapa.put(constructor.getName(), constructor);
@@ -105,18 +96,15 @@ public class RaceService {
 			}
 		}
 		
-		results = new HashSet<Constructor>(mapa.values());
+		results.addAll(mapa.values());
 		
 		return results;
 	}
 	
 	public List<Circuit> findCircuitsBySeasonAPI(String season) {
-		List<Circuit> results;
-		List<Race> races;
+		List<Race> races = this.findBySeason2(season);
 		
-		races = this.findBySeason2(season);
-		
-		results = new ArrayList<Circuit>();
+		List<Circuit> results = new ArrayList<Circuit>();
 		for (Race r: races) {
 			results.add(r.getCircuit());
 		}
@@ -217,57 +205,46 @@ public class RaceService {
 		this.raceRepository.deleteAll();
 		this.resultService.deleteAll();
 		
-		String raceDate, event, info;
-		Map<String, String> seasons;
-		Set<Result> results;
-		Elements raceTags;
-		Element circuitTag, eventTag, dateTag;
-		Circuit circuit;
-		List<Race> races;
-		String url, round, urlToResults;
-		Race race;
-		
-		races = new ArrayList<Race>();
-		seasons = this.getSeasons(1950, 2019);
+		List<Race> races = new ArrayList<Race>();
+		Map<String, String> seasons = this.getSeasons(1950, 2019);
 		
 		for (String season: seasons.keySet()) {
-			url = seasons.get(season);
+			String url = seasons.get(season);
 			
 			Document doc = this.utilityService.getDocument(url);
 			
 			if (doc != null) {
 				try {
-					raceTags = doc.select("Race");
+					Elements raceTags = doc.select("Race");
 					
 					for (Element raceTag: raceTags) {
-						info = raceTag.attr("url");
-						round = raceTag.attr("round");
+						String info = raceTag.attr("url");
+						String round = raceTag.attr("round");
 						
-						eventTag = raceTag.selectFirst("RaceName");
-						event = eventTag.text().trim();
+						Element eventTag = raceTag.selectFirst("RaceName");
+						String event = eventTag.text().trim();
 						
-						dateTag = raceTag.selectFirst("Date");
-						raceDate = dateTag.text().trim();
+						Element dateTag = raceTag.selectFirst("Date");
+						String raceDate = dateTag.text().trim();
 						
-						circuitTag = raceTag.selectFirst("Circuit");
-						circuit = this.circuitService.getCircuit(circuitTag);
+						Element circuitTag = raceTag.selectFirst("Circuit");
+						Circuit circuit = this.circuitService.getCircuit(circuitTag);
 						
-						urlToResults = "http://ergast.com/api/f1/" + season + "/"
+						String urlToResults = "http://ergast.com/api/f1/" + season + "/"
 								+ round + "/" + "results";
 						
 						Document subDoc = this.utilityService.getDocument(urlToResults);
 						
-						results = this.resultService.loadResults(subDoc);
+						Set<Result> results = this.resultService.loadResults(subDoc);
 						
-						race = new Race(season, raceDate, event, info, circuit, results);
-						
+						Race race = new Race(season, raceDate, event, info, circuit, results);
 						log.info(race.toString());
 						
 						races.add(race);
 					}
 					
 				} catch (Exception e) {
-					log.error("RaceService::loadRaces: Error inesperado", e);
+					log.error("Error inesperado en race", e);
 				}
 			}
 		}
@@ -275,18 +252,14 @@ public class RaceService {
 		this.raceRepository.saveAll(races);
 	}
 
-	private Map<String, String> getSeasons(int seasonStart, int seasonEnd) {
-		Map<String, String> results;
-		String link, str_season;
-		int season;
+	private Map<String, String> getSeasons(int seasonStart, int seasonEnd) {		
+		Map<String, String> results = new HashMap<String, String>();
 		
-		results = new HashMap<String, String>();
-		
-		season = seasonStart;
+		int season = seasonStart;
 		while (season <= seasonEnd) {
-			str_season = String.valueOf(season);
+			String str_season = String.valueOf(season);
 	
-			link = "http://ergast.com/api/f1/" + season;
+			String link = "http://ergast.com/api/f1/" + season;
 			
 			results.put(str_season, link);
 			

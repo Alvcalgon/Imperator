@@ -129,10 +129,10 @@ public class RaceController {
 	}
 
 	// UC-024
-	@GetMapping(value = "/list/constructor/{constructor}")
+	@GetMapping(value = "/list/constructor/{escuderia}")
 	@ApiOperation(value = "Operación findByConstructor",
     			  notes = "Devuelve la lista carreras en las que estuvo involucrado una escudería")
-	public Page<Race> findByConstructorAPI(@PathVariable(required = true) String constructor,
+	public Page<Race> findByConstructorAPI(@PathVariable(required = true) String escuderia,
 										   @RequestParam(defaultValue = "0", required = false) Integer offset,
 										   @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<Race> results;
@@ -143,7 +143,7 @@ public class RaceController {
 			sort = Sort.by(Direction.ASC, "raceDate");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.raceService.findRacesByConstructorAPI(constructor, pageable);
+			results = this.raceService.findRacesByConstructorAPI(escuderia, pageable);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -189,10 +189,10 @@ public class RaceController {
 	}
 	
 	// UC-026
-	@GetMapping(value = "/list/constructor/{constructor}/season/{season}")
+	@GetMapping(value = "/list/constructor/{escuderia}/season/{season}")
 	@ApiOperation(value = "Operación findConstructorAndSeason",
     			  notes = "Devuelve la lista de carreras para una escudería y temporada concreta")
-	public Page<Race> findByConstructorAndSeasonAPI(@PathVariable(required = true) String constructor,
+	public Page<Race> findByConstructorAndSeasonAPI(@PathVariable(required = true) String escuderia,
 													@PathVariable(required = true) String season,
 													@RequestParam(defaultValue = "0", required = false) Integer offset,
 													@RequestParam(defaultValue = "10", required = false) Integer limit) {
@@ -204,7 +204,7 @@ public class RaceController {
 			sort = Sort.by(Direction.ASC, "raceDate");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.raceService.findRacesByConstructorAndSeasonAPI(constructor, season, pageable);
+			results = this.raceService.findRacesByConstructorAndSeasonAPI(escuderia, season, pageable);
 		} catch (Exception e) {			
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);

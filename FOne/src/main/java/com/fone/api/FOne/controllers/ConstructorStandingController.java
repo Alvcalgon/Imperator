@@ -107,10 +107,10 @@ public class ConstructorStandingController {
 	}
 
 	// UC-047
-	@GetMapping(value = "/list/constructor/{constructor}")
+	@GetMapping(value = "/list/constructor/{escuderia}")
 	@ApiOperation(value = "Operación findByConstructor",
 	  notes = "Devuelve todas las clasificaciones registradas para cierta escudería")
-	public Page<ConstructorStanding> findByConstructorAPI(@PathVariable(required = true) String constructor,
+	public Page<ConstructorStanding> findByConstructorAPI(@PathVariable(required = true) String escuderia,
 														  @RequestParam(defaultValue = "0", required = false) Integer offset,
 														  @RequestParam(defaultValue = "10", required = false) Integer limit) {
 		Page<ConstructorStanding> results;
@@ -121,7 +121,7 @@ public class ConstructorStandingController {
 			sort = Sort.by(Direction.DESC, "season");
 			pageable = this.utilityService.getPageable(limit, offset, sort);
 			
-			results = this.constructorStandingService.findByConstructorAPI(constructor, pageable);
+			results = this.constructorStandingService.findByConstructorAPI(escuderia, pageable);
 		} catch (Exception e) {	
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -136,14 +136,14 @@ public class ConstructorStandingController {
 	}
 
 	// UC-048
-	@GetMapping(value = "/count/constructor/{constructor}")
+	@GetMapping(value = "/count/constructor/{escuderia}")
 	@ApiOperation(value = "Operación findCountByConstructor",
     			  notes = "Devuelve el número de campeonatos en los que la escudería ha participado")
-	public Integer findCountByConstructorAPI(@PathVariable(required = true) String constructor) {
+	public Integer findCountByConstructorAPI(@PathVariable(required = true) String escuderia) {
 		Integer result;
 		
 		try {
-			result = this.constructorStandingService.findCountByConstructorAPI(constructor);
+			result = this.constructorStandingService.findCountByConstructorAPI(escuderia);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -158,15 +158,15 @@ public class ConstructorStandingController {
 	}
 	
 	// UC-049
-	@GetMapping(value = "/count/constructor/{constructor}/position/{position}")
+	@GetMapping(value = "/count/constructor/{escuderia}/position/{position}")
 	@ApiOperation(value = "Operación findCountByConstructorAndPosition",
     			  notes = "Devuelve el número de campeonatos en los que la escudería finalizó en cierta posición")
-	public Integer findCountByConstructorAndPositionAPI(@PathVariable(required = true) String constructor,
+	public Integer findCountByConstructorAndPositionAPI(@PathVariable(required = true) String escuderia,
 												 		@PathVariable(required = true) String position) {
 		Integer result;
 		
 		try {
-			result = this.constructorStandingService.findCountByConstructorAndPositionAPI(constructor, position);
+			result = this.constructorStandingService.findCountByConstructorAndPositionAPI(escuderia, position);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
@@ -181,14 +181,14 @@ public class ConstructorStandingController {
 	}
 
 	// UC-050
-	@GetMapping(value = "/drivers-titles/{constructor}")
+	@GetMapping(value = "/drivers-titles/{escuderia}")
 	@ApiOperation(value = "Operación findDriversTitlesByConstructor",
     			  notes = "Devuelve el número de titulos de pilotos conseguidos por la escudería")
-	public Integer findDriversTitlesByConstructorAPI(@PathVariable(required = true) String constructor) {
+	public Integer findDriversTitlesByConstructorAPI(@PathVariable(required = true) String escuderia) {
 		Integer result;
 		
 		try {
-			result = this.driverStandingService.findDriversTitlesByConstructorAPI(constructor);
+			result = this.driverStandingService.findDriversTitlesByConstructorAPI(escuderia);
 		} catch (Exception e) {
 			if (log.isDebugEnabled()) {
 				log.debug("Mensaje de error: " + e.getMessage(), e);
